@@ -1,0 +1,37 @@
+/** PyQt5 binding for QCustomPlot v2.0.0
+ *
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
+ *  License: MIT
+ *
+ *  QCustomPlot author: Emanuel Eichhammer
+ *  QCustomPlot Website/Contact: http://www.qcustomplot.com
+ */
+
+
+class QCPItemLine : public QCPAbstractItem /NoDefaultCtors/
+{
+%TypeHeaderCode
+#include <QCustomPlot/src/items/item-line.h>
+%End
+public:
+  explicit QCPItemLine(QCustomPlot *parentPlot);
+  virtual ~QCPItemLine();
+  
+  // getters:
+  QPen pen() const;
+  QPen selectedPen() const;
+  QCPLineEnding head() const;
+  QCPLineEnding tail() const;
+  
+  // setters;
+  void setPen(const QPen &pen);
+  void setSelectedPen(const QPen &pen);
+  void setHead(const QCPLineEnding &head);
+  void setTail(const QCPLineEnding &tail);
+  
+  // reimplemented virtual methods:
+  virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
+  
+  //QCPItemPosition * const start;
+  //QCPItemPosition * const end;
+};

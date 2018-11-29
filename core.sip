@@ -45,7 +45,6 @@ public:
   QCP::SelectionRectMode selectionRectMode() const;
   QCPSelectionRect *selectionRect() const;
   bool openGl() const;
-  bool repaintAll() const;
 
   // setters:
   void setViewport(const QRect &rect);
@@ -70,7 +69,6 @@ public:
   void setSelectionRectMode(QCP::SelectionRectMode mode);
   void setSelectionRect(QCPSelectionRect *selectionRect);
   void setOpenGl(bool enabled, int multisampling=16);
-  void setRepaintAll(bool repaint);
 
   // non-property methods:
   // plottable interface:

@@ -4,5 +4,8 @@
 typedef QCPAbstractPlottable1D<QCPGraphData> QCPAbstractPlottable1D_QCPGraphData;
 typedef QCPAbstractPlottable1D<QCPBarsData> QCPAbstractPlottable1D_QCPBarsData;
 typedef QCPAbstractPlottable1D<QCPCurveData> QCPAbstractPlottable1D_QCPCurveData;
+typedef QCPAbstractPlottable1D<QCPErrorBarsData> QCPAbstractPlottable1D_QCPErrorBarsData;
+typedef QCPAbstractPlottable1D<QCPStatisticalBoxData> QCPAbstractPlottable1D_QCPStatisticalBoxData;
+typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
 
 #endif  // __QCUSTOMPLOT_SIP_HELPER

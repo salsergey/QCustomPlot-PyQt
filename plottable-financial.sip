@@ -1,0 +1,93 @@
+/** PyQt5 binding for QCustomPlot v2
+ *
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
+ *  License: MIT
+ *
+ *  QCustomPlot author: Emanuel Eichhammer
+ *  QCustomPlot Website/Contact: http://www.qcustomplot.com
+ */
+
+
+class QCPFinancialData
+{
+%TypeHeaderCode
+#include <QCustomPlot/src/plottables/plottable-financial.h>
+%End
+public:
+  QCPFinancialData();
+  QCPFinancialData(double key, double open, double high, double low, double close);
+  
+  double sortKey() const;
+  static QCPFinancialData fromSortKey(double sortKey);
+  static bool sortKeyIsMainKey();
+  
+  double mainKey() const;
+  double mainValue() const;
+  
+  QCPRange valueRange() const;
+  
+  double key;
+  double open;
+  double high;
+  double low;
+  double close;
+};
+
+typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
+
+class QCPFinancial : public QCPAbstractPlottable1D_QCPFinancialData
+{
+%TypeHeaderCode
+#include <QCustomPlot/src/qcp.h>
+
+typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
+%End
+public:
+  enum WidthType { wtAbsolute       ///< width is in absolute pixels
+                   ,wtAxisRectRatio ///< width is given by a fraction of the axis rect size
+                   ,wtPlotCoords    ///< width is in key coordinates and thus scales with the key axis range
+                 };
+
+  enum ChartStyle { csOhlc         ///< Open-High-Low-Close bar representation
+                   ,csCandlestick  ///< Candlestick representation
+                  };
+  
+  explicit QCPFinancial(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  virtual ~QCPFinancial();
+  
+  // getters:
+  //QSharedPointer<QCPFinancialDataContainer> data() const;
+  ChartStyle chartStyle() const;
+  double width() const;
+  WidthType widthType() const;
+  bool twoColored() const;
+  QBrush brushPositive() const;
+  QBrush brushNegative() const;
+  QPen penPositive() const;
+  QPen penNegative() const;
+  
+  // setters:
+  //void setData(QSharedPointer<QCPFinancialDataContainer> data);
+  void setData(const QVector<double> &keys, const QVector<double> &open, const QVector<double> &high, const QVector<double> &low, const QVector<double> &close, bool alreadySorted=false);
+  void setChartStyle(ChartStyle style);
+  void setWidth(double width);
+  void setWidthType(WidthType widthType);
+  void setTwoColored(bool twoColored);
+  void setBrushPositive(const QBrush &brush);
+  void setBrushNegative(const QBrush &brush);
+  void setPenPositive(const QPen &pen);
+  void setPenNegative(const QPen &pen);
+  
+  // non-property methods:
+  void addData(const QVector<double> &keys, const QVector<double> &open, const QVector<double> &high, const QVector<double> &low, const QVector<double> &close, bool alreadySorted=false);
+  void addData(double key, double open, double high, double low, double close);
+  
+  // reimplemented virtual methods:
+  virtual QCPDataSelection selectTestRect(const QRectF &rect, bool onlySelectable) const;
+  virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
+  virtual QCPRange getKeyRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth) const;
+  virtual QCPRange getValueRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange()) const;
+  
+  // static methods:
+  //static QCPFinancialDataContainer timeSeriesToOhlc(const QVector<double> &time, const QVector<double> &value, double timeBinSize, double timeBinOffset = 0);
+};

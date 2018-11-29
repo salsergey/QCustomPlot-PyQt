@@ -1,14 +1,14 @@
 %Copying
 PyQt5 binding for QCustomPlot v2.0.0
 
-Authors: Dmitry Voronin, Giuseppe Corbelli
+Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
 License: MIT
 
 QCustomPlot author: Emanuel Eichhammer
 QCustomPlot Website/Contact: http://www.qcustomplot.com
 %End
 
-%Module QCustomPlot
+%Module QCustomPlot2
 
 
 %Import QtCore/QtCoremod.sip
@@ -29,10 +29,10 @@ QCustomPlot Website/Contact: http://www.qcustomplot.com
 %Include axisticker.sip
 %Include axistickerdatetime.sip
 %Include axistickertime.sip
-//#include "axis/axistickerfixed.h"
-//#include "axis/axistickertext.h"
-//#include "axis/axistickerpi.h"
-//#include "axis/axistickerlog.h"
+%Include axistickerfixed.sip
+%Include axistickertext.sip
+%Include axistickerpi.sip
+%Include axistickerlog.sip
 %Include axis.sip
 %Include scatterstyle.sip
 //%Include datacontainer.sip
@@ -45,20 +45,20 @@ QCustomPlot Website/Contact: http://www.qcustomplot.com
 %Include layoutelement-axisrect.sip
 %Include layoutelement-legend.sip
 %Include layoutelement-textelement.sip
-//#include "layoutelements/layoutelement-colorscale.h"
+%Include layoutelement-colorscale.sip
 %Include plottable-graph.sip
 %Include plottable-curve.sip
 %Include plottable-bars.sip
-//#include "plottables/plottable-statisticalbox.h"
-//#include "plottables/plottable-colormap.h"
-//#include "plottables/plottable-financial.h"
-//#include "plottables/plottable-errorbar.h"
-//#include "items/item-straightline.h"
-//#include "items/item-line.h"
-//#include "items/item-curve.h"
-//#include "items/item-rect.h"
-//#include "items/item-text.h"
-//#include "items/item-ellipse.h"
-//#include "items/item-pixmap.h"
-//#include "items/item-tracer.h"
-//#include "items/item-bracket.h"
+%Include plottable-statisticalbox.sip
+%Include plottable-colormap.sip
+%Include plottable-financial.sip
+%Include plottable-errorbar.sip
+%Include item-straightline.sip
+%Include item-line.sip
+%Include item-curve.sip
+%Include item-rect.sip
+%Include item-text.sip
+%Include item-ellipse.sip
+%Include item-pixmap.sip
+%Include item-tracer.sip
+%Include item-bracket.sip
