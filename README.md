@@ -1,5 +1,5 @@
-# QCustomPlot-PyQt5
-Bindings for graphics lib QCustomPlot for PyQt5.
+# QCustomPlot2-PyQt5
+Bindings for graphics lib QCustomPlot2 for PyQt5.
 
 ## Requirements:
   - PyQt5
