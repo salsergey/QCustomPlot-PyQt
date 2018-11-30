@@ -16,9 +16,9 @@ from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
-import QCustomPlot
+import QCustomPlot2
 
-from QCustomPlot import QCP
+from QCustomPlot2 import QCP
 
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
