@@ -35,6 +35,7 @@ public:
   QVector<double> outliers;
 };
 
+typedef QCPDataContainer<QCPStatisticalBoxData> QCPStatisticalBoxDataContainer;
 typedef QCPAbstractPlottable1D<QCPStatisticalBoxData> QCPAbstractPlottable1D_QCPStatisticalBoxData;
 
 class QCPStatisticalBox : public QCPAbstractPlottable1D_QCPStatisticalBoxData
@@ -45,10 +46,13 @@ class QCPStatisticalBox : public QCPAbstractPlottable1D_QCPStatisticalBoxData
 typedef QCPAbstractPlottable1D<QCPStatisticalBoxData> QCPAbstractPlottable1D_QCPStatisticalBoxData;
 %End
 public:
-  explicit QCPStatisticalBox(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  explicit QCPStatisticalBox(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;
   
   // getters:
-  //QSharedPointer<QCPStatisticalBoxDataContainer> data() const;
+  QCPStatisticalBoxDataContainer* data() const;
+  %MethodCode
+    sipRes = sipCpp->data().data();
+  %End
   double width() const;
   double whiskerWidth() const;
   QPen whiskerPen() const;
@@ -58,7 +62,10 @@ public:
   QCPScatterStyle outlierStyle() const;
 
   // setters:
-  //void setData(QSharedPointer<QCPStatisticalBoxDataContainer> data);
+  void setData(QCPStatisticalBoxDataContainer *data /Transfer/);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPStatisticalBoxDataContainer>(a0));
+  %End
   void setData(const QVector<double> &keys, const QVector<double> &minimum, const QVector<double> &lowerQuartile, const QVector<double> &median, const QVector<double> &upperQuartile, const QVector<double> &maximum, bool alreadySorted=false);
   void setWidth(double width);
   void setWhiskerWidth(double width);

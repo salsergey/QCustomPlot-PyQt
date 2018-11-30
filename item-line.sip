@@ -14,7 +14,7 @@ class QCPItemLine : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-line.h>
 %End
 public:
-  explicit QCPItemLine(QCustomPlot *parentPlot);
+  explicit QCPItemLine(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemLine();
   
   // getters:
@@ -32,6 +32,6 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const start;
-  //QCPItemPosition * const end;
+  QCPItemPosition * start /NoSetter/;
+  QCPItemPosition * end /NoSetter/;
 };

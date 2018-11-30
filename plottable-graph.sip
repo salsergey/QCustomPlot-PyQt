@@ -30,7 +30,7 @@ public:
   double value;
 };
 
-
+typedef QCPDataContainer<QCPGraphData> QCPGraphDataContainer;
 typedef QCPAbstractPlottable1D<QCPGraphData> QCPAbstractPlottable1D_QCPGraphData;
 
 class QCPGraph : public QCPAbstractPlottable1D_QCPGraphData
@@ -54,8 +54,10 @@ public:
   virtual ~QCPGraph();
 
   // getters:
-  // TODO: provide methodcode
-  // QSharedPointer<QCPGraphDataContainer> data() const;
+  QCPGraphDataContainer* data() const;
+  %MethodCode
+    sipRes = sipCpp->data().data();
+  %End
   LineStyle lineStyle() const;
   QCPScatterStyle scatterStyle() const;
   int scatterSkip() const;
@@ -63,8 +65,10 @@ public:
   bool adaptiveSampling() const;
 
   // setters:
-  // TODO: provide methodcode
-  // void setData(QSharedPointer<QCPGraphDataContainer> data);
+  void setData(QCPGraphDataContainer *data /Transfer/);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPGraphDataContainer>(a0));
+  %End
   void setData(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted=false);
   void setLineStyle(LineStyle ls);
   void setScatterStyle(const QCPScatterStyle &style);

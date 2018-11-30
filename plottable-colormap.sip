@@ -57,7 +57,7 @@ class QCPColorMap : public QCPAbstractPlottable
 #include <QCustomPlot/src/plottables/plottable-colormap.h>
 %End
 public:
-  explicit QCPColorMap(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  explicit QCPColorMap(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;
   virtual ~QCPColorMap();
   
   // getters:

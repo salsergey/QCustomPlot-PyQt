@@ -14,7 +14,7 @@ class QCPItemCurve : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-curve.h>
 %End
 public:
-  explicit QCPItemCurve(QCustomPlot *parentPlot);
+  explicit QCPItemCurve(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemCurve();
   
   // getters:
@@ -32,8 +32,8 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const start;
-  //QCPItemPosition * const startDir;
-  //QCPItemPosition * const endDir;
-  //QCPItemPosition * const end;
+  QCPItemPosition * start /NoSetter/;
+  QCPItemPosition * startDir /NoSetter/;
+  QCPItemPosition * endDir /NoSetter/;
+  QCPItemPosition * end /NoSetter/;
 };

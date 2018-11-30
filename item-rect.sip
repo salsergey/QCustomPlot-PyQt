@@ -14,7 +14,7 @@ class QCPItemRect : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-rect.h>
 %End
 public:
-  explicit QCPItemRect(QCustomPlot *parentPlot);
+  explicit QCPItemRect(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemRect();
   
   // getters:
@@ -32,12 +32,12 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const topLeft;
-  //QCPItemPosition * const bottomRight;
-  //QCPItemAnchor * const top;
-  //QCPItemAnchor * const topRight;
-  //QCPItemAnchor * const right;
-  //QCPItemAnchor * const bottom;
-  //QCPItemAnchor * const bottomLeft;
-  //QCPItemAnchor * const left;
+  QCPItemPosition * topLeft /NoSetter/;
+  QCPItemPosition * bottomRight /NoSetter/;
+  QCPItemAnchor * top /NoSetter/;
+  QCPItemAnchor * topRight /NoSetter/;
+  QCPItemAnchor * right /NoSetter/;
+  QCPItemAnchor * bottom /NoSetter/;
+  QCPItemAnchor * bottomLeft /NoSetter/;
+  QCPItemAnchor * left /NoSetter/;
 };

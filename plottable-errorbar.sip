@@ -22,6 +22,8 @@ public:
   double errorPlus;
 };
 
+typedef QVector<QCPErrorBarsData> QCPErrorBarsDataContainer;
+
 class QCPErrorBars : public QCPAbstractPlottable, public QCPPlottableInterface1D
 {
 %TypeHeaderCode
@@ -32,18 +34,24 @@ public:
                    ,etValueError ///< The errors are for the value dimension (bars appear parallel to the value axis)
   };
   
-  explicit QCPErrorBars(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  explicit QCPErrorBars(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;
   virtual ~QCPErrorBars();
 
   // getters:
-  // QSharedPointer<QCPErrorBarsDataContainer> data() const;
+  QCPErrorBarsDataContainer* data() const;
+  %MethodCode
+    sipRes = sipCpp->data().data();
+  %End
   QCPAbstractPlottable *dataPlottable() const;
   ErrorType errorType() const;
   double whiskerWidth() const;
   double symbolGap() const;
   
   // setters:
-  // void setData(QSharedPointer<QCPErrorBarsDataContainer> data);
+  void setData(QCPErrorBarsDataContainer *data /Transfer/);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPErrorBarsDataContainer>(a0));
+  %End
   void setData(const QVector<double> &error);
   void setData(const QVector<double> &errorMinus, const QVector<double> &errorPlus);
   void setDataPlottable(QCPAbstractPlottable* plottable);
@@ -71,5 +79,5 @@ public:
   
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
-  // virtual QCPPlottableInterface1D *interface1D();
+  virtual QCPPlottableInterface1D *interface1D();
 };

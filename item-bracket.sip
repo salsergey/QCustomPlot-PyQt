@@ -20,7 +20,7 @@ public:
                       ,bsCalligraphic ///< A curly brace with varying stroke width giving a calligraphic impression
   };
 
-  explicit QCPItemBracket(QCustomPlot *parentPlot);
+  explicit QCPItemBracket(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemBracket();
   
   // getters:
@@ -38,7 +38,7 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const left;
-  //QCPItemPosition * const right;
-  //QCPItemAnchor * const center;
+  QCPItemPosition * left /NoSetter/;
+  QCPItemPosition * right /NoSetter/;
+  QCPItemAnchor * center /NoSetter/;
 };

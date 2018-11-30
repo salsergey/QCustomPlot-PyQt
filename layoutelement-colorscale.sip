@@ -14,7 +14,7 @@ class QCPColorScale : public QCPLayoutElement
 #include <QCustomPlot/src/qcp.h>
 %End
 public:
-  explicit QCPColorScale(QCustomPlot *parentPlot);
+  explicit QCPColorScale(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPColorScale();
   
   // getters:

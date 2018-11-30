@@ -35,13 +35,13 @@ QCustomPlot Website/Contact: http://www.qcustomplot.com
 %Include axistickerlog.sip
 %Include axis.sip
 %Include scatterstyle.sip
-//%Include datacontainer.sip
+%Include datacontainer.sip
 %Include plottable.sip
 %Include item.sip
 %Include core.sip
 %Include plottable1d.sip
 %Include colorgradient.sip
-//#include "selectiondecorator-bracket.h"
+%Include selectiondecorator-bracket.sip
 %Include layoutelement-axisrect.sip
 %Include layoutelement-legend.sip
 %Include layoutelement-textelement.sip

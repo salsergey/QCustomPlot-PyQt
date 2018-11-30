@@ -21,7 +21,7 @@ public:
                      ,tsSquare     ///< A square
                    };
 
-  explicit QCPItemTracer(QCustomPlot *parentPlot);
+  explicit QCPItemTracer(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemTracer();
 
   // getters:
@@ -52,5 +52,5 @@ public:
   // non-virtual methods:
   void updatePosition();
 
-  //QCPItemPosition * const position;
+  QCPItemPosition * position /NoSetter/;
 };

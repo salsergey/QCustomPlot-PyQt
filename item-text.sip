@@ -14,7 +14,7 @@ class QCPItemText : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-text.h>
 %End
 public:
-  explicit QCPItemText(QCustomPlot *parentPlot);
+  explicit QCPItemText(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemText();
   
   // getters:
@@ -50,13 +50,13 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const position;
-  //QCPItemAnchor * const topLeft;
-  //QCPItemAnchor * const top;
-  //QCPItemAnchor * const topRight;
-  //QCPItemAnchor * const right;
-  //QCPItemAnchor * const bottomRight;
-  //QCPItemAnchor * const bottom;
-  //QCPItemAnchor * const bottomLeft;
-  //QCPItemAnchor * const left;
+  QCPItemPosition * position /NoSetter/;
+  QCPItemAnchor * topLeft /NoSetter/;
+  QCPItemAnchor * top /NoSetter/;
+  QCPItemAnchor * topRight /NoSetter/;
+  QCPItemAnchor * right /NoSetter/;
+  QCPItemAnchor * bottomRight /NoSetter/;
+  QCPItemAnchor * bottom /NoSetter/;
+  QCPItemAnchor * bottomLeft /NoSetter/;
+  QCPItemAnchor * left /NoSetter/;
 };

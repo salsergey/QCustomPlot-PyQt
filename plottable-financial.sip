@@ -33,6 +33,7 @@ public:
   double close;
 };
 
+typedef QCPDataContainer<QCPFinancialData> QCPFinancialDataContainer;
 typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
 
 class QCPFinancial : public QCPAbstractPlottable1D_QCPFinancialData
@@ -52,11 +53,14 @@ public:
                    ,csCandlestick  ///< Candlestick representation
                   };
   
-  explicit QCPFinancial(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  explicit QCPFinancial(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;
   virtual ~QCPFinancial();
   
   // getters:
-  //QSharedPointer<QCPFinancialDataContainer> data() const;
+  QCPFinancialDataContainer* data() const;
+  %MethodCode
+    sipRes = sipCpp->data().data();
+  %End
   ChartStyle chartStyle() const;
   double width() const;
   WidthType widthType() const;
@@ -67,7 +71,10 @@ public:
   QPen penNegative() const;
   
   // setters:
-  //void setData(QSharedPointer<QCPFinancialDataContainer> data);
+  void setData(QCPFinancialDataContainer *data /Transfer/);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPFinancialDataContainer>(a0));
+  %End
   void setData(const QVector<double> &keys, const QVector<double> &open, const QVector<double> &high, const QVector<double> &low, const QVector<double> &close, bool alreadySorted=false);
   void setChartStyle(ChartStyle style);
   void setWidth(double width);
@@ -89,5 +96,5 @@ public:
   virtual QCPRange getValueRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange()) const;
   
   // static methods:
-  //static QCPFinancialDataContainer timeSeriesToOhlc(const QVector<double> &time, const QVector<double> &value, double timeBinSize, double timeBinOffset = 0);
+  static QCPFinancialDataContainer timeSeriesToOhlc(const QVector<double> &time, const QVector<double> &value, double timeBinSize, double timeBinOffset = 0);
 };

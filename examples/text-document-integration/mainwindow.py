@@ -16,11 +16,11 @@ from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
-# import QCustomPlot2
+import QCustomPlot2
 
-# from QCustomPlot2 import QCP
+from QCustomPlot2 import QCP
 
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
         super().__init__(parent)
-        loadUi("mainwindow.ui", self)
+        loadUi("examples/text-document-integration/mainwindow.ui", self)

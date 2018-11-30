@@ -14,7 +14,7 @@ class QCPItemEllipse : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-ellipse.h>
 %End
 public:
-  explicit QCPItemEllipse(QCustomPlot *parentPlot);
+  explicit QCPItemEllipse(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemEllipse();
   
   // getters:
@@ -32,15 +32,15 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const topLeft;
-  //QCPItemPosition * const bottomRight;
-  //QCPItemAnchor * const topLeftRim;
-  //QCPItemAnchor * const top;
-  //QCPItemAnchor * const topRightRim;
-  //QCPItemAnchor * const right;
-  //QCPItemAnchor * const bottomRightRim;
-  //QCPItemAnchor * const bottom;
-  //QCPItemAnchor * const bottomLeftRim;
-  //QCPItemAnchor * const left;
-  //QCPItemAnchor * const center;
+  QCPItemPosition * topLeft /NoSetter/;
+  QCPItemPosition * bottomRight /NoSetter/;
+  QCPItemAnchor * topLeftRim /NoSetter/;
+  QCPItemAnchor * top /NoSetter/;
+  QCPItemAnchor * topRightRim /NoSetter/;
+  QCPItemAnchor * right /NoSetter/;
+  QCPItemAnchor * bottomRightRim /NoSetter/;
+  QCPItemAnchor * bottom /NoSetter/;
+  QCPItemAnchor * bottomLeftRim /NoSetter/;
+  QCPItemAnchor * left /NoSetter/;
+  QCPItemAnchor * center /NoSetter/;
 };

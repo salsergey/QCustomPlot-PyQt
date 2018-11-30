@@ -31,6 +31,7 @@ public:
   double value;
 };
 
+typedef QCPDataContainer<QCPCurveData> QCPCurveDataContainer;
 typedef QCPAbstractPlottable1D<QCPCurveData> QCPAbstractPlottable1D_QCPCurveData;
 
 class QCPCurve : public QCPAbstractPlottable1D_QCPCurveData
@@ -50,15 +51,19 @@ public:
   virtual ~QCPCurve();
 
   // getters:
-  // TODO: provide methodcode
-  // QSharedPointer<QCPCurveDataContainer> data() const { return mDataContainer; }
+  QCPCurveDataContainer* data() const;
+  %MethodCode
+    sipRes = sipCpp->data().data();
+  %End
   QCPScatterStyle scatterStyle() const;
   int scatterSkip() const;
   LineStyle lineStyle() const;
 
   // setters:
-  // TODO: provide methodcode
-  // void setData(QSharedPointer<QCPCurveDataContainer> data);
+  void setData(QCPCurveDataContainer *data /Transfer/);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPCurveDataContainer>(a0));
+  %End
   void setData(const QVector<double> &t, const QVector<double> &keys, const QVector<double> &values, bool alreadySorted=false);
   void setData(const QVector<double> &keys, const QVector<double> &values);
   void setScatterStyle(const QCPScatterStyle &style);

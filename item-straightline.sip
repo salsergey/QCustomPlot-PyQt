@@ -14,7 +14,7 @@ class QCPItemStraightLine : public QCPAbstractItem /NoDefaultCtors/
 #include <QCustomPlot/src/items/item-straightline.h>
 %End
 public:
-  explicit QCPItemStraightLine(QCustomPlot *parentPlot);
+  explicit QCPItemStraightLine(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemStraightLine();
   
   // getters:
@@ -28,6 +28,6 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  //QCPItemPosition * const point1;
-  //QCPItemPosition * const point2;
+  QCPItemPosition * point1 /NoSetter/;
+  QCPItemPosition * point2 /NoSetter/;
 };

@@ -164,17 +164,17 @@ class MyBuilderExt(build_ext):
         return join(cfg.default_sip_dir, 'PyQt5')
 
 setup(
-    name='QCustomPlot',
+    name='QCustomPlot2',
     version='2.0.1',
-    description='QCustomPlot is a PyQt5 widget for plotting and data visualization',
-    author='Dmitry Voronin, Giuseppe Corbelli',
+    description='QCustomPlot is a Qt widget for plotting and data visualization',
+    author='Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert',
     author_email='carriingfate92@yandex.ru',
-    url='https://github.com/dimv36/QCustomPlot-PyQt5',
+    url='https://github.com/cjgdev/QCustomPlot2-PyQt5',
     platforms=['Linux'],
     license='MIT',
     ext_modules=[
         Extension(
-            'QCustomPlot',
+            'QCustomPlot2',
             ['all.sip'],
             include_dirs=['.']
         ),
