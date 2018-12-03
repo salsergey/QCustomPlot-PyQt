@@ -11,22 +11,19 @@
 
 import math, random
 
-from PyQt5.QtCore import QTime, QTimer, QPointF, Qt, QLocale, QDateTime, QMargins
+from PyQt5.QtCore import QTime, QTimer, QPointF, Qt, QLocale, QDate, QDateTime, QMargins, QSize
 from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient, QFont, QPainterPath, QLinearGradient, QPixmap
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
 import QCustomPlot2
 
-from QCustomPlot2 import (QCP, QCPAxisTickerTime, QCPColorMap, QCPRange, QCPColorScale, QCPAxis, QCPColorGradient,
-    QCPMarginGroup, QCPScatterStyle, QCPGraph, QCustomPlot, QCPLineEnding, QCPBars, QCPErrorBars, QCPAxisTickerDateTime,
-    QCPAxisTickerText, QCPGraphData, QCPAxisTickerPi, QCPTextElement, QCPItemBracket, QCPItemText, QCPItemTracer,
-    QCPItemPosition, QCPItemCurve)
+from QCustomPlot2 import *
 
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
         super().__init__(parent)
-        loadUi("examples/plots/mainwindow.ui", self)
+        loadUi("mainwindow.ui", self)
 
         self._available_demos = {
             0: self.setupQuadraticDemo,
@@ -90,7 +87,7 @@ class MainWindow(QMainWindow):
 
     def setupSimpleDemo(self):
         self.demoName = "Simple Demo"
-        # add two new graphs and set their look:
+        # add two graphs and set their look:
         self.customPlot.addGraph()
         self.customPlot.graph(0).setPen(QPen(Qt.blue)) # line color blue for first graph
         self.customPlot.graph(0).setBrush(QBrush(QColor(0, 0, 255, 20))) # first graph will be filled with translucent blue
@@ -120,7 +117,7 @@ class MainWindow(QMainWindow):
         self.customPlot.graph(1).rescaleAxes(True)
         # Note: we could have also just called self.customPlot.rescaleAxes() instead
         # Allow user to drag axis ranges with mouse, zoom with mouse wheel and select graphs by clicking:
-        self.customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom or QCP.iSelectPlottables)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectPlottables))
 
     def setupSincScatterDemo(self):
         self.demoName = "Sinc Scatter Demo"
@@ -273,6 +270,45 @@ class MainWindow(QMainWindow):
 
     def setupScatterPixmapDemo(self):
         self.demoName = "Scatter Pixmap Demo"
+        
+        self.customPlot.axisRect().setBackground(QPixmap("./solarpanels.jpg"))
+        self.customPlot.addGraph()
+        self.customPlot.graph().setLineStyle(QCPGraph.lsLine)
+        pen = QPen()
+        pen.setColor(QColor(255, 200, 20, 200))
+        pen.setStyle(Qt.DashLine)
+        pen.setWidthF(2.5)
+        self.customPlot.graph().setPen(pen)
+        self.customPlot.graph().setBrush(QBrush(QColor(255,200,20,70)))
+        self.customPlot.graph().setScatterStyle(QCPScatterStyle(QPixmap("./sun.png")))
+        # set graph name, will show up in legend next to icon:
+        self.customPlot.graph().setName("Data from Photovoltaic\nenergy barometer 2011")
+        # set data:
+        year = [2005, 2006, 2007, 2008, 2009, 2010, 2011]
+        value = [2.17, 3.42, 4.94, 10.38, 15.86, 29.33, 52.1]
+        self.customPlot.graph().setData(year, value)
+
+        # set title of plot:
+        self.customPlot.plotLayout().insertRow(0)
+        self.customPlot.plotLayout().addElement(0, 0, QCPTextElement(self.customPlot, "Regenerative Energies", QFont("sans", 12, QFont.Bold)))
+        # axis configurations:
+        self.customPlot.xAxis.setLabel("Year")
+        self.customPlot.yAxis.setLabel("Installed Gigawatts of\nphotovoltaic in the European Union")
+        self.customPlot.xAxis2.setVisible(True)
+        self.customPlot.yAxis2.setVisible(True)
+        self.customPlot.xAxis2.setTickLabels(False)
+        self.customPlot.yAxis2.setTickLabels(False)
+        self.customPlot.xAxis2.setTicks(False)
+        self.customPlot.yAxis2.setTicks(False)
+        self.customPlot.xAxis2.setSubTicks(False)
+        self.customPlot.yAxis2.setSubTicks(False)
+        self.customPlot.xAxis.setRange(2004.5, 2011.5)
+        self.customPlot.yAxis.setRange(0, 52)
+        # setup legend:
+        self.customPlot.legend.setFont(QFont(QFont().family(), 7))
+        self.customPlot.legend.setIconSize(50, 20)
+        self.customPlot.legend.setVisible(True)
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(Qt.AlignLeft | Qt.AlignTop))
 
     def setupDateDemo(self):
         self.demoName = "Date Demo"
@@ -330,8 +366,46 @@ class MainWindow(QMainWindow):
     def setupTextureBrushDemo(self):
         self.demoName = "Texture Brush Demo"
 
+        self.customPlot.addGraph()
+        redDotPen = QPen()
+        redDotPen.setStyle(Qt.DotLine)
+        redDotPen.setColor(QColor(170, 100, 100, 180))
+        redDotPen.setWidthF(2)
+        self.customPlot.graph(0).setPen(redDotPen)
+        self.customPlot.graph(0).setBrush(QBrush(QPixmap("./balboa.jpg"))) # fill with texture of specified image
+
+        self.customPlot.addGraph()
+        self.customPlot.graph(1).setPen(QPen(Qt.red))
+
+        # activate channel fill for graph 0 towards graph 1:
+        self.customPlot.graph(0).setChannelFillGraph(self.customPlot.graph(1))
+
+        # generate data:
+        x = []
+        y0, y1 = [], []
+        for i in range(250):
+            # just playing with numbers, not much to learn here
+            x.append(3*i/250.0)
+            y0.append(1+math.exp(-x[i]*x[i]*0.8)*(x[i]*x[i]+x[i]))
+            y1.append(1-math.exp(-x[i]*x[i]*0.4)*(x[i]*x[i])*0.1)
+
+        # pass data points to graphs:
+        self.customPlot.graph(0).setData(x, y0)
+        self.customPlot.graph(1).setData(x, y1)
+        # activate top and right axes, which are invisible by default:
+        self.customPlot.xAxis2.setVisible(True)
+        self.customPlot.yAxis2.setVisible(True)
+        # make tick labels invisible on top and right axis:
+        self.customPlot.xAxis2.setTickLabels(False)
+        self.customPlot.yAxis2.setTickLabels(False)
+        # set ranges:
+        self.customPlot.xAxis.setRange(0, 2.5)
+        self.customPlot.yAxis.setRange(0.9, 1.6)
+        # assign top/right axes same properties as bottom/left:
+        self.customPlot.axisRect().setupFullAxesBox()
+
     def setupMultiAxisDemo(self):
-        self.customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
         self.demoName = "Multi Axis Demo"
 
         self.customPlot.setLocale(QLocale(QLocale.English, QLocale.UnitedKingdom)) # period as decimal separator and comma as thousand separator
@@ -341,7 +415,7 @@ class MainWindow(QMainWindow):
         self.customPlot.legend.setFont(legendFont)
         self.customPlot.legend.setBrush(QBrush(QColor(255,255,255,230)))
         # by default, the legend is in the inset layout of the main axis rect. So this is how we access it to change legend placement:
-        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.AlignBottom or Qt.AlignRight)
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(Qt.AlignBottom | Qt.AlignRight))
 
         # setup for graph 0: key axis left, value axis bottom
         # will contain left maxwell-like function
@@ -446,6 +520,73 @@ class MainWindow(QMainWindow):
     def setupLogarithmicDemo(self):
         self.demoName = "Logarithmic Demo"
 
+        self.customPlot.setNoAntialiasingOnDrag(True) # more performance/responsiveness during dragging
+        self.customPlot.addGraph()
+        pen = QPen()
+        pen.setColor(QColor(255,170,100))
+        pen.setWidth(2)
+        pen.setStyle(Qt.DotLine)
+        self.customPlot.graph(0).setPen(pen)
+        self.customPlot.graph(0).setName("x")
+
+        self.customPlot.addGraph()
+        self.customPlot.graph(1).setPen(QPen(Qt.red))
+        self.customPlot.graph(1).setBrush(QBrush(QColor(255, 0, 0, 20)))
+        self.customPlot.graph(1).setName("-sin(x)exp(x)")
+
+        self.customPlot.addGraph()
+        self.customPlot.graph(2).setPen(QPen(Qt.blue))
+        self.customPlot.graph(2).setBrush(QBrush(QColor(0, 0, 255, 20)))
+        self.customPlot.graph(2).setName(" sin(x)exp(x)")
+
+        self.customPlot.addGraph()
+        pen.setColor(QColor(0,0,0))
+        pen.setWidth(1)
+        pen.setStyle(Qt.DashLine)
+        self.customPlot.graph(3).setPen(pen)
+        self.customPlot.graph(3).setBrush(QBrush(QColor(0,0,0,15)))
+        self.customPlot.graph(3).setLineStyle(QCPGraph.lsStepCenter)
+        self.customPlot.graph(3).setName("x!")
+
+        dataLinear, dataMinusSinExp, dataPlusSinExp, dataFactorial = [], [], [], []
+        for i in range(200):
+            key = i/10.0
+            dataLinear.append(QCPGraphData(key, key))
+            dataMinusSinExp.append(QCPGraphData(key, -math.sin(key)*math.exp(key)))
+            dataPlusSinExp.append(QCPGraphData(key, math.sin(key)*math.exp(key)))
+        for i in range(21):
+            dataFactorial.append(QCPGraphData(i, 1.0))
+            for k in range(1,i):
+                dataFactorial[i].value *= k # factorial
+        self.customPlot.graph(0).data().set(dataLinear)
+        self.customPlot.graph(1).data().set(dataMinusSinExp)
+        self.customPlot.graph(2).data().set(dataPlusSinExp)
+        self.customPlot.graph(3).data().set(dataFactorial)
+
+        self.customPlot.yAxis.grid().setSubGridVisible(True)
+        self.customPlot.xAxis.grid().setSubGridVisible(True)
+        self.customPlot.yAxis.setScaleType(QCPAxis.stLogarithmic)
+        self.customPlot.yAxis2.setScaleType(QCPAxis.stLogarithmic)
+        logTicker = QCPAxisTickerLog()
+        self.customPlot.yAxis.setTicker(logTicker)
+        self.customPlot.yAxis2.setTicker(logTicker)
+        self.customPlot.yAxis.setNumberFormat("eb") # e = exponential, b = beautiful decimal powers
+        self.customPlot.yAxis.setNumberPrecision(0) # makes sure "1*10^4" is displayed only as "10^4"
+        self.customPlot.xAxis.setRange(0, 19.9)
+        self.customPlot.yAxis.setRange(1e-2, 1e10)
+        # make range draggable and zoomable:
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
+
+        # make top right axes clones of bottom left axes:
+        self.customPlot.axisRect().setupFullAxesBox()
+        # connect signals so top and right axes move in sync with bottom and left axes:
+        self.customPlot.xAxis.rangeChanged.connect(self.customPlot.xAxis2.setRange)
+        self.customPlot.yAxis.rangeChanged.connect(self.customPlot.yAxis2.setRange)
+
+        self.customPlot.legend.setVisible(True)
+        self.customPlot.legend.setBrush(QBrush(QColor(255,255,255,150)))
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(Qt.AlignLeft|Qt.AlignTop)) # make legend align in top left corner or axis rect
+
     def setupRealtimeDataDemo(self):
         self.demoName = "Realtime Data Demo"
         self.time = QTime(QTime.currentTime())
@@ -498,7 +639,7 @@ class MainWindow(QMainWindow):
             dataDeltoid[1][i] = 2 * math.cos(2*theta) + math.cos(1*theta) + 2 * math.sin(theta)
             dataDeltoid[2][i] = 2 * math.sin(2*theta) - math.sin(1*theta)
 
-        # pass the data to the curves we know t (i in loop above) is ascending, so set alreadySorted=true (saves an extra internal sort):
+        # pass the data to the curves we know t (i in loop above) is ascending, so set alreadySorted=True (saves an extra internal sort):
         self.fermatSpiral1.setData(dataSpiral1[0], dataSpiral1[1], dataSpiral1[2], True)
         self.fermatSpiral2.setData(dataSpiral2[0], dataSpiral2[1], dataSpiral2[2], True)
         self.deltoidRadial.setData(dataDeltoid[0], dataDeltoid[1], dataDeltoid[2], True)
@@ -514,24 +655,145 @@ class MainWindow(QMainWindow):
         self.deltoidRadial.setPen(QPen(QColor(170, 20, 240)))
         self.deltoidRadial.setBrush(QBrush(radialGrad))
         # set some basic customPlot config:
-        self.customPlot.setInteractions(QCustomPlot2.QCP.Interactions(QCustomPlot2.QCP.iRangeDrag or QCustomPlot2.QCP.iRangeZoom or QCustomPlot2.QCP.iSelectPlottables))
+        self.customPlot.setInteractions(QCustomPlot2.QCP.Interactions(
+            QCustomPlot2.QCP.iRangeDrag | QCustomPlot2.QCP.iRangeZoom | QCustomPlot2.QCP.iSelectPlottables))
         self.customPlot.axisRect().setupFullAxesBox()
         self.customPlot.rescaleAxes()
 
     def setupBarChartDemo(self):
         self.demoName = "Bar Chart Demo"
+        # set dark background gradient:
+        gradient = QLinearGradient(0, 0, 0, 400)
+        gradient.setColorAt(0, QColor(90, 90, 90))
+        gradient.setColorAt(0.38, QColor(105, 105, 105))
+        gradient.setColorAt(1, QColor(70, 70, 70))
+        self.customPlot.setBackground(QBrush(gradient))
+
+        # create empty bar chart objects:
+        regen = QCPBars(self.customPlot.xAxis, self.customPlot.yAxis)
+        nuclear = QCPBars(self.customPlot.xAxis, self.customPlot.yAxis)
+        fossil = QCPBars(self.customPlot.xAxis, self.customPlot.yAxis)
+        regen.setAntialiased(False) # gives more crisp, pixel aligned bar borders
+        nuclear.setAntialiased(False)
+        fossil.setAntialiased(False)
+        regen.setStackingGap(1)
+        nuclear.setStackingGap(1)
+        fossil.setStackingGap(1)
+        # set names and colors:
+        fossil.setName("Fossil fuels")
+        fossil.setPen(QPen(QColor(111, 9, 176).lighter(170)))
+        fossil.setBrush(QColor(111, 9, 176))
+        nuclear.setName("Nuclear")
+        nuclear.setPen(QPen(QColor(250, 170, 20).lighter(150)))
+        nuclear.setBrush(QColor(250, 170, 20))
+        regen.setName("Regenerative")
+        regen.setPen(QPen(QColor(0, 168, 140).lighter(130)))
+        regen.setBrush(QColor(0, 168, 140))
+        # stack bars on top of each other:
+        nuclear.moveAbove(fossil)
+        regen.moveAbove(nuclear)
+
+        # prepare x axis with country labels:
+        ticks = [1, 2, 3, 4, 5, 6, 7]
+        labels = ["USA", "Japan", "Germany", "France", "UK", "Italy", "Canada"]
+        textTicker = QCPAxisTickerText()
+        textTicker.addTicks(ticks, labels)
+        self.customPlot.xAxis.setTicker(textTicker)
+        self.customPlot.xAxis.setTickLabelRotation(60)
+        self.customPlot.xAxis.setSubTicks(False)
+        self.customPlot.xAxis.setTickLength(0, 4)
+        self.customPlot.xAxis.setRange(0, 8)
+        self.customPlot.xAxis.setBasePen(QPen(Qt.white))
+        self.customPlot.xAxis.setTickPen(QPen(Qt.white))
+        self.customPlot.xAxis.grid().setVisible(True)
+        self.customPlot.xAxis.grid().setPen(QPen(QColor(130, 130, 130), 0, Qt.DotLine))
+        self.customPlot.xAxis.setTickLabelColor(Qt.white)
+        self.customPlot.xAxis.setLabelColor(Qt.white)
+
+        # prepare y axis:
+        self.customPlot.yAxis.setRange(0, 12.1)
+        self.customPlot.yAxis.setPadding(5) # a bit more space to the left border
+        self.customPlot.yAxis.setLabel("Power Consumption in\nKilowatts per Capita (2007)")
+        self.customPlot.yAxis.setBasePen(QPen(Qt.white))
+        self.customPlot.yAxis.setTickPen(QPen(Qt.white))
+        self.customPlot.yAxis.setSubTickPen(QPen(Qt.white))
+        self.customPlot.yAxis.grid().setSubGridVisible(True)
+        self.customPlot.yAxis.setTickLabelColor(Qt.white)
+        self.customPlot.yAxis.setLabelColor(Qt.white)
+        self.customPlot.yAxis.grid().setPen(QPen(QColor(130, 130, 130), 0, Qt.SolidLine))
+        self.customPlot.yAxis.grid().setSubGridPen(QPen(QColor(130, 130, 130), 0, Qt.DotLine))
+
+        # Add data:
+        fossilData = [0.86*10.5, 0.83*5.5, 0.84*5.5, 0.52*5.8, 0.89*5.2, 0.90*4.2, 0.67*11.2]
+        nuclearData = [0.08*10.5, 0.12*5.5, 0.12*5.5, 0.40*5.8, 0.09*5.2, 0.00*4.2, 0.07*11.2]
+        regenData = [0.06*10.5, 0.05*5.5, 0.04*5.5, 0.06*5.8, 0.02*5.2, 0.07*4.2, 0.25*11.2]
+        fossil.setData(ticks, fossilData)
+        nuclear.setData(ticks, nuclearData)
+        regen.setData(ticks, regenData)
+
+        # setup legend:
+        self.customPlot.legend.setVisible(True)
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(Qt.AlignTop|Qt.AlignHCenter))
+        self.customPlot.legend.setBrush(QColor(255, 255, 255, 100))
+        self.customPlot.legend.setBorderPen(QPen(Qt.NoPen))
+        legendFont = QFont()
+        legendFont.setPointSize(10)
+        self.customPlot.legend.setFont(legendFont)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
 
     def setupStatisticalDemo(self):
         self.demoName = "Statistical Demo"
+        statistical = QCPStatisticalBox(self.customPlot.xAxis, self.customPlot.yAxis)
+        boxBrush = QBrush(QColor(60, 60, 255, 100))
+        boxBrush.setStyle(Qt.Dense6Pattern) # make it look oldschool
+        statistical.setBrush(boxBrush)
+
+        # specify data:
+        statistical.addData(1, 1.1, 1.9, 2.25, 2.7, 4.2)
+        statistical.addData(2, 0.8, 1.6, 2.2, 3.2, 4.9, [0.7, 0.34, 0.45, 6.2, 5.84]) # provide some outliers as list
+        statistical.addData(3, 0.2, 0.7, 1.1, 1.6, 2.9)
+
+        # prepare manual x axis labels:
+        self.customPlot.xAxis.setSubTicks(False)
+        self.customPlot.xAxis.setTickLength(0, 4)
+        self.customPlot.xAxis.setTickLabelRotation(20)
+        textTicker = QCPAxisTickerText()
+        textTicker.addTick(1, "Sample 1")
+        textTicker.addTick(2, "Sample 2")
+        textTicker.addTick(3, "Control Group")
+        self.customPlot.xAxis.setTicker(textTicker)
+
+        # prepare axes:
+        self.customPlot.yAxis.setLabel("O₂ Absorption [mg]")
+        self.customPlot.rescaleAxes()
+        self.customPlot.xAxis.scaleRange(1.7, self.customPlot.xAxis.range().center())
+        self.customPlot.yAxis.setRange(0, 7)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
 
     def setupSimpleItemDemo(self):
         self.demoName = "Simple Item Demo"
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
+
+        # add the text label at the top:
+        textLabel = QCPItemText(self.customPlot)
+        textLabel.setPositionAlignment(Qt.Alignment(Qt.AlignTop|Qt.AlignHCenter))
+        textLabel.position.setType(QCPItemPosition.ptAxisRectRatio)
+        textLabel.position.setCoords(0.5, 0) # place position at center/top of axis rect
+        textLabel.setText("Text Item Demo")
+        textLabel.setFont(QFont(QFont().family(), 16)) # make font a bit larger
+        textLabel.setPen(QPen(Qt.black)) # show black border around text
+
+        # add the arrow:
+        arrow = QCPItemLine(self.customPlot)
+        arrow.start.setParentAnchor(textLabel.bottom)
+        arrow.end.setCoords(4, 1.6) # point to (4, 1.6) in x-y-plot coordinates
+        arrow.setHead(QCPLineEnding(QCPLineEnding.esSpikeArrow))
 
     def setupItemDemo(self):
         self.demoName = "Item Demo"
         self.frameCount = 0
         self.lastFpsKey = 0
-        self.customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
         graph = self.customPlot.addGraph()
         n = 500
         phase = 0.0
@@ -556,7 +818,7 @@ class MainWindow(QMainWindow):
         wavePacketText = QCPItemText(self.customPlot)
         wavePacketText.position.setParentAnchor(bracket.center)
         wavePacketText.position.setCoords(0, -10) # move 10 pixels to the top from bracket center anchor
-        wavePacketText.setPositionAlignment(Qt.AlignBottom or Qt.AlignHCenter)
+        wavePacketText.setPositionAlignment(Qt.Alignment(Qt.AlignBottom | Qt.AlignHCenter))
         wavePacketText.setText("Wavepacket")
         wavePacketText.setFont(QFont(QFont().family(), 10))
 
@@ -574,7 +836,7 @@ class MainWindow(QMainWindow):
         # add label for phase tracer:
         phaseTracerText = QCPItemText(self.customPlot)
         phaseTracerText.position.setType(QCPItemPosition.ptAxisRectRatio)
-        phaseTracerText.setPositionAlignment(Qt.AlignRight or Qt.AlignBottom)
+        phaseTracerText.setPositionAlignment(Qt.Alignment(Qt.AlignRight | Qt.AlignBottom))
         phaseTracerText.position.setCoords(1.0, 0.95) # lower right corner of axis rect
         phaseTracerText.setText("Points of fixed\nphase define\nphase velocity vp")
         phaseTracerText.setTextAlignment(Qt.AlignLeft)
@@ -606,7 +868,7 @@ class MainWindow(QMainWindow):
         # add label for group tracer:
         groupTracerText = QCPItemText(self.customPlot)
         groupTracerText.position.setType(QCPItemPosition.ptAxisRectRatio)
-        groupTracerText.setPositionAlignment(Qt.AlignRight or Qt.AlignTop)
+        groupTracerText.setPositionAlignment(Qt.Alignment(Qt.AlignRight | Qt.AlignTop))
         groupTracerText.position.setCoords(1.0, 0.20) # lower right corner of axis rect
         groupTracerText.setText("Fixed positions in\nwave packet define\ngroup velocity vg")
         groupTracerText.setTextAlignment(Qt.AlignLeft)
@@ -646,7 +908,7 @@ class MainWindow(QMainWindow):
 
     def setupStyledDemo(self):
         self.demoName = "Styled Demo"
-        # add two new graphs and set their look:
+        # add two graphs and set their look:
         # prepare data:
         x1, y1 = [], []
         x2, y2 = [], []
@@ -734,10 +996,103 @@ class MainWindow(QMainWindow):
 
     def setupAdvancedAxesDemo(self):
         self.demoName = "Advanced Axes Demo"
+          
+        # configure axis rect:
+        self.customPlot.plotLayout().clear() # clear default axis rect so we can start from scratch
+        wideAxisRect = QCPAxisRect(self.customPlot)
+        wideAxisRect.setupFullAxesBox(True)
+        wideAxisRect.axis(QCPAxis.atRight, 0).setTickLabels(True)
+        wideAxisRect.addAxis(QCPAxis.atLeft).setTickLabelColor(QColor("#6050F8")) # add an extra axis on the left and color its numbers
+        subLayout = QCPLayoutGrid()
+        self.customPlot.plotLayout().addElement(0, 0, wideAxisRect) # insert axis rect in first row
+        self.customPlot.plotLayout().addElement(1, 0, subLayout) # sub layout in second row (grid layout will grow accordingly)
+        #self.customPlot.plotLayout().setRowStretchFactor(1, 2)
+        # prepare axis rects that will be placed in the sublayout:
+        subRectLeft = QCPAxisRect(self.customPlot, False) # False means to not setup default axes
+        subRectRight = QCPAxisRect(self.customPlot, False)
+        subLayout.addElement(0, 0, subRectLeft)
+        subLayout.addElement(0, 1, subRectRight)
+        subRectRight.setMaximumSize(100, 100) # make bottom right axis rect size fixed 100x100
+        subRectRight.setMinimumSize(100, 100) # make bottom right axis rect size fixed 100x100
+        # setup axes in sub layout axis rects:
+        subRectLeft.addAxes(QCPAxis.AxisTypes(QCPAxis.atBottom | QCPAxis.atLeft))
+        subRectRight.addAxes(QCPAxis.AxisTypes(QCPAxis.atBottom | QCPAxis.atRight))
+        subRectLeft.axis(QCPAxis.atLeft).ticker().setTickCount(2)
+        subRectRight.axis(QCPAxis.atRight).ticker().setTickCount(2)
+        subRectRight.axis(QCPAxis.atBottom).ticker().setTickCount(2)
+        subRectLeft.axis(QCPAxis.atBottom).grid().setVisible(True)
+        # synchronize the left and right margins of the top and bottom axis rects:
+        marginGroup = QCPMarginGroup(self.customPlot)
+        subRectLeft.setMarginGroup(QCP.msLeft, marginGroup)
+        subRectRight.setMarginGroup(QCP.msRight, marginGroup)
+        wideAxisRect.setMarginGroup(QCP.MarginSides(QCP.msLeft | QCP.msRight), marginGroup)
+        # move newly created axes on "axes" layer and grids on "grid" layer:
+        for rect in self.customPlot.axisRects():
+            for axis in rect.axes():
+                axis.setLayer("axes")
+                axis.grid().setLayer("grid")
+        
+        # prepare data:
+        dataCos, dataGauss, dataRandom = [], [], []
+        random.seed(3)
+        for i in range(21):
+            key = i/float(20)*10-5.0
+            value = math.cos(key)
+            dataCos.append(QCPGraphData(key, value))
+        for i in range(50):
+            key = i/float(50)*10-5.0
+            value = math.exp(-key*key*0.2)*1000
+            dataGauss.append(QCPGraphData(key, value))
+        for i in range(100):
+            key = i/float(100)*10
+            if len(dataRandom) == 0:
+                value = random.random()-0.5
+            else:
+                value = random.random()-0.5+dataRandom[max(0, i-1)].value
+            dataRandom.append(QCPGraphData(key, value))
+        x3 = [1, 2, 3, 4]
+        y3 = [2, 2.5, 4, 1.5]
+        
+        # create and configure plottables:
+        mainGraphCos = self.customPlot.addGraph(wideAxisRect.axis(QCPAxis.atBottom), wideAxisRect.axis(QCPAxis.atLeft))
+        mainGraphCos.data().set(dataCos)
+        mainGraphCos.valueAxis().setRange(-1, 1)
+        mainGraphCos.rescaleKeyAxis()
+        mainGraphCos.setScatterStyle(QCPScatterStyle(QCPScatterStyle.ssCircle, QPen(Qt.black), QBrush(Qt.white), 6))
+        mainGraphCos.setPen(QPen(QColor(120, 120, 120), 2))
+        mainGraphGauss = self.customPlot.addGraph(wideAxisRect.axis(QCPAxis.atBottom), wideAxisRect.axis(QCPAxis.atLeft, 1))
+        mainGraphGauss.data().set(dataGauss)
+        mainGraphGauss.setPen(QPen(QColor("#8070B8"), 2))
+        mainGraphGauss.setBrush(QColor(110, 170, 110, 30))
+        mainGraphCos.setChannelFillGraph(mainGraphGauss)
+        mainGraphCos.setBrush(QColor(255, 161, 0, 50))
+        mainGraphGauss.valueAxis().setRange(0, 1000)
+        mainGraphGauss.rescaleKeyAxis()
+        
+        subGraphRandom = self.customPlot.addGraph(subRectLeft.axis(QCPAxis.atBottom), subRectLeft.axis(QCPAxis.atLeft))
+        subGraphRandom.data().set(dataRandom)
+        subGraphRandom.setLineStyle(QCPGraph.lsImpulse)
+        subGraphRandom.setPen(QPen(QColor("#FFA100"), 1.5))
+        subGraphRandom.rescaleAxes()
+        
+        subBars = QCPBars(subRectRight.axis(QCPAxis.atBottom), subRectRight.axis(QCPAxis.atRight))
+        subBars.setWidth(3/float(len(x3)))
+        subBars.setData(x3, y3)
+        subBars.setPen(QPen(Qt.black))
+        subBars.setAntialiased(False)
+        subBars.setAntialiasedFill(False)
+        subBars.setBrush(QColor("#705BE8"))
+        subBars.keyAxis().setSubTicks(False)
+        subBars.rescaleAxes()
+        # setup a ticker for subBars key axis that only gives integer ticks:
+        intTicker = QCPAxisTickerFixed()
+        intTicker.setTickStep(1.0)
+        intTicker.setScaleStrategy(QCPAxisTickerFixed.ssMultiples)
+        subBars.keyAxis().setTicker(intTicker)
         
     def setupColorMapDemo(self):
         # configure axis rect:
-        self.customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom) # this will also allow rescaling the color scale by dragging/zooming
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom)) # this will also allow rescaling the color scale by dragging/zooming
         self.customPlot.axisRect().setupFullAxesBox(True)
         self.customPlot.xAxis.setLabel("x")
         self.customPlot.yAxis.setLabel("y")
@@ -773,20 +1128,106 @@ class MainWindow(QMainWindow):
         
         # make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
         marginGroup = QCPMarginGroup(self.customPlot)
-        self.customPlot.axisRect().setMarginGroup(QCP.msBottom or QCP.msTop, marginGroup)
-        colorScale.setMarginGroup(QCP.msBottom or QCP.msTop, marginGroup)
+        self.customPlot.axisRect().setMarginGroup(QCP.MarginSides(QCP.msBottom | QCP.msTop), marginGroup)
+        colorScale.setMarginGroup(QCP.MarginSides(QCP.msBottom | QCP.msTop), marginGroup)
         
         # rescale the key (x) and value (y) axes so the whole color map is visible:
         self.customPlot.rescaleAxes()
 
     def setupFinancialDemo(self):
-        self.tmp = 0
+        self.demoName = "Financial Charts Demo"
+        self.customPlot.legend.setVisible(True)
+
+        # generate two sets of random walk data (one for candlestick and one for ohlc chart):
+        n = 500
+        time, value1, value2 = [], [], []
+        start = QDateTime(QDate(2014, 6, 11))
+        start.setTimeSpec(Qt.UTC)
+        startTime = start.toTime_t()
+        binSize = 3600*24 # bin data in 1 day intervals
+        time.append(startTime)
+        value1.append(60)
+        value2.append(20)
+        random.seed(9)
+        for i in range(1,n):
+            time.append(startTime + 3600*i)
+            value1.append(value1[i-1] + (random.random()-0.5)*10)
+            value2.append(value2[i-1] + (random.random()-0.5)*3)
+
+        # create candlestick chart:
+        candlesticks = QCPFinancial(self.customPlot.xAxis, self.customPlot.yAxis)
+        candlesticks.setName("Candlestick")
+        candlesticks.setChartStyle(QCPFinancial.csCandlestick)
+        candlesticks.data().set(QCPFinancial.timeSeriesToOhlc(time, value1, binSize, startTime))
+        candlesticks.setWidth(binSize*0.9)
+        candlesticks.setTwoColored(True)
+        candlesticks.setBrushPositive(QColor(245, 245, 245))
+        candlesticks.setBrushNegative(QColor(40, 40, 40))
+        candlesticks.setPenPositive(QPen(QColor(0, 0, 0)))
+        candlesticks.setPenNegative(QPen(QColor(0, 0, 0)))
+
+        # create ohlc chart:
+        ohlc = QCPFinancial(self.customPlot.xAxis, self.customPlot.yAxis)
+        ohlc.setName("OHLC")
+        ohlc.setChartStyle(QCPFinancial.csOhlc)
+        ohlc.data().set(QCPFinancial.timeSeriesToOhlc(time, value2, binSize/3.0, startTime)) # divide binSize by 3 just to make the ohlc bars a bit denser
+        ohlc.setWidth(binSize*0.2)
+        ohlc.setTwoColored(True)
+
+        # create bottom axis rect for volume bar chart:
+        volumeAxisRect = QCPAxisRect(self.customPlot)
+        self.customPlot.plotLayout().addElement(1, 0, volumeAxisRect)
+        volumeAxisRect.setMaximumSize(QSize(16777215, 100))
+        volumeAxisRect.axis(QCPAxis.atBottom).setLayer("axes")
+        volumeAxisRect.axis(QCPAxis.atBottom).grid().setLayer("grid")
+        # bring bottom and main axis rect closer together:
+        self.customPlot.plotLayout().setRowSpacing(0)
+        volumeAxisRect.setAutoMargins(QCP.MarginSides(QCP.msLeft|QCP.msRight|QCP.msBottom))
+        volumeAxisRect.setMargins(QMargins(0, 0, 0, 0))
+        # create two bar plottables, for positive (green) and negative (red) volume bars:
+        self.customPlot.setAutoAddPlottableToLegend(False)
+        volumePos = QCPBars(volumeAxisRect.axis(QCPAxis.atBottom), volumeAxisRect.axis(QCPAxis.atLeft))
+        volumeNeg = QCPBars(volumeAxisRect.axis(QCPAxis.atBottom), volumeAxisRect.axis(QCPAxis.atLeft))
+        for i in range(int(n/5)):
+            v = random.randrange(20000)+random.randrange(20000)+random.randrange(20000)-10000*3
+            if v < 0: # add data to either volumeNeg or volumePos, depending on sign of v
+                volumeNeg.addData(startTime+3600*5.0*i, math.fabs(v))
+            else:
+                volumePos.addData(startTime+3600*5.0*i, math.fabs(v))
+        volumePos.setWidth(3600*4)
+        volumePos.setPen(QPen(Qt.NoPen))
+        volumePos.setBrush(QColor(100, 180, 110))
+        volumeNeg.setWidth(3600*4)
+        volumeNeg.setPen(QPen(Qt.NoPen))
+        volumeNeg.setBrush(QBrush(QColor(180, 90, 90)))
+
+        # interconnect x axis ranges of main and bottom axis rects:
+        self.customPlot.xAxis.rangeChanged.connect(volumeAxisRect.axis(QCPAxis.atBottom).setRange)
+        volumeAxisRect.axis(QCPAxis.atBottom).rangeChanged.connect(self.customPlot.xAxis.setRange)
+        # configure axes of both main and bottom axis rect:
+        dateTimeTicker = QCPAxisTickerDateTime()
+        dateTimeTicker.setDateTimeSpec(Qt.UTC)
+        dateTimeTicker.setDateTimeFormat("dd. MMMM")
+        volumeAxisRect.axis(QCPAxis.atBottom).setTicker(dateTimeTicker)
+        volumeAxisRect.axis(QCPAxis.atBottom).setTickLabelRotation(15)
+        self.customPlot.xAxis.setBasePen(QPen(Qt.NoPen))
+        self.customPlot.xAxis.setTickLabels(False)
+        self.customPlot.xAxis.setTicks(False) # only want vertical grid in main axis rect, so hide xAxis backbone, ticks, and labels
+        self.customPlot.xAxis.setTicker(dateTimeTicker)
+        self.customPlot.rescaleAxes()
+        self.customPlot.xAxis.scaleRange(1.025, self.customPlot.xAxis.range().center())
+        self.customPlot.yAxis.scaleRange(1.1, self.customPlot.yAxis.range().center())
+
+        # make axis rects' left side line up:
+        group = QCPMarginGroup(self.customPlot)
+        self.customPlot.axisRect().setMarginGroup(QCP.MarginSides(QCP.msLeft|QCP.msRight), group)
+        volumeAxisRect.setMarginGroup(QCP.MarginSides(QCP.msLeft|QCP.msRight), group)
 
 #   void setupPlayground(QCustomPlot *customPlot)
 
     def realtimeDataSlot(self):
         #static QTime time(QTime.currentTime())
-        # calculate two new data points:
+        # calculate two data points:
         key = self.time.elapsed()/1000.0 # time elapsed since start of demo, in seconds
         if key-self.lastPointKey > 0.002: # at most add point every 2 ms
             # add data to lines:
@@ -794,7 +1235,7 @@ class MainWindow(QMainWindow):
             self.customPlot.graph(1).addData(key, math.cos(key)+random.random()*0.5*math.sin(key/0.4364))
             # rescale value (vertical) axis to fit the current data:
             #self.customPlot.graph(0).rescaleValueAxis()
-            #self.customPlot.graph(1).rescaleValueAxis(true)
+            #self.customPlot.graph(1).rescaleValueAxis(True)
             self.lastPointKey = key
         # make key axis range scroll with the data (at a constant range size of 8):
         self.customPlot.xAxis.setRange(key, 8, Qt.AlignRight)

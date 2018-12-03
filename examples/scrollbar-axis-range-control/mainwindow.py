@@ -23,7 +23,7 @@ from QCustomPlot2 import QCP
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
         super().__init__(parent)
-        loadUi("examples/scrollbar-axis-range-control/mainwindow.ui", self)
+        loadUi("mainwindow.ui", self)
 
         self.setupPlot()
 
@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
         self.plot.graph(0).setData(x, y0)
         self.plot.graph(1).setData(x, y1)
         self.plot.axisRect().setupFullAxesBox(True)
-        self.plot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom)
+        self.plot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
 
     def horzScrollBarChanged(self, value):
         if math.fabs(self.plot.xAxis.range().center()-value/100.0) > 0.01: # if user is dragging plot, we don't want to replot twice

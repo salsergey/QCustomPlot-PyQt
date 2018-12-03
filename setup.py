@@ -175,8 +175,8 @@ setup(
     ext_modules=[
         Extension(
             'QCustomPlot2',
-            ['all.sip'],
-            include_dirs=['.']
+            ['sip/all.sip'],
+            include_dirs=['.','./sip']
         ),
     ],
     requires=[

@@ -25,10 +25,10 @@ class MainWindow(QMainWindow):
 
     def __init__(self, argv, parent=None):
         super().__init__(parent)
-        loadUi("examples/interactions/mainwindow.ui", self)
+        loadUi("mainwindow.ui", self)
         
-        self.customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom or QCP.iSelectAxes  or 
-                                        QCP.iSelectLegend or QCP.iSelectPlottables)
+        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectAxes  | 
+                                        QCP.iSelectLegend | QCP.iSelectPlottables))
         self.customPlot.xAxis.setRange(-8, 8)
         self.customPlot.yAxis.setRange(-5, 5)
         self.customPlot.axisRect().setupFullAxesBox()
@@ -118,13 +118,13 @@ class MainWindow(QMainWindow):
         # make top and bottom axes be selected synchronously, and handle axis and tick labels as one selectable object:
         if (self.customPlot.xAxis.selectedParts() & QCPAxis.spAxis or self.customPlot.xAxis.selectedParts() & QCPAxis.spTickLabels or
             self.customPlot.xAxis2.selectedParts() & QCPAxis.spAxis or self.customPlot.xAxis2.selectedParts() & QCPAxis.spTickLabels):
-            self.customPlot.xAxis2.setSelectedParts(QCPAxis.spAxis or QCPAxis.spTickLabels)
-            self.customPlot.xAxis.setSelectedParts(QCPAxis.spAxis or QCPAxis.spTickLabels)
+            self.customPlot.xAxis2.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
+            self.customPlot.xAxis.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
         # make left and right axes be selected synchronously, and handle axis and tick labels as one selectable object:
         if (self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis or self.customPlot.yAxis.selectedParts() & QCPAxis.spTickLabels or
             self.customPlot.yAxis2.selectedParts() & QCPAxis.spAxis or self.customPlot.yAxis2.selectedParts() & QCPAxis.spTickLabels):
-            self.customPlot.yAxis2.setSelectedParts(QCPAxis.spAxis or QCPAxis.spTickLabels)
-            self.customPlot.yAxis.setSelectedParts(QCPAxis.spAxis or QCPAxis.spTickLabels)
+            self.customPlot.yAxis2.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
+            self.customPlot.yAxis.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
         
         # synchronize selection of graphs with selection of corresponding legend items:
         for i in range(self.customPlot.graphCount()):
@@ -197,11 +197,11 @@ class MainWindow(QMainWindow):
         menu.setAttribute(Qt.WA_DeleteOnClose)
         
         if self.customPlot.legend.selectTest(pos, False) >= 0: # context menu on legend requested
-            menu.addAction("Move to top left", self.moveLegend).setData(int(Qt.AlignTop or Qt.AlignLeft))
-            menu.addAction("Move to top center", self.moveLegend).setData(int(Qt.AlignTop or Qt.AlignHCenter))
-            menu.addAction("Move to top right", self.moveLegend).setData(int(Qt.AlignTop or Qt.AlignRight))
-            menu.addAction("Move to bottom right", self.moveLegend).setData(int(Qt.AlignBottom or Qt.AlignRight))
-            menu.addAction("Move to bottom left", self.moveLegend).setData(int(Qt.AlignBottom or Qt.AlignLeft))
+            menu.addAction("Move to top left", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignLeft))
+            menu.addAction("Move to top center", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignHCenter))
+            menu.addAction("Move to top right", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignRight))
+            menu.addAction("Move to bottom right", self.moveLegend).setData(int(Qt.AlignBottom|Qt.AlignRight))
+            menu.addAction("Move to bottom left", self.moveLegend).setData(int(Qt.AlignBottom|Qt.AlignLeft))
         else:  # general context menu on graphs requested
             menu.addAction("Add random graph", self.addRandomGraph)
             if len(self.customPlot.selectedGraphs()) > 0:
