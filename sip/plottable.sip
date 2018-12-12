@@ -42,8 +42,30 @@ public:
 class QCPAbstractPlottable : public QCPLayerable /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottable.h>
+#include <QCustomPlot/src/qcp.h>
 %End
+
+%ConvertToSubClassCode
+  QCPAbstractPlottable* plottable = qobject_cast<QCPAbstractPlottable*>(sipCpp);
+  sipType = 0;
+  if (plottable) {
+    if (qobject_cast<QCPBars*>(plottable) != 0)
+      sipType = sipType_QCPBars;
+    else if (qobject_cast<QCPColorMap*>(plottable) != 0)
+      sipType = sipType_QCPColorMap;
+    else if (qobject_cast<QCPCurve*>(plottable) != 0)
+      sipType = sipType_QCPCurve;
+    else if (qobject_cast<QCPErrorBars*>(plottable) != 0)
+      sipType = sipType_QCPErrorBars;
+    else if (qobject_cast<QCPFinancial*>(plottable) != 0)
+      sipType = sipType_QCPFinancial;
+    else if (qobject_cast<QCPGraph*>(plottable) != 0)
+      sipType = sipType_QCPGraph;
+    else if (qobject_cast<QCPStatisticalBox*>(plottable) != 0)
+      sipType = sipType_QCPStatisticalBox;
+  }
+%End
+
 public:
   QCPAbstractPlottable(QCPAxis *keyAxis, QCPAxis *valueAxis);
   virtual ~QCPAbstractPlottable();

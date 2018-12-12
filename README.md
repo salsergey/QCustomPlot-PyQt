@@ -28,7 +28,7 @@ There are myriads of Python charting libraries out there, and each may even have
 
 ## Getting started
 
-First install the package via pip:
+First install the package via our favourite package manager:
 
 ```sh
 $ pip install QCustomPlot2
@@ -59,7 +59,7 @@ graph0.setData(x, y0)
 graph1.setData(x, y1)
 
 customPlot.rescaleAxes()
-customPlot.setInteractions(QCP.iRangeDrag or QCP.iRangeZoom or QCP.iSelectPlottable)
+customPlot.setInteractions(QCPInteractions(QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectPlottable))
 ```
 
 That's all!
@@ -78,6 +78,7 @@ Beside the examples below, you may want to check the [documentation](https://www
 
 The following compilers are known to work:
 
+- MSVC 140, 141
 - GCC 4.8
 - Clang 3.4
 
@@ -114,7 +115,7 @@ This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) 
 
 ## Contact
 
-If you have questions regarding the library, I would like to invite you to [open an issue at GitHub](https://github.com/cjgdev/QCustomPlot2-PyQt5/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate. For instance, I have little experience with MSVC, and most issues in this regard have been solved by a growing community. If you have a look at the [closed issues](https://github.com/cjgdev/QCustomPlot2-PyQt5/issues?q=is%3Aissue+is%3Aclosed), you will see that we react quite timely in most cases.
+If you have questions regarding the library, I would like to invite you to [open an issue at GitHub](https://github.com/cjgdev/QCustomPlot2-PyQt5/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
 
 
 ## Thanks
@@ -147,8 +148,88 @@ None.
 
 ## Building
 
-To compile you need to execute:
+### Windows
+
+Windows users may use [chocolatey](https://chocolatey.org/) and follow the instructions below for fetching the necessary packages needed to build the library, otherwise you will need to adapt the steps for your own environment.
+
+```PowerShell
+# Fetch the necessary development tools and libraries
+choco install visualstudio2017buildtools python3 git jom pyqt5 qt-sdk
+
+# Activate Qt 5.x tools and libraries
+Push-Location
+"C:\Qt\5.11.1\msvc2017_64\bin\qtenv2.bat"
+Pop-Location
+
+# Activate Visual Studio build tools for x64
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsall.bat" x64
+
+# Clone the repository and submodules
+git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+
+# Build
+python setup.py build
+
+# Zzz..
+
+# Install
+python setup.py install
+```
+
+
+### Linux
+
+Apt users (Debian, Ubuntu, etc) may follow the instructions below, users of other distributions may adapt the steps below for your own package manager.
 
 ```sh
+# Fetch the necessary development tools and libraries
+$ apt-get install build-essential python3-pyqt5 pyqt5-dev-tools qttools5-dev-tools
+
+# Clone the repository and submodules
+$ git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+
+# Build
 $ CFLAGS=-std=c++11 CXXFLAGS=-std=c++11 python setup.py build
+
+# Zzz..
+
+# Install
+$ python setup.py install
+```
+
+
+### macOS
+
+Users of macOS using [homebrew](https://brew.sh/) may follow the instructions below to fetch the required packages to build the library, or simply adapt to your own environment.
+
+```sh
+# First ensure Xcode is installed, as homebrew depends on it
+$ xcode-select --install
+
+# Fetch the necessary development tools and libraries
+$ brew install qt --devel sip --without-python@2 pyqt --without-python@2
+
+# Clone the repository and submodules
+$ git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+
+# Build
+$ CFLAGS=-std=c++11 CXXFLAGS=-std=c++11 python3 setup.py build
+
+# Zzz..
+
+# Install
+$ python3 setup.py install
+```
+
+
+### Custom build options
+
+If you need to override the paths for any reason, the way to do that is by modifying setup.cfg to match your environment. You will need to add a section as below, substituting everything between ``<<`` and ``>>`` with the correct paths.
+
+```ini
+[build_ext]
+qmake = <<PATH_TO>>\qmake.exe
+qt-include-dir = <<QT_INCLUDE_DIR>>\include
+qt-library-dir = <<QT_LIBRARY_DIR>>\lib
+make = <<PATH_TO>>\jom.exe
 ```

@@ -28,7 +28,22 @@ public:
 class QCPLayoutElement : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layout.h>
+#include <QCustomPlot/src/qcp.h>
+%End
+
+%ConvertToSubClassCode
+  QCPLayoutElement* element = qobject_cast<QCPLayoutElement*>(sipCpp);
+  sipType = 0;
+  if (element) {
+    if (qobject_cast<QCPAxisRect*>(element) != 0)
+      sipType = sipType_QCPAxisRect;
+    else if (qobject_cast<QCPColorScale*>(element) != 0)
+      sipType = sipType_QCPColorScale;
+    else if (qobject_cast<QCPLegend*>(element) != 0)
+      sipType = sipType_QCPLegend;
+    else if (qobject_cast<QCPTextElement*>(element) != 0)
+      sipType = sipType_QCPTextElement;
+  }
 %End
 
 public:

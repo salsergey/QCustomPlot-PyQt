@@ -39,6 +39,13 @@ class QCPAxis : public QCPLayerable
 %TypeHeaderCode
 #include <QCustomPlot/src/qcp.h>
 %End
+
+%ConvertToSubClassCode
+  sipType = 0;
+  if (qobject_cast<QCPAxis*>(sipCpp))
+    sipType = sipType_QCPAxis;
+%End
+
 public:
   enum AxisType { atLeft    = 0x01  ///< <tt>0x01</tt> Axis is vertical and on the left side of the axis rect
                   ,atRight  = 0x02  ///< <tt>0x02</tt> Axis is vertical and on the right side of the axis rect
@@ -122,10 +129,6 @@ public:
   void setRangeUpper(double upper);
   void setRangeReversed(bool reversed);
   void setTicker(QCPAxisTicker* ticker /Transfer/);
-  %Docstring(format = "deindented", signature = "prepended")
-    Set a new ticker on the axis. Ownership of the ticker is transferred to the axis
-    and cannot be taken back.
-  %End
   %MethodCode
     sipCpp->setTicker(QSharedPointer<QCPAxisTicker>(a0));
   %End

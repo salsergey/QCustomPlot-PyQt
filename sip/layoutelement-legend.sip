@@ -12,6 +12,15 @@ class QCPAbstractLegendItem : public QCPLayoutElement /Abstract/
 %TypeHeaderCode
 #include <QCustomPlot/src/qcp.h>
 %End
+
+%ConvertToSubClassCode
+  sipType = 0;
+  if (qobject_cast<QCPPlottableLegendItem*>(sipCpp))
+    sipType = sipType_QCPPlottableLegendItem;
+  else if (qobject_cast<QCPAbstractLegendItem*>(sipCpp))
+    sipType = sipType_QCPAbstractLegendItem;
+%End
+
 public:
   explicit QCPAbstractLegendItem(QCPLegend *parent /TransferThis/);
 

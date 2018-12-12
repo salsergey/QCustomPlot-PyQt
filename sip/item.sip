@@ -75,8 +75,34 @@ public:
 class QCPAbstractItem : public QCPLayerable /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/item.h>
+#include <QCustomPlot/src/qcp.h>
 %End
+
+%ConvertToSubClassCode
+  QCPAbstractItem* item = qobject_cast<QCPAbstractItem*>(sipCpp);
+  sipType = 0;
+  if (item) {
+    if (qobject_cast<QCPItemBracket*>(item) != 0)
+      sipType = sipType_QCPItemBracket;
+    else if (qobject_cast<QCPItemCurve*>(item) != 0)
+      sipType = sipType_QCPItemCurve;
+    else if (qobject_cast<QCPItemEllipse*>(item) != 0)
+      sipType = sipType_QCPItemEllipse;
+    else if (qobject_cast<QCPItemLine*>(item) != 0)
+      sipType = sipType_QCPItemLine;
+    else if (qobject_cast<QCPItemPixmap*>(item) != 0)
+      sipType = sipType_QCPItemPixmap;
+    else if (qobject_cast<QCPItemRect*>(item) != 0)
+      sipType = sipType_QCPItemRect;
+    else if (qobject_cast<QCPItemStraightLine*>(item) != 0)
+      sipType = sipType_QCPItemStraightLine;
+    else if (qobject_cast<QCPItemText*>(item) != 0)
+      sipType = sipType_QCPItemText;
+    else if (qobject_cast<QCPItemTracer*>(item) != 0)
+      sipType = sipType_QCPItemTracer;
+  }
+%End
+
 public:
   explicit QCPAbstractItem(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPAbstractItem();

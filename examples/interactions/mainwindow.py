@@ -18,7 +18,7 @@ from PyQt5.uic import loadUi
 
 import QCustomPlot2
 
-from QCustomPlot2 import QCPTextElement, QCPAxis, QCPDataSelection, QCPLegend, QCPPlottableLegendItem, QCPScatterStyle, QCP
+from QCustomPlot2 import *
 
 
 class MainWindow(QMainWindow):
@@ -75,10 +75,7 @@ class MainWindow(QMainWindow):
         self.customPlot.customContextMenuRequested.connect(self.contextMenuRequest)
 
     def titleDoubleClick(self, event):
-        try:
-            title = QCPTextElement(self.sender())
-        except (ValueError, TypeError):
-            title = None
+        title = self.sender()
         if not title is None:
             # Set the plot title by double clicking on it
             newTitle, ok = QInputDialog.getText(self, "QCustomPlot example", "New plot title:", QLineEdit.Normal, title.text())
@@ -97,10 +94,9 @@ class MainWindow(QMainWindow):
     def legendDoubleClick(self, legend, item):
         # Rename a graph by double clicking on its legend item
         if not item is None: # only react if item was clicked (user could have clicked on border padding of legend where there is no item, then item is 0)
-            plItem = QCPPlottableLegendItem(item)
-            newName, ok = QInputDialog.getText(self, "QCustomPlot example", "New graph name:", QLineEdit.Normal, plItem.plottable().name())
+            newName, ok = QInputDialog.getText(self, "QCustomPlot example", "New graph name:", QLineEdit.Normal, item.plottable().name())
             if ok:
-                plItem.plottable().setName(newName)
+                item.plottable().setName(newName)
                 self.customPlot.replot()
 
     def selectionChanged(self):
@@ -143,7 +139,7 @@ class MainWindow(QMainWindow):
         elif self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis:
             self.customPlot.axisRect().setRangeDrag(self.customPlot.yAxis.orientation())
         else:
-            self.customPlot.axisRect().setRangeDrag(Qt.Horizontal or Qt.Vertical)
+            self.customPlot.axisRect().setRangeDrag(Qt.Orientations(Qt.Horizontal | Qt.Vertical))
 
     def mouseWheel(self):
         # if an axis is selected, only allow the direction of that axis to be zoomed
@@ -154,7 +150,7 @@ class MainWindow(QMainWindow):
         elif self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis:
             self.customPlot.axisRect().setRangeZoom(self.customPlot.yAxis.orientation())
         else:
-            self.customPlot.axisRect().setRangeZoom(Qt.Horizontal or Qt.Vertical)
+            self.customPlot.axisRect().setRangeDrag(Qt.Orientations(Qt.Horizontal | Qt.Vertical))
 
     def addRandomGraph(self):
         n = 50 # number of points in graph
@@ -184,8 +180,8 @@ class MainWindow(QMainWindow):
         self.customPlot.replot()
 
     def removeSelectedGraph(self):
-        if self.customPlot.selectedGraphs().size() > 0:
-            self.customPlot.removeGraph(self.customPlot.selectedGraphs().first())
+        if len(self.customPlot.selectedGraphs()) > 0:
+            self.customPlot.removeGraph(self.customPlot.selectedGraphs()[0])
             self.customPlot.replot()
 
     def removeAllGraphs(self):
@@ -212,15 +208,8 @@ class MainWindow(QMainWindow):
         menu.popup(self.customPlot.mapToGlobal(pos))
 
     def moveLegend(self):
-        try:
-            contextAction = QAction(self.sender())
-        except (ValueError, TypeError):
-            contextAction = None
-        if not contextAction is None: # make sure self slot is really called by a context menu action, so it carries the data we need
-            dataInt, ok = contextAction.data().toInt()
-            if ok:
-                self.customPlot.axisRect().insetLayout().setInsetAlignment(0, dataInt)
-                self.customPlot.replot()
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(self.sender().data()))
+        self.customPlot.replot()
 
     def graphClicked(self, plottable, dataIndex):
         # since we know we only have QCPGraphs in the plot, we can immediately access interface1D()

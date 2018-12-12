@@ -11,8 +11,28 @@
 class QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axisticker.h>
+#include <QCustomPlot/src/qcp.h>
 %End
+
+%ConvertToSubClassCode
+  QCPAxisTicker* ticker = dynamic_cast<QCPAxisTicker*>(sipCpp);
+  sipType = 0;
+  if (ticker) {
+    if (dynamic_cast<QCPAxisTickerDateTime*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerDateTime;
+    else if (dynamic_cast<QCPAxisTickerFixed*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerFixed;
+    else if (dynamic_cast<QCPAxisTickerLog*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerLog;
+    else if (dynamic_cast<QCPAxisTickerPi*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerPi;
+    else if (dynamic_cast<QCPAxisTickerText*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerText;
+    else if (dynamic_cast<QCPAxisTickerTime*>(ticker) != 0)
+      sipType = sipType_QCPAxisTickerTime;
+  }
+%End
+
 public:
   enum TickStepStrategy
   {
