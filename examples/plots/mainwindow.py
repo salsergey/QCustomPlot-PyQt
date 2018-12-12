@@ -151,12 +151,11 @@ class MainWindow(QMainWindow):
         self.customPlot.graph(3).setLineStyle(QCPGraph.lsNone)
         self.customPlot.graph(3).setScatterStyle(QCPScatterStyle(QCPScatterStyle.ssCross, 4))
         # add error bars:
-        # TODO
-        #errorBars = QCPErrorBars(self.customPlot.xAxis, self.customPlot.yAxis)
-        #errorBars.removeFromLegend()
-        #errorBars.setAntialiased(False)
-        #errorBars.setDataPlottable(self.customPlot.graph(3))
-        #errorBars.setPen(QPen(QColor(180,180,180)))
+        errorBars = QCPErrorBars(self.customPlot.xAxis, self.customPlot.yAxis)
+        errorBars.removeFromLegend()
+        errorBars.setAntialiased(False)
+        errorBars.setDataPlottable(self.customPlot.graph(3))
+        errorBars.setPen(QPen(QColor(180,180,180)))
         self.customPlot.graph(3).setName("Measurement")
         
         # generate ideal sinc curve data and some randomly perturbed data for scatter plot:
@@ -178,14 +177,13 @@ class MainWindow(QMainWindow):
             x1.append((i/50.0-0.5)*30+0.25)
             y1.append(math.sin(x1[i])/x1[i]+r*0.15)
             x1[i] *= 1000
-            y1err.append(0.15)
+            y1err.append(QCPErrorBarsData(0.15))
         # pass data to graphs and let QCustomPlot determine the axes ranges so the whole thing is visible:
         self.customPlot.graph(0).setData(x0, yConfUpper)
         self.customPlot.graph(1).setData(x0, yConfLower)
         self.customPlot.graph(2).setData(x0, y0)
         self.customPlot.graph(3).setData(x1, y1)
-        # TODO
-        #errorBars.setData(y1err)
+        errorBars.setData(y1err)
         self.customPlot.graph(2).rescaleAxes()
         self.customPlot.graph(3).rescaleAxes(True)
         # setup look of bottom tick labels:
@@ -434,10 +432,9 @@ class MainWindow(QMainWindow):
         self.customPlot.graph(1).setLineStyle(QCPGraph.lsStepCenter)
         self.customPlot.graph(1).setScatterStyle(QCPScatterStyle(QCPScatterStyle.ssCircle, Qt.red, Qt.white, 7))
         self.customPlot.graph(1).setName("Bottom maxwell function")
-        # TODO
-        #errorBars = QCPErrorBars(self.customPlot.xAxis, self.customPlot.yAxis)
-        #errorBars.removeFromLegend()
-        #errorBars.setDataPlottable(self.customPlot.graph(1))
+        errorBars = QCPErrorBars(self.customPlot.xAxis, self.customPlot.yAxis)
+        errorBars.removeFromLegend()
+        errorBars.setDataPlottable(self.customPlot.graph(1))
 
         # setup for graph 2: key axis top, value axis right
         # will contain high frequency sine with low frequency beating:
@@ -475,7 +472,7 @@ class MainWindow(QMainWindow):
         for i in range(15): # data for graph 1
             x1.append(3*i/15.0)
             y1.append(math.exp(-x1[i]*x1[i])*(x1[i]*x1[i])*2.6)
-            y1err.append(y1[i]*0.25)
+            y1err.append(QCPErrorBarsData(y1[i]*0.25))
         for i in range(250): # data for graphs 2, 3 and 4
             x2.append(i/250.0*3*math.pi)
             x3.append(x2[i])
@@ -487,8 +484,7 @@ class MainWindow(QMainWindow):
         # pass data points to graphs:
         self.customPlot.graph(0).setData(x0, y0)
         self.customPlot.graph(1).setData(x1, y1)
-        # TODO
-        #errorBars.setData(y1err)
+        errorBars.setData(y1err)
         self.customPlot.graph(2).setData(x2, y2)
         self.customPlot.graph(3).setData(x3, y3)
         self.customPlot.graph(4).setData(x4, y4)
