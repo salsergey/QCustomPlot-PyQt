@@ -15,22 +15,19 @@ class QCPAxisTicker
 %End
 
 %ConvertToSubClassCode
-  QCPAxisTicker* ticker = dynamic_cast<QCPAxisTicker*>(sipCpp);
   sipType = 0;
-  if (ticker) {
-    if (dynamic_cast<QCPAxisTickerDateTime*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerDateTime;
-    else if (dynamic_cast<QCPAxisTickerFixed*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerFixed;
-    else if (dynamic_cast<QCPAxisTickerLog*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerLog;
-    else if (dynamic_cast<QCPAxisTickerPi*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerPi;
-    else if (dynamic_cast<QCPAxisTickerText*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerText;
-    else if (dynamic_cast<QCPAxisTickerTime*>(ticker) != 0)
-      sipType = sipType_QCPAxisTickerTime;
-  }
+  if (dynamic_cast<QCPAxisTickerDateTime*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerDateTime;
+  else if (dynamic_cast<QCPAxisTickerFixed*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerFixed;
+  else if (dynamic_cast<QCPAxisTickerLog*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerLog;
+  else if (dynamic_cast<QCPAxisTickerPi*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerPi;
+  else if (dynamic_cast<QCPAxisTickerText*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerText;
+  else if (dynamic_cast<QCPAxisTickerTime*>(sipCpp) != 0)
+    sipType = sipType_QCPAxisTickerTime;
 %End
 
 public:

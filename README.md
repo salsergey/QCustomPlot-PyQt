@@ -213,7 +213,7 @@ $ brew install qt --devel sip --without-python@2 pyqt --without-python@2
 $ git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
 
 # Build
-$ CFLAGS=-std=c++11 CXXFLAGS=-std=c++11 python3 setup.py build
+$ CFLAGS='-std=c++11 -stdlib=libc++' CXXFLAGS='-std=c++11 -stdlib=libc++' python3 setup.py build
 
 # Zzz..
 
