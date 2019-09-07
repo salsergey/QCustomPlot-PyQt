@@ -1,20 +1,15 @@
 # QCustomPlot2-PyQt5
 
 - [Design goals](#design-goals)
+- [Installing](#installing)
 - [Getting started](#getting-started)
 - [Examples](#examples)
-  - [Interactions](#interactions)
-  - [Plots](#plots)
-  - [QtQuick QML](#qtquick-qml)
-  - [Scrollbars](#scrollbars)
-  - [Text Document Integration](#text-document-integration)
 - [Supported compilers](#supported-compilers)
 - [License](#license)
 - [Contact](#contact)
 - [Thanks](#thanks)
 - [Used third-party tools](#used-third-party-tools)
 - [Projects using](#projects-using)
-- [Notes](#notes)
 - [Building](#building)
 
 ## Design goals
@@ -26,13 +21,22 @@ There are myriads of Python charting libraries out there, and each may even have
 - **Flexibility**. QCustomPlot is one of the most customisable libraries available, with a wide range of supported graph types and full control over how the graph is rendered.
 
 
-## Getting started
+## Installing
 
-First install the package via our favourite package manager:
+### Linux
+
+You can find compiled packages for many Linux distributions at [OBS](https://software.opensuse.org//download.html?project=home%3Asergeyopensuse%3Agpxviewer&package=python-qcustomplot2).
+
+### Windows
+
+Install the package via our favourite package manager:
 
 ```sh
 $ pip install QCustomPlot2
 ```
+
+
+## Getting started
 
 Now let's take a look at some code:
 
@@ -84,15 +88,6 @@ The following compilers are known to work:
 
 I would be happy to learn about other compilers/versions.
 
-Please note:
-
-The following compilers are currently used in continuous integration at [Travis](https://travis-ci.org/cjgdev/QCustomPlot2-PyQt5) and [AppVeyor](https://ci.appveyor.com/project/cjgdev/QCustomPlot2-PyQt5):
-
-| Compiler        | Operating System             | Version String |
-|-----------------|------------------------------|----------------|
-| GCC 4.8.5       | CentOS 7                     | gcc version 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC)  |
-| Clang Xcode 10.0 | OSX 10.13.3                 | Apple LLVM version 10.0.0 (clang-1000.11.45.2) |
-
 
 ## License
 
@@ -100,13 +95,13 @@ The following compilers are currently used in continuous integration at [Travis]
 
 This code is licensed under the [MIT License](http://opensource.org/licenses/MIT):
 
-Copyright &copy; 2017-2018 Dmitry Voronin and [Christopher Gilbert](https://github.com/cjgdev/)
+Copyright &copy; 2017-2019 Dmitry Voronin, Christopher Gilbert and [Sergey Salnikov](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * *
 
@@ -115,7 +110,7 @@ This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) 
 
 ## Contact
 
-If you have questions regarding the library, I would like to invite you to [open an issue at GitHub](https://github.com/cjgdev/QCustomPlot2-PyQt5/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
+If you have questions regarding the library, I would like to invite you to [open an issue at OSDN](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5/ticket/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
 
 
 ## Thanks
@@ -124,9 +119,9 @@ I deeply appreciate the help of the following people.
 
 - [DerManu](https://gitlab.com/DerManu) is the official author and maintainer of the excellent QCustomPlot library.
 - [dimv36](https://github.com/dimv36) is the original author of the Python bindings for QCustomPlot 1.0.0, upon which this project is based.
-- [cowo78](https://github.com/cowo78) added support for the QCustomPlot 2.0.0 API.
+- [cowo78](https://github.com/cowo78) and [cjgdev](https://github.com/cjgdev) added support for the QCustomPlot 2.0.0 API.
 
-Thanks a lot for helping out! Please [let me know](mailto:mail@nlohmann.me) if I forgot someone.
+Thanks a lot for helping out! Please [let me know](mailto:salsergey@gmail.com) if I forgot someone.
 
 
 ## Used third-party tools
@@ -138,44 +133,12 @@ This library is built, tested, documented, and whatnot using third-party tools a
 
 ## Projects using
 
+- [**GPX Viewer**](https://osdn.net/projects/gpxviewer/) --- an application for viewing GPX files as a list of points and tracks.
+
 If you are using QCustomPlot2-PyQt5 in a project and would like to share with the community, please let me know, or even better, raise a pull request.
 
 
-## Notes
-
-None.
-
-
-## Building
-
-### Windows
-
-Windows users may use [chocolatey](https://chocolatey.org/) and follow the instructions below for fetching the necessary packages needed to build the library, otherwise you will need to adapt the steps for your own environment.
-
-```PowerShell
-# Fetch the necessary development tools and libraries
-choco install visualstudio2017buildtools python3 git jom pyqt5 qt-sdk
-
-# Activate Qt 5.x tools and libraries
-Push-Location
-"C:\Qt\5.11.1\msvc2017_64\bin\qtenv2.bat"
-Pop-Location
-
-# Activate Visual Studio build tools for x64
-"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsall.bat" x64
-
-# Clone the repository and submodules
-git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
-
-# Build
-python setup.py build
-
-# Zzz..
-
-# Install
-python setup.py install
-```
-
+## Building from sources
 
 ### Linux
 
@@ -195,6 +158,31 @@ $ CFLAGS=-std=c++11 CXXFLAGS=-std=c++11 python setup.py build
 
 # Install
 $ python setup.py install
+```
+
+
+### Windows
+
+Windows users should install [Qt tools](https://www.qt.io/), appropriate version of [VC compiler](https://visualstudio.microsoft.com/), [Python](https://www.python.org/), [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and [SIP](https://www.riverbankcomputing.com/software/sip/download). You may need to build SIP from sources to ensure you have all files necessary for building other software. Then follow the instructions below to build the library, otherwise you will need to adapt the steps for your own environment.
+
+- Download QCustomPlot2 sources from [OSDN](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5). You can use git or download an archive.
+- Launch Qt console and follow instructions there. It will ensure that you have all necessary tools in your PATH variable. Also be sure that python.exe binary is in your PATH.
+- Then follow these instructions:
+
+```cmd
+# Go to QCustomPlot2 folder
+cd <<PATH_TO QCustomPlot2-PyQt5>>
+
+# Download submodules if you use git
+git submodules update --init
+
+# Build
+python setup.py build
+
+# Zzz..
+
+# Install
+python setup.py install
 ```
 
 
