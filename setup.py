@@ -211,7 +211,6 @@ setup(
         'sipconfig',
         'PyQt5'
     ],
-    install_requires=['PyQt5'],
     ext_modules=[
         Extension(
             'QCustomPlot2',
