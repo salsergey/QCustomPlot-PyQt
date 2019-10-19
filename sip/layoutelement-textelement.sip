@@ -51,4 +51,18 @@ signals:
   void selectableChanged(bool selectable);
   void clicked(QMouseEvent *event);
   void doubleClicked(QMouseEvent *event);
+
+protected:
+  // reimplemented virtual methods:
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
+  virtual QSize minimumOuterSizeHint() const;
+  virtual QSize maximumOuterSizeHint() const;
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
+
+  // non-virtual methods:
+  QFont mainFont() const;
+  QColor mainTextColor() const;
 };

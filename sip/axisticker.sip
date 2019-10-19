@@ -53,6 +53,21 @@ public:
   // introduced virtual methods:
   virtual void generate(const QCPRange &range, const QLocale &locale, QChar formatChar, int precision, QVector<double> &ticks, QVector<double> *subTicks, QVector<QString> *tickLabels);
 
+protected:
+  // introduced virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QString getTickLabel(double tick, const QLocale &locale, QChar formatChar, int precision);
+  virtual QVector<double> createTickVector(double tickStep, const QCPRange &range);
+  virtual QVector<double> createSubTickVector(int subTickCount, const QVector<double> &ticks);
+  virtual QVector<QString> createLabelVector(const QVector<double> &ticks, const QLocale &locale, QChar formatChar, int precision);
+
+  // non-virtual methods:
+  void trimTicks(const QCPRange &range, QVector<double> &ticks, bool keepOneOutlier) const;
+  double pickClosest(double target, const QVector<double> &candidates) const;
+  double getMantissa(double input, double *magnitude=0) const;
+  double cleanMantissa(double input) const;
+
 private:
   QCPAxisTicker(const QCPAxisTicker&);
   QCPAxisTicker& operator=(const QCPAxisTicker&);

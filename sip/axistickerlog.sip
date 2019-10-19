@@ -23,4 +23,10 @@ public:
   // setters:
   void setLogBase(double base);
   void setSubTickCount(int subTicks);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QVector<double> createTickVector(double tickStep, const QCPRange &range);
 };

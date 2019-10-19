@@ -53,4 +53,9 @@ public:
   QCPRange valueRange(bool &foundRange, QCP::SignDomain signDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange());
   QCPDataRange dataRange() const;
   //void limitIteratorsToDataRange(const_iterator &begin, const_iterator &end, const QCPDataRange &dataRange) const;
+
+protected:
+  // non-virtual methods:
+  void preallocateGrow(int minimumPreallocSize);
+  void performAutoSqueeze();
 };

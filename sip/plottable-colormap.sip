@@ -48,6 +48,9 @@ public:
   bool isEmpty() const;
   void coordToCell(double key, double value, int *keyIndex, int *valueIndex) const;
   void cellToCoord(int keyIndex, int valueIndex, double *key, double *value) const;
+
+protected:
+  bool createAlpha(bool initializeOpaque=true);
 };
 
 
@@ -91,4 +94,12 @@ signals:
   void dataRangeChanged(const QCPRange &newRange);
   void dataScaleTypeChanged(QCPAxis::ScaleType scaleType);
   void gradientChanged(const QCPColorGradient &newGradient);
+
+protected:
+  // introduced virtual methods:
+  virtual void updateMapImage();
+
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual void drawLegendIcon(QCPPainter *painter, const QRectF &rect) const;
 };

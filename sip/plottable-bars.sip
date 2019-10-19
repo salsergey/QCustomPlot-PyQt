@@ -39,6 +39,15 @@ public:
   void append(QCPBars *bars);
   void insert(int i, QCPBars *bars);
   void remove(QCPBars *bars);
+
+protected:
+  // non-virtual methods:
+  void registerBars(QCPBars *bars);
+  void unregisterBars(QCPBars *bars);
+
+  // virtual methods:
+  double keyPixelOffset(const QCPBars *bars, double keyCoord);
+  double getPixelSpacing(const QCPBars *bars, double keyCoord);
 };
 
 
@@ -118,6 +127,18 @@ public:
   virtual QCPRange getKeyRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth) const;
   virtual QCPRange getValueRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange()) const;
   virtual QPointF dataPixelPosition(int index) const;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual void drawLegendIcon(QCPPainter *painter, const QRectF &rect) const;
+
+  // non-virtual methods:
+//   void getVisibleDataBounds(QCPBarsDataContainer::const_iterator &begin, QCPBarsDataContainer::const_iterator &end) const;
+  QRectF getBarRect(double key, double value) const;
+  void getPixelWidth(double key, double &lower, double &upper) const;
+  double getStackedBaseValue(double key, bool positive) const;
+  static void connectBars(QCPBars* lower, QCPBars* upper);
 };
 
 

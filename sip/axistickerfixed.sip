@@ -28,4 +28,8 @@ public:
   // setters:
   void setTickStep(double step);
   void setScaleStrategy(ScaleStrategy strategy);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
 };

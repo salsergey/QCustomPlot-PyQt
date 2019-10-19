@@ -30,4 +30,12 @@ public:
   
   QCPItemPosition * point1 /NoSetter/;
   QCPItemPosition * point2 /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+
+  // non-virtual methods:
+  QLineF getRectClippedStraightLine(const QCPVector2D &point1, const QCPVector2D &vec, const QRect &rect) const;
+  QPen mainPen() const;
 };

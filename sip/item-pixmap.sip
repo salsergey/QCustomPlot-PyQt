@@ -42,4 +42,14 @@ public:
   QCPItemAnchor * bottom /NoSetter/;
   QCPItemAnchor * bottomLeft /NoSetter/;
   QCPItemAnchor * left /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual QPointF anchorPixelPosition(int anchorId) const;
+
+  // non-virtual methods:
+  void updateScaledPixmap(QRect finalRect=QRect(), bool flipHorz=false, bool flipVert=false);
+  QRect getFinalRect(bool *flippedHorz=0, bool *flippedVert=0) const;
+  QPen mainPen() const;
 };

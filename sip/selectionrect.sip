@@ -35,4 +35,15 @@ signals:
   void changed(const QRect &rect, QMouseEvent *event);
   void canceled(const QRect &rect, QInputEvent *event);
   void accepted(const QRect &rect, QMouseEvent *event);
+
+protected:
+  // introduced virtual methods:
+  virtual void startSelection(QMouseEvent *event);
+  virtual void moveSelection(QMouseEvent *event);
+  virtual void endSelection(QMouseEvent *event);
+  virtual void keyPressEvent(QKeyEvent *event);
+
+  // reimplemented virtual methods
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
 };

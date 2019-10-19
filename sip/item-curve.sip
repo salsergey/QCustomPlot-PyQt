@@ -36,4 +36,11 @@ public:
   QCPItemPosition * startDir /NoSetter/;
   QCPItemPosition * endDir /NoSetter/;
   QCPItemPosition * end /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+
+  // non-virtual methods:
+  QPen mainPen() const;
 };

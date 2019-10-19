@@ -160,4 +160,40 @@ signals:
   void selectionChangedByUser();
   void beforeReplot();
   void afterReplot();
+
+protected:
+  // reimplemented virtual methods:
+  virtual QSize minimumSizeHint() const;
+  virtual QSize sizeHint() const;
+  virtual void paintEvent(QPaintEvent *event);
+  virtual void resizeEvent(QResizeEvent *event);
+  virtual void mouseDoubleClickEvent(QMouseEvent *event);
+  virtual void mousePressEvent(QMouseEvent *event);
+  virtual void mouseMoveEvent(QMouseEvent *event);
+  virtual void mouseReleaseEvent(QMouseEvent *event);
+  virtual void wheelEvent(QWheelEvent *event);
+
+  // introduced virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual void updateLayout();
+  virtual void axisRemoved(QCPAxis *axis);
+  virtual void legendRemoved(QCPLegend *legend);
+  Q_SLOT virtual void processRectSelection(QRect rect, QMouseEvent *event);
+  Q_SLOT virtual void processRectZoom(QRect rect, QMouseEvent *event);
+  Q_SLOT virtual void processPointSelection(QMouseEvent *event);
+
+  // non-virtual methods:
+  bool registerPlottable(QCPAbstractPlottable *plottable);
+  bool registerGraph(QCPGraph *graph);
+  bool registerItem(QCPAbstractItem* item);
+  void updateLayerIndices() const;
+  QCPLayerable *layerableAt(const QPointF &pos, bool onlySelectable, QVariant *selectionDetails=0) const;
+  QList<QCPLayerable*> layerableListAt(const QPointF &pos, bool onlySelectable, QList<QVariant> *selectionDetails=0) const;
+  void drawBackground(QCPPainter *painter);
+  void setupPaintBuffers();
+//   TODO: unsupported function return type
+//   QCPAbstractPaintBuffer *createPaintBuffer();
+  bool hasInvalidatedPaintBuffers();
+  bool setupOpenGl();
+  void freeOpenGl();
 };

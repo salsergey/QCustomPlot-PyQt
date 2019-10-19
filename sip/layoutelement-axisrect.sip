@@ -81,4 +81,20 @@ public:
   // reimplemented virtual methods:
   virtual void update(UpdatePhase phase);
   virtual QList<QCPLayoutElement*> elements(bool recursive) const;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
+  virtual int calculateAutoMargin(QCP::MarginSide side);
+  virtual void layoutChanged();
+  // events:
+  virtual void mousePressEvent(QMouseEvent *event, const QVariant &details);
+  virtual void mouseMoveEvent(QMouseEvent *event, const QPointF &startPos);
+  virtual void mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos);
+  virtual void wheelEvent(QWheelEvent *event);
+
+  // non-property methods:
+  void drawBackground(QCPPainter *painter);
+  void updateAxesOffset(QCPAxis::AxisType type);
 };

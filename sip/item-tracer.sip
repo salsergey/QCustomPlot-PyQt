@@ -53,4 +53,12 @@ public:
   void updatePosition();
 
   QCPItemPosition * position /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+
+  // non-virtual methods:
+  QPen mainPen() const;
+  QBrush mainBrush() const;
 };

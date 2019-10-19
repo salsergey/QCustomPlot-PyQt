@@ -20,6 +20,16 @@ public:
   // getters:
   QString name() const;
   virtual QPointF pixelPosition() const;
+
+protected:
+  // introduced virtual methods:
+  virtual QCPItemPosition *toQCPItemPosition();
+
+  // non-virtual methods:
+  void addChildX(QCPItemPosition* pos); // called from pos when this anchor is set as parent
+  void removeChildX(QCPItemPosition *pos); // called from pos when its parent anchor is reset or pos deleted
+  void addChildY(QCPItemPosition* pos); // called from pos when this anchor is set as parent
+  void removeChildY(QCPItemPosition *pos); // called from pos when its parent anchor is reset or pos deleted
 };
 
 
@@ -69,6 +79,10 @@ public:
   void setAxes(QCPAxis* keyAxis, QCPAxis* valueAxis);
   void setAxisRect(QCPAxisRect *axisRect);
   void setPixelPosition(const QPointF &pixelPosition);
+
+protected:
+  // reimplemented virtual methods:
+  virtual QCPItemPosition *toQCPItemPosition();
 };
 
 
@@ -132,4 +146,22 @@ public:
 signals:
   void selectionChanged(bool selected);
   void selectableChanged(bool selectable);
+
+protected:
+  // reimplemented virtual methods:
+  virtual QCP::Interaction selectionCategory() const;
+  virtual QRect clipRect() const;
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter) = 0;
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
+
+  // introduced virtual methods:
+  virtual QPointF anchorPixelPosition(int anchorId) const;
+
+  // non-virtual methods:
+  double rectDistance(const QRectF &rect, const QPointF &pos, bool filledRect) const;
+  QCPItemPosition *createPosition(const QString &name);
+  QCPItemAnchor *createAnchor(const QString &name, int anchorId);
 };

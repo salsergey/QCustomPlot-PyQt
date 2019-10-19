@@ -29,4 +29,11 @@ public:
   static QDateTime keyToDateTime(double key);
   static double dateTimeToKey(const QDateTime dateTime);
   static double dateTimeToKey(const QDate date);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QString getTickLabel(double tick, const QLocale &locale, QChar formatChar, int precision);
+  virtual QVector<double> createTickVector(double tickStep, const QCPRange &range);
 };

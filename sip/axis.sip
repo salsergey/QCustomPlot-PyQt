@@ -31,6 +31,15 @@ public:
   void setPen(const QPen &pen);
   void setSubGridPen(const QPen &pen);
   void setZeroLinePen(const QPen &pen);
+
+protected:
+  // reimplemented virtual methods:
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
+
+  // non-virtual methods:
+  void drawGridLines(QCPPainter *painter) const;
+  void drawSubGridLines(QCPPainter *painter) const;
 };
 
 
@@ -197,4 +206,31 @@ signals:
   void scaleTypeChanged(QCPAxis::ScaleType scaleType);
   void selectionChanged(const QCPAxis::SelectableParts &parts);
   void selectableChanged(const QCPAxis::SelectableParts &parts);
+
+protected:
+  // introduced virtual methods:
+  virtual int calculateMargin();
+
+  // reimplemented virtual methods:
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
+  virtual QCP::Interaction selectionCategory() const;
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
+  // mouse events:
+  virtual void mousePressEvent(QMouseEvent *event, const QVariant &details);
+  virtual void mouseMoveEvent(QMouseEvent *event, const QPointF &startPos);
+  virtual void mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos);
+  virtual void wheelEvent(QWheelEvent *event);
+
+  // non-virtual methods:
+  void setupTickVectors();
+  QPen getBasePen() const;
+  QPen getTickPen() const;
+  QPen getSubTickPen() const;
+  QFont getTickLabelFont() const;
+  QFont getLabelFont() const;
+  QColor getTickLabelColor() const;
+  QColor getLabelColor() const;
 };

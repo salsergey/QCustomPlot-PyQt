@@ -32,4 +32,17 @@ public:
   void setPiValue(double pi);
   void setPeriodicity(int multiplesOfPi);
   void setFractionStyle(FractionStyle style);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QString getTickLabel(double tick, const QLocale &locale, QChar formatChar, int precision);
+
+  // non-virtual methods:
+  void simplifyFraction(int &numerator, int &denominator) const;
+  QString fractionToString(int numerator, int denominator) const;
+  QString unicodeFraction(int numerator, int denominator) const;
+  QString unicodeSuperscript(int number) const;
+  QString unicodeSubscript(int number) const;
 };

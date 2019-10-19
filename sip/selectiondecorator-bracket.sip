@@ -48,6 +48,11 @@ public:
   // virtual methods:
   virtual void drawDecoration(QCPPainter *painter, QCPDataSelection selection);
 
+protected:
+  // non-virtual methods:
+  double getTangentAngle(const QCPPlottableInterface1D *interface1d, int dataIndex, int direction) const;
+  QPointF getPixelCoordinates(const QCPPlottableInterface1D *interface1d, int dataIndex) const;
+
 private:
   QCPSelectionDecoratorBracket(const QCPSelectionDecoratorBracket&);
   QCPSelectionDecoratorBracket& operator=(const QCPSelectionDecoratorBracket&);

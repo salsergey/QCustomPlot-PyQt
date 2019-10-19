@@ -40,4 +40,13 @@ public:
   QCPItemAnchor * bottom /NoSetter/;
   QCPItemAnchor * bottomLeft /NoSetter/;
   QCPItemAnchor * left /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual QPointF anchorPixelPosition(int anchorId) const;
+
+  // non-virtual methods:
+  QPen mainPen() const;
+  QBrush mainBrush() const;
 };

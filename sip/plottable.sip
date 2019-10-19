@@ -36,6 +36,10 @@ public:
   // introduced virtual methods:
   virtual void copyFrom(const QCPSelectionDecorator *other);
   virtual void drawDecoration(QCPPainter *painter, QCPDataSelection selection);
+
+protected:
+  // introduced virtual methods:
+  virtual bool registerWithPlottable(QCPAbstractPlottable *plottable);
 };
 
 
@@ -117,4 +121,21 @@ signals:
   void selectionChanged(bool selected);
   void selectionChanged(const QCPDataSelection &selection);
   void selectableChanged(QCP::SelectionType selectable);
+
+protected:
+  // reimplemented virtual methods:
+  virtual QRect clipRect() const;
+  virtual void draw(QCPPainter *painter) = 0;
+  virtual QCP::Interaction selectionCategory() const;
+  void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
+
+  // introduced virtual methods:
+  virtual void drawLegendIcon(QCPPainter *painter, const QRectF &rect) const = 0;
+
+  // non-virtual methods:
+  void applyFillAntialiasingHint(QCPPainter *painter) const;
+  void applyScattersAntialiasingHint(QCPPainter *painter) const;
 };

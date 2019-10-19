@@ -59,4 +59,16 @@ public:
   QCPItemAnchor * bottom /NoSetter/;
   QCPItemAnchor * bottomLeft /NoSetter/;
   QCPItemAnchor * left /NoSetter/;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual QPointF anchorPixelPosition(int anchorId) const;
+
+  // non-virtual methods:
+  QPointF getTextDrawPoint(const QPointF &pos, const QRectF &rect, Qt::Alignment positionAlignment) const;
+  QFont mainFont() const;
+  QColor mainColor() const;
+  QPen mainPen() const;
+  QBrush mainBrush() const;
 };

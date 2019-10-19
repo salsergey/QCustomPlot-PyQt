@@ -47,6 +47,16 @@ public:
 signals:
   void selectionChanged(bool selected);
   void selectableChanged(bool selectable);
+
+protected:
+  // reimplemented virtual methods:
+  virtual QCP::Interaction selectionCategory() const;
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual QRect clipRect() const;
+  virtual void draw(QCPPainter *painter) = 0;
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
 };
 
 
@@ -60,6 +70,16 @@ public:
 
   // getters:
   QCPAbstractPlottable *plottable();
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual QSize minimumOuterSizeHint() const;
+
+  // non-virtual methods:
+  QPen getIconBorderPen() const;
+  QColor getTextColor() const;
+  QFont getFont() const;
 };
 
 
@@ -129,4 +149,18 @@ public:
 signals:
   void selectionChanged(QCPLegend::SelectableParts parts);
   void selectableChanged(QCPLegend::SelectableParts parts);
+
+protected:
+  // reimplemented virtual methods:
+  virtual void parentPlotInitialized(QCustomPlot *parentPlot);
+  virtual QCP::Interaction selectionCategory() const;
+  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
+  virtual void draw(QCPPainter *painter);
+  // events:
+  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
+  virtual void deselectEvent(bool *selectionStateChanged);
+
+  // non-virtual methods:
+  QPen getBorderPen() const;
+  QBrush getBrush() const;
 };

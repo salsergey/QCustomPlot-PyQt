@@ -168,4 +168,9 @@ public:
   void loadPreset(GradientPreset preset);
   void clearColorStops();
   QCPColorGradient inverted() const;
+
+protected:
+  // non-virtual methods:
+  bool stopsUseAlpha() const;
+  void updateColorBuffer();
 };

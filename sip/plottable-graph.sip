@@ -84,4 +84,41 @@ public:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   virtual QCPRange getKeyRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth) const;
   virtual QCPRange getValueRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange()) const;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual void drawLegendIcon(QCPPainter *painter, const QRectF &rect) const;
+
+  // introduced virtual methods:
+  virtual void drawFill(QCPPainter *painter, QVector<QPointF> *lines) const;
+  virtual void drawScatterPlot(QCPPainter *painter, const QVector<QPointF> &scatters, const QCPScatterStyle &style) const;
+  virtual void drawLinePlot(QCPPainter *painter, const QVector<QPointF> &lines) const;
+  virtual void drawImpulsePlot(QCPPainter *painter, const QVector<QPointF> &lines) const;
+
+//   TODO: iterators
+//   virtual void getOptimizedLineData(QVector<QCPGraphData> *lineData, const QCPGraphDataContainer::const_iterator &begin, const QCPGraphDataContainer::const_iterator &end) const;
+//   virtual void getOptimizedScatterData(QVector<QCPGraphData> *scatterData, QCPGraphDataContainer::const_iterator begin, QCPGraphDataContainer::const_iterator end) const;
+
+  // non-virtual methods:
+//   void getVisibleDataBounds(QCPGraphDataContainer::const_iterator &begin, QCPGraphDataContainer::const_iterator &end, const QCPDataRange &rangeRestriction) const;
+  void getLines(QVector<QPointF> *lines, const QCPDataRange &dataRange) const;
+  void getScatters(QVector<QPointF> *scatters, const QCPDataRange &dataRange) const;
+  QVector<QPointF> dataToLines(const QVector<QCPGraphData> &data) const;
+  QVector<QPointF> dataToStepLeftLines(const QVector<QCPGraphData> &data) const;
+  QVector<QPointF> dataToStepRightLines(const QVector<QCPGraphData> &data) const;
+  QVector<QPointF> dataToStepCenterLines(const QVector<QCPGraphData> &data) const;
+  QVector<QPointF> dataToImpulseLines(const QVector<QCPGraphData> &data) const;
+  QVector<QCPDataRange> getNonNanSegments(const QVector<QPointF> *lineData, Qt::Orientation keyOrientation) const;
+//   TODO: unsupported function return type
+//   QVector<QPair<QCPDataRange, QCPDataRange> > getOverlappingSegments(QVector<QCPDataRange> thisSegments, const QVector<QPointF> *thisData, QVector<QCPDataRange> otherSegments, const QVector<QPointF> *otherData) const;
+  bool segmentsIntersect(double aLower, double aUpper, double bLower, double bUpper, int &bPrecedence) const;
+  QPointF getFillBasePoint(QPointF matchingDataPoint) const;
+  const QPolygonF getFillPolygon(const QVector<QPointF> *lineData, QCPDataRange segment) const;
+  const QPolygonF getChannelFillPolygon(const QVector<QPointF> *lineData, QCPDataRange thisSegment, const QVector<QPointF> *otherData, QCPDataRange otherSegment) const;
+  int findIndexBelowX(const QVector<QPointF> *data, double x) const;
+  int findIndexAboveX(const QVector<QPointF> *data, double x) const;
+  int findIndexBelowY(const QVector<QPointF> *data, double y) const;
+  int findIndexAboveY(const QVector<QPointF> *data, double y) const;
+//   double pointDistance(const QPointF &pixelPoint, QCPGraphDataContainer::const_iterator &closestData) const;
 };

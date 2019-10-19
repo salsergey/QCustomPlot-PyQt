@@ -30,4 +30,13 @@ public:
   // setters:
   void setTimeFormat(const QString &format);
   void setFieldWidth(TimeUnit unit, int width);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QString getTickLabel(double tick, const QLocale &locale, QChar formatChar, int precision);
+
+  // non-virtual methods:
+  void replaceUnit(QString &text, TimeUnit unit, int value) const;
 };

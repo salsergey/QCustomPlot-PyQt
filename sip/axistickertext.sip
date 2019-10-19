@@ -141,4 +141,11 @@ public:
   void addTick(double position, QString label);
   void addTicks(const QMap<double, QString> &ticks);
   void addTicks(const QVector<double> &positions, const QVector<QString> &labels);
+
+protected:
+  // reimplemented virtual methods:
+  virtual double getTickStep(const QCPRange &range);
+  virtual int getSubTickCount(double tickStep);
+  virtual QString getTickLabel(double tick, const QLocale &locale, QChar formatChar, int precision);
+  virtual QVector<double> createTickVector(double tickStep, const QCPRange &range);
 };
