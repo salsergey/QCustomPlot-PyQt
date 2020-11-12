@@ -41,10 +41,20 @@ $ pip install QCustomPlot2
 Now let's take a look at some code:
 
 ```python
+import sys
+import math
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QBrush, QColor
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from QCustomPlot2 import *
 
+
+app = QApplication(sys.argv)
+window = QMainWindow()
+window.resize(800, 600)
+
 customPlot = QCustomPlot()
+window.setCentralWidget(customPlot)
 
 graph0 = customPlot.addGraph()
 graph0.setPen(QPen(Qt.blue))
@@ -63,7 +73,12 @@ graph0.setData(x, y0)
 graph1.setData(x, y1)
 
 customPlot.rescaleAxes()
-customPlot.setInteractions(QCPInteractions(QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectPlottable))
+customPlot.setInteraction(QCP.iRangeDrag)
+customPlot.setInteraction(QCP.iRangeZoom)
+customPlot.setInteraction(QCP.iSelectPlottables)
+
+window.show()
+sys.exit(app.exec_())
 ```
 
 That's all!
