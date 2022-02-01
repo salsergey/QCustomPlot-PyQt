@@ -1,0 +1,59 @@
+# Specify the build system.
+[build-system]
+requires = ['sip >=5.0.0, <7', 'PyQt-builder >=1.6, <2', 'PyQt5']
+build-backend = 'sipbuild.api'
+
+# Specify the PEP 566 metadata for the project.
+[tool.sip.metadata]
+name = 'QCustomPlot2'
+version = '2.1.0'
+summary = 'QCustomPlot is a Qt widget for plotting and data visualization'
+home-page = 'https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5'
+maintainer = 'Sergey Salnikov'
+maintainer-email = 'salsergey@gmail.com'
+license = 'MIT'
+description-file = 'README.md'
+description-content-type = 'text/markdown'
+classifier = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: X11 Applications :: Qt',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: POSIX :: Linux',
+    'Operating System :: Microsoft :: Windows',
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Topic :: Software Development :: User Interfaces'
+]
+requires-dist = 'PyQt5'
+
+[tool.sip.project]
+sip-files-dir = 'sip'
+sdist-excludes = [
+    '.*',
+    '.*/*',
+    '.git/*',
+    '.git/*/*',
+    '.git/*/*/*',
+    '.git/*/*/*/*',
+    '.git/*/*/*/*/*',
+    '.git/*/*/*/*/*/*',
+    '.git/*/*/*/*/*/*/*',
+    '*/.*',
+    '*/*/.*',
+    '*/*/*/.*',
+    '*/*/*/*/.*',
+    'build/*',
+    'build/*/*',
+    'build/*/*/*',
+    'dist/*'
+]
