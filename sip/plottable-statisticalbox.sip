@@ -42,7 +42,7 @@ typedef QCPDataContainerIterator<QCPStatisticalBoxData> QCPStatisticalBoxDataCon
 class QCPStatisticalBox : public QCPAbstractPlottable1D_QCPStatisticalBoxData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/plottables/plottable-statisticalbox.h>
 
 typedef QCPAbstractPlottable1D<QCPStatisticalBoxData> QCPAbstractPlottable1D_QCPStatisticalBoxData;
 %End

@@ -26,9 +26,9 @@ protected:
   virtual QCPItemPosition *toQCPItemPosition();
 
   // non-virtual methods:
-  void addChildX(QCPItemPosition* pos); // called from pos when this anchor is set as parent
+  void addChildX(QCPItemPosition *pos); // called from pos when this anchor is set as parent
   void removeChildX(QCPItemPosition *pos); // called from pos when its parent anchor is reset or pos deleted
-  void addChildY(QCPItemPosition* pos); // called from pos when this anchor is set as parent
+  void addChildY(QCPItemPosition *pos); // called from pos when this anchor is set as parent
   void removeChildY(QCPItemPosition *pos); // called from pos when its parent anchor is reset or pos deleted
 };
 
@@ -76,7 +76,7 @@ public:
   bool setParentAnchorY(QCPItemAnchor *parentAnchor, bool keepPixelPosition=false);
   void setCoords(double key, double value);
   void setCoords(const QPointF &coords);
-  void setAxes(QCPAxis* keyAxis, QCPAxis* valueAxis);
+  void setAxes(QCPAxis *keyAxis, QCPAxis *valueAxis);
   void setAxisRect(QCPAxisRect *axisRect);
   void setPixelPosition(const QPointF &pixelPosition);
 

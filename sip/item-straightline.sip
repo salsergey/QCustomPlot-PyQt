@@ -19,8 +19,8 @@ public:
   
   // getters:
   QPen pen() const;
-  QPen selectedPen();
-  
+  QPen selectedPen() const;
+
   // setters;
   void setPen(const QPen &pen);
   void setSelectedPen(const QPen &pen);

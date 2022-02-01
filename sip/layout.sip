@@ -130,12 +130,12 @@ public:
   virtual int elementCount() const = 0;
   virtual QCPLayoutElement* elementAt(int index) const = 0;
   virtual QCPLayoutElement* takeAt(int index) = 0;
-  virtual bool take(QCPLayoutElement* element) = 0;
+  virtual bool take(QCPLayoutElement *element) = 0;
   virtual void simplify();
   
   // non-virtual methods:
   bool removeAt(int index);
-  bool remove(QCPLayoutElement* element);
+  bool remove(QCPLayoutElement *element);
   void clear();
 
 protected:
@@ -191,7 +191,7 @@ public:
   virtual int elementCount() const;
   virtual QCPLayoutElement* elementAt(int index) const;
   virtual QCPLayoutElement* takeAt(int index);
-  virtual bool take(QCPLayoutElement* element);
+  virtual bool take(QCPLayoutElement *element);
   virtual QList<QCPLayoutElement*> elements(bool recursive) const;
   virtual void simplify();
   virtual QSize minimumOuterSizeHint() const;
@@ -244,7 +244,7 @@ public:
   virtual int elementCount() const;
   virtual QCPLayoutElement* elementAt(int index) const;
   virtual QCPLayoutElement* takeAt(int index);
-  virtual bool take(QCPLayoutElement* element);
+  virtual bool take(QCPLayoutElement *element);
   virtual void simplify();
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   

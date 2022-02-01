@@ -40,7 +40,7 @@ typedef QCPDataContainerIterator<QCPCurveData> QCPCurveDataContainerIterator;
 class QCPCurve : public QCPAbstractPlottable1D_QCPCurveData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/plottables/plottable-curve.h>
 
 typedef QCPAbstractPlottable1D<QCPCurveData> QCPAbstractPlottable1D_QCPCurveData;
 %End
@@ -54,7 +54,7 @@ public:
   virtual ~QCPCurve();
 
   // getters:
-  QCPCurveDataContainer* data() const;
+  QCPCurveDataContainer *data() const;
   %MethodCode
     sipRes = sipCpp->data().data();
   %End
@@ -83,4 +83,24 @@ public:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   virtual QCPRange getKeyRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth) const;
   virtual QCPRange getValueRange(bool &foundRange, QCP::SignDomain inSignDomain=QCP::sdBoth, const QCPRange &inKeyRange=QCPRange()) const;
+
+protected:
+  // reimplemented virtual methods:
+  virtual void draw(QCPPainter *painter);
+  virtual void drawLegendIcon(QCPPainter *painter, const QRectF &rect) const;
+
+  // introduced virtual methods:
+  virtual void drawCurveLine(QCPPainter *painter, const QVector<QPointF> &lines) const;
+  virtual void drawScatterPlot(QCPPainter *painter, const QVector<QPointF> &points, const QCPScatterStyle &style) const;
+
+  // non-virtual methods:
+  void getCurveLines(QVector<QPointF> *lines, const QCPDataRange &dataRange, double penWidth) const;
+  void getScatters(QVector<QPointF> *scatters, const QCPDataRange &dataRange, double scatterWidth) const;
+  int getRegion(double key, double value, double keyMin, double valueMax, double keyMax, double valueMin) const;
+  QPointF getOptimizedPoint(int otherRegion, double otherKey, double otherValue, double key, double value, double keyMin, double valueMax, double keyMax, double valueMin) const;
+  QVector<QPointF> getOptimizedCornerPoints(int prevRegion, int currentRegion, double prevKey, double prevValue, double key, double value, double keyMin, double valueMax, double keyMax, double valueMin) const;
+  bool mayTraverse(int prevRegion, int currentRegion) const;
+  bool getTraverse(double prevKey, double prevValue, double key, double value, double keyMin, double valueMax, double keyMax, double valueMin, QPointF &crossA, QPointF &crossB) const;
+  void getTraverseCornerPoints(int prevRegion, int currentRegion, double keyMin, double valueMax, double keyMax, double valueMin, QVector<QPointF> &beforeTraverse, QVector<QPointF> &afterTraverse) const;
+//   double pointDistance(const QPointF &pixelPoint, QCPCurveDataContainerIterator &closestData) const;
 };

@@ -18,7 +18,7 @@ public:
                    ,lmBuffered ///< Layer has its own paint buffer and may be replotted individually (see \ref replot).
                  };
   
-  QCPLayer(QCustomPlot* parentPlot /TransferThis/, const QString &layerName);
+  QCPLayer(QCustomPlot *parentPlot /TransferThis/, const QString &layerName);
   virtual ~QCPLayer();
   
   // getters:
@@ -50,7 +50,7 @@ class QCPLayerable : public QObject /Abstract/
 #include <QCustomPlot/src/layer.h>
 %End
 public:
-  QCPLayerable(QCustomPlot* plot /TransferThis/, QString targetLayer=QString(), QCPLayerable *parentLayerable=0);
+  QCPLayerable(QCustomPlot *plot /TransferThis/, QString targetLayer=QString(), QCPLayerable *parentLayerable=0);
   virtual ~QCPLayerable();
   
   // getters:
@@ -94,7 +94,7 @@ protected:
 
   // non-property methods:
   void initializeParentPlot(QCustomPlot *parentPlot);
-  void setParentLayerable(QCPLayerable* parentLayerable);
+  void setParentLayerable(QCPLayerable *parentLayerable);
   bool moveToLayer(QCPLayer *layer, bool prepend);
   void applyAntialiasingHint(QCPPainter *painter, bool localAntialiased, QCP::AntialiasedElement overrideElement) const;
 };

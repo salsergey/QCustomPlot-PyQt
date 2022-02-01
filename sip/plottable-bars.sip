@@ -84,7 +84,7 @@ typedef QCPDataContainerIterator<QCPBarsData> QCPBarsDataContainerIterator;
 class QCPBars : public QCPAbstractPlottable1D_QCPBarsData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/plottables/plottable-bars.h>
 
 typedef QCPAbstractPlottable1D<QCPBarsData> QCPAbstractPlottable1D_QCPBarsData;
 %End
@@ -147,7 +147,7 @@ protected:
   QRectF getBarRect(double key, double value) const;
   void getPixelWidth(double key, double &lower, double &upper) const;
   double getStackedBaseValue(double key, bool positive) const;
-  static void connectBars(QCPBars* lower, QCPBars* upper);
+  static void connectBars(QCPBars *lower, QCPBars *upper);
 };
 
 

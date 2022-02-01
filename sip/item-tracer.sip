@@ -48,7 +48,7 @@ public:
 
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
-  
+
   // non-virtual methods:
   void updatePosition();
 

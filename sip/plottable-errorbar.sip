@@ -27,7 +27,7 @@ typedef QVector<QCPErrorBarsData> QCPErrorBarsDataContainer;
 class QCPErrorBars : public QCPAbstractPlottable, public QCPPlottableInterface1D
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/plottables/plottable-errorbar.h>
 %End
 public:
   enum ErrorType { etKeyError    ///< The errors are for the key dimension (bars appear parallel to the key axis)
@@ -54,7 +54,7 @@ public:
   %End
   void setData(const QVector<double> &error);
   void setData(const QVector<double> &errorMinus, const QVector<double> &errorPlus);
-  void setDataPlottable(QCPAbstractPlottable* plottable);
+  void setDataPlottable(QCPAbstractPlottable *plottable);
   void setErrorType(ErrorType type);
   void setWhiskerWidth(double pixels);
   void setSymbolGap(double pixels);

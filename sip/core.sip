@@ -185,7 +185,7 @@ protected:
   // non-virtual methods:
   bool registerPlottable(QCPAbstractPlottable *plottable);
   bool registerGraph(QCPGraph *graph);
-  bool registerItem(QCPAbstractItem* item);
+  bool registerItem(QCPAbstractItem *item);
   void updateLayerIndices() const;
   QCPLayerable *layerableAt(const QPointF &pos, bool onlySelectable, QVariant *selectionDetails=0) const;
   QList<QCPLayerable*> layerableListAt(const QPointF &pos, bool onlySelectable, QList<QVariant> *selectionDetails=0) const;

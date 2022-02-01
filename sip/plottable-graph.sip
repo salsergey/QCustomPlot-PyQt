@@ -39,7 +39,7 @@ typedef QCPDataContainerIterator<QCPGraphData> QCPGraphDataContainerIterator;
 class QCPGraph : public QCPAbstractPlottable1D_QCPGraphData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/plottables/plottable-graph.h>
 
 typedef QCPAbstractPlottable1D<QCPGraphData> QCPAbstractPlottable1D_QCPGraphData;
 %End
@@ -57,7 +57,7 @@ public:
   virtual ~QCPGraph();
 
   // getters:
-  QCPGraphDataContainer* data() const;
+  QCPGraphDataContainer *data() const;
   %MethodCode
     sipRes = sipCpp->data().data();
   %End
