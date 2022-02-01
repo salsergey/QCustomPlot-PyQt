@@ -1,6 +1,6 @@
 /** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -8,85 +8,38 @@
  */
 
 
-class QCPGrid :public QCPLayerable
+class QCPPolarAxisAngular : public QCPLayoutElement
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <QCustomPlot/src/polar/layoutelement-angularaxis.h>
 %End
 public:
-  explicit QCPGrid(QCPAxis *parentAxis /TransferThis/);
-
-  // getters:
-  bool subGridVisible() const;
-  bool antialiasedSubGrid() const;
-  bool antialiasedZeroLine() const;
-  QPen pen() const;
-  QPen subGridPen() const;
-  QPen zeroLinePen() const;
-
-  // setters:
-  void setSubGridVisible(bool visible);
-  void setAntialiasedSubGrid(bool enabled);
-  void setAntialiasedZeroLine(bool enabled);
-  void setPen(const QPen &pen);
-  void setSubGridPen(const QPen &pen);
-  void setZeroLinePen(const QPen &pen);
-
-protected:
-  // reimplemented virtual methods:
-  virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
-  virtual void draw(QCPPainter *painter);
-
-  // non-virtual methods:
-  void drawGridLines(QCPPainter *painter) const;
-  void drawSubGridLines(QCPPainter *painter) const;
-};
-
-
-class QCPAxis : public QCPLayerable
-{
-%TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
-%End
-
-%ConvertToSubClassCode
-  sipType = 0;
-  if (qobject_cast<QCPAxis*>(sipCpp))
-    sipType = sipType_QCPAxis;
-%End
-
-public:
-  enum AxisType { atLeft    = 0x01  ///< <tt>0x01</tt> Axis is vertical and on the left side of the axis rect
-                  ,atRight  = 0x02  ///< <tt>0x02</tt> Axis is vertical and on the right side of the axis rect
-                  ,atTop    = 0x04  ///< <tt>0x04</tt> Axis is horizontal and on the top side of the axis rect
-                  ,atBottom = 0x08  ///< <tt>0x08</tt> Axis is horizontal and on the bottom side of the axis rect
-                };
-  typedef QFlags<QCPAxis::AxisType> AxisTypes;
-
-  enum LabelSide { lsInside    ///< Tick labels will be displayed inside the axis rect and clipped to the inner axis rect
-                   ,lsOutside  ///< Tick labels will be displayed outside the axis rect
-                 };
-
-  enum ScaleType { stLinear       ///< Linear scaling
-                   ,stLogarithmic ///< Logarithmic scaling with correspondingly transformed axis coordinates (possibly also \ref setTicker to a \ref QCPAxisTickerLog instance).
-                 };
-
   enum SelectablePart { spNone        = 0      ///< None of the selectable parts
                         ,spAxis       = 0x001  ///< The axis backbone and tick marks
                         ,spTickLabels = 0x002  ///< Tick labels (numbers) of this axis (as a whole, not individually)
                         ,spAxisLabel  = 0x004  ///< The axis label
                       };
-  typedef QFlags<QCPAxis::SelectablePart> SelectableParts;
+  typedef QFlags<QCPPolarAxisAngular::SelectablePart> SelectableParts;
 
-  explicit QCPAxis(QCPAxisRect *parent /TransferThis/, AxisType type);
-  virtual ~QCPAxis();
+  enum LabelMode { lmUpright   ///<
+                   ,lmRotated ///<
+                 };
+
+  explicit QCPPolarAxisAngular(QCustomPlot *parentPlot /TransferThis/);
+  virtual ~QCPPolarAxisAngular();
 
   // getters:
-  AxisType axisType() const;
-  QCPAxisRect *axisRect() const;
-  ScaleType scaleType() const;
+  QPixmap background() const;
+  QBrush backgroundBrush() const;
+  bool backgroundScaled() const;
+  Qt::AspectRatioMode backgroundScaledMode() const;
+  bool rangeDrag() const;
+  bool rangeZoom() const;
+  double rangeZoomFactor() const;
+
   const QCPRange range() const;
   bool rangeReversed() const;
+  double angle() const;
   QCPAxisTicker* ticker() const;
   %MethodCode
     sipRes = sipCpp->ticker().data();
@@ -97,7 +50,7 @@ public:
   QFont tickLabelFont() const;
   QColor tickLabelColor() const;
   double tickLabelRotation() const;
-  LabelSide tickLabelSide() const;
+  LabelMode tickLabelMode() const;
   QString numberFormat() const;
   int numberPrecision() const;
   QVector<double> tickVector() const;
@@ -114,8 +67,6 @@ public:
   QColor labelColor() const;
   QString label() const;
   int labelPadding() const;
-  int padding() const;
-  int offset() const;
   SelectableParts selectedParts() const;
   SelectableParts selectableParts() const;
   QFont selectedTickLabelFont() const;
@@ -125,18 +76,25 @@ public:
   QPen selectedBasePen() const;
   QPen selectedTickPen() const;
   QPen selectedSubTickPen() const;
-  QCPLineEnding lowerEnding() const;
-  QCPLineEnding upperEnding() const;
-  QCPGrid *grid() const;
+  QCPPolarGrid *grid() const;
 
   // setters:
-  Q_SLOT void setScaleType(QCPAxis::ScaleType type);
+  void setBackground(const QPixmap &pm);
+  void setBackground(const QPixmap &pm, bool scaled, Qt::AspectRatioMode mode=Qt::KeepAspectRatioByExpanding);
+  void setBackground(const QBrush &brush);
+  void setBackgroundScaled(bool scaled);
+  void setBackgroundScaledMode(Qt::AspectRatioMode mode);
+  void setRangeDrag(bool enabled);
+  void setRangeZoom(bool enabled);
+  void setRangeZoomFactor(double factor);
+
   Q_SLOT void setRange(const QCPRange &range);
   void setRange(double lower, double upper);
   void setRange(double position, double size, Qt::AlignmentFlag alignment);
   void setRangeLower(double lower);
   void setRangeUpper(double upper);
   void setRangeReversed(bool reversed);
+  void setAngle(double degrees);
   void setTicker(QCPAxisTicker *ticker /Transfer/);
   %Docstring(format = "deindented", signature = "prepended")
     Set a new ticker on the axis. Ownership of the ticker is transferred to the axis
@@ -151,7 +109,7 @@ public:
   void setTickLabelFont(const QFont &font);
   void setTickLabelColor(const QColor &color);
   void setTickLabelRotation(double degrees);
-  void setTickLabelSide(LabelSide side);
+  void setTickLabelMode(LabelMode mode);
   void setNumberFormat(const QString &formatCode);
   void setNumberPrecision(int precision);
   void setTickLength(int inside, int outside=0);
@@ -168,8 +126,7 @@ public:
   void setLabelColor(const QColor &color);
   void setLabel(const QString &str);
   void setLabelPadding(int padding);
-  void setPadding(int padding);
-  void setOffset(int offset);
+//   void setLabelPosition(Qt::AlignmentFlag position);
   void setSelectedTickLabelFont(const QFont &font);
   void setSelectedLabelFont(const QFont &font);
   void setSelectedTickLabelColor(const QColor &color);
@@ -177,58 +134,69 @@ public:
   void setSelectedBasePen(const QPen &pen);
   void setSelectedTickPen(const QPen &pen);
   void setSelectedSubTickPen(const QPen &pen);
-  Q_SLOT void setSelectableParts(const QCPAxis::SelectableParts &selectableParts);
-  Q_SLOT void setSelectedParts(const QCPAxis::SelectableParts &selectedParts);
-  void setLowerEnding(const QCPLineEnding &ending);
-  void setUpperEnding(const QCPLineEnding &ending);
+  Q_SLOT void setSelectableParts(const QCPPolarAxisAngular::SelectableParts &selectableParts);
+  Q_SLOT void setSelectedParts(const QCPPolarAxisAngular::SelectableParts &selectedParts);
 
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
+  virtual void update(UpdatePhase phase);
+  virtual QList<QCPLayoutElement*> elements(bool recursive) const;
 
   // non-property methods:
-  Qt::Orientation orientation() const;
-  int pixelOrientation() const;
+  bool removeGraph(QCPPolarGraph *graph);
+  int radialAxisCount() const;
+  QCPPolarAxisRadial *radialAxis(int index=0) const;
+  QList<QCPPolarAxisRadial*> radialAxes() const;
+  QCPPolarAxisRadial *addRadialAxis(QCPPolarAxisRadial *axis=0);
+  bool removeRadialAxis(QCPPolarAxisRadial *axis);
+  QCPLayoutInset *insetLayout() const;
+  QRegion exactClipRegion() const;
+
   void moveRange(double diff);
   void scaleRange(double factor);
   void scaleRange(double factor, double center);
-  void setScaleRatio(const QCPAxis *otherAxis, double ratio=1.0);
   void rescale(bool onlyVisiblePlottables=false);
-  double pixelToCoord(double value) const;
-  double coordToPixel(double value) const;
+  double coordToAngleRad(double coord) const;
+  double angleRadToCoord(double angleRad) const;
+  void pixelToCoord(QPointF pixelPos, double &angleCoord, double &radiusCoord) const;
+  QPointF coordToPixel(double angleCoord, double radiusCoord) const;
   SelectablePart getPartAt(const QPointF &pos) const;
-  QList<QCPAbstractPlottable*> plottables() const;
-  QList<QCPGraph*> graphs() const;
-  QList<QCPAbstractItem*> items() const;
 
-  static AxisType marginSideToAxisType(QCP::MarginSide side);
-  static Qt::Orientation orientation(AxisType type);
-  static AxisType opposite(AxisType type);
+  // read-only interface imitating a QRect:
+  int left() const;
+  int right() const;
+  int top() const;
+  int bottom() const;
+  int width() const;
+  int height() const;
+  QSize size() const;
+  QPoint topLeft() const;
+  QPoint topRight() const;
+  QPoint bottomLeft() const;
+  QPoint bottomRight() const;
+  QPointF center() const;
+  double radius() const;
 
 signals:
   void rangeChanged(const QCPRange &newRange);
   void rangeChanged(const QCPRange &newRange, const QCPRange &oldRange);
-  void scaleTypeChanged(QCPAxis::ScaleType scaleType);
-  void selectionChanged(const QCPAxis::SelectableParts &parts);
-  void selectableChanged(const QCPAxis::SelectableParts &parts);
+  void selectionChanged(const QCPPolarAxisAngular::SelectableParts &parts);
+  void selectableChanged(const QCPPolarAxisAngular::SelectableParts &parts);
 
 protected:
-  // introduced virtual methods:
-  virtual int calculateMargin();
-
   // reimplemented virtual methods:
   virtual void applyDefaultAntialiasingHint(QCPPainter *painter) const;
   virtual void draw(QCPPainter *painter);
   virtual QCP::Interaction selectionCategory() const;
   // events:
-  virtual void selectEvent(QMouseEvent *event, bool additive, const QVariant &details, bool *selectionStateChanged);
-  virtual void deselectEvent(bool *selectionStateChanged);
-  // mouse events:
   virtual void mousePressEvent(QMouseEvent *event, const QVariant &details);
   virtual void mouseMoveEvent(QMouseEvent *event, const QPointF &startPos);
   virtual void mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos);
   virtual void wheelEvent(QWheelEvent *event);
 
   // non-virtual methods:
+  bool registerPolarGraph(QCPPolarGraph *graph);
+  void drawBackground(QCPPainter *painter, const QPointF &center, double radius);
   void setupTickVectors();
   QPen getBasePen() const;
   QPen getTickPen() const;
@@ -239,5 +207,4 @@ protected:
   QColor getLabelColor() const;
 };
 
-QFlags<QCPAxis::AxisType> operator|(QCPAxis::AxisType f1, QFlags<QCPAxis::AxisType> f2);
-QFlags<QCPAxis::SelectablePart> operator|(QCPAxis::SelectablePart f1, QFlags<QCPAxis::SelectablePart> f2);
+QFlags<QCPPolarAxisAngular::SelectablePart> operator|(QCPPolarAxisAngular::SelectablePart f1, QFlags<QCPPolarAxisAngular::SelectablePart> f2);

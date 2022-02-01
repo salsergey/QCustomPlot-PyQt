@@ -164,15 +164,15 @@ Apt users (Debian, Ubuntu, etc) may follow the instructions below, users of othe
 $ apt-get install build-essential python3-pyqt5 pyqt5-dev-tools qttools5-dev-tools
 
 # Clone the repository and submodules
-$ git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+$ git clone --recursive https://github.com/salsergey/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
 
 # Build
-$ CFLAGS=-std=c++11 CXXFLAGS=-std=c++11 python setup.py build
+$ sip-build
 
 # Zzz..
 
 # Install
-$ python setup.py install
+$ sip-install
 ```
 
 
@@ -192,12 +192,12 @@ cd <<PATH_TO QCustomPlot2-PyQt5>>
 git submodules update --init
 
 # Build
-python setup.py build
+sip-build
 
 # Zzz..
 
 # Install
-python setup.py install
+sip-install
 ```
 
 
@@ -213,26 +213,13 @@ $ xcode-select --install
 $ brew install qt --devel sip --without-python@2 pyqt --without-python@2
 
 # Clone the repository and submodules
-$ git clone --recursive https://github.com/cjgdev/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+$ git clone --recursive https://github.com/salsergey/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
 
 # Build
-$ CFLAGS='-std=c++11 -stdlib=libc++' CXXFLAGS='-std=c++11 -stdlib=libc++' python3 setup.py build
+$ CFLAGS='-std=c++11 -stdlib=libc++' CXXFLAGS='-std=c++11 -stdlib=libc++' sip-build
 
 # Zzz..
 
 # Install
-$ python3 setup.py install
-```
-
-
-### Custom build options
-
-If you need to override the paths for any reason, the way to do that is by modifying setup.cfg to match your environment. You will need to add a section as below, substituting everything between ``<<`` and ``>>`` with the correct paths.
-
-```ini
-[build_ext]
-qmake = <<PATH_TO>>\qmake.exe
-qt-include-dir = <<QT_INCLUDE_DIR>>\include
-qt-library-dir = <<QT_LIBRARY_DIR>>\lib
-make = <<PATH_TO>>\jom.exe
+$ sip-install
 ```

@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -29,6 +29,7 @@ public:
   // non-virtual methods:
   double length() const;
   double lengthSquared() const;
+  double angle() const;
   QPoint toPoint() const;
   QPointF toPointF() const;
 

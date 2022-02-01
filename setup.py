@@ -128,7 +128,7 @@ class MyBuilderExt(build_ext):
           os.makedirs(self.build_temp)
         os.chdir(self.build_temp)
         print('Make static qcustomplot library...')
-        self.spawn([self.qmake, join(ROOT, 'QCustomPlot/src/qcp-staticlib.pro')])
+        self.spawn([self.qmake, join(ROOT, 'QCustomPlot/src/qcp-staticlib.pro'), 'DESTDIR='])
         # AFAIK only nmake does not support -j option
         has_multiprocess = not(WINDOWS_HOST and 'nmake' in self.make)
         make_cmdline = [self.make]
@@ -181,7 +181,7 @@ class MyBuilderExt(build_ext):
 
 setup(
     name='QCustomPlot2',
-    version='2.0.1',
+    version='2.1.0',
     description='QCustomPlot is a Qt widget for plotting and data visualization',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -205,6 +205,9 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Topic :: Software Development :: User Interfaces'
     ],
     requires=[

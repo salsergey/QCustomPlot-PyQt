@@ -1,7 +1,7 @@
 %Copying
-PyQt5 binding for QCustomPlot v2.0.0
+PyQt5 binding for QCustomPlot v2.1.0
 
-Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
+Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert, Sergey Salnikov
 License: MIT
 
 QCustomPlot author: Emanuel Eichhammer
@@ -62,3 +62,7 @@ QCustomPlot Website/Contact: http://www.qcustomplot.com
 %Include item-pixmap.sip
 %Include item-tracer.sip
 %Include item-bracket.sip
+%Include radialaxis.sip
+%Include layoutelement-angularaxis.sip
+%Include polargrid.sip
+%Include polargraph.sip

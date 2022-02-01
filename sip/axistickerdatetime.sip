@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -18,17 +18,19 @@ public:
   // getters:
   QString dateTimeFormat() const;
   Qt::TimeSpec dateTimeSpec() const;
+  QTimeZone timeZone() const;
 
   // setters:
   void setDateTimeFormat(const QString &format);
   void setDateTimeSpec(Qt::TimeSpec spec);
+  void setTimeZone(const QTimeZone &zone);
   void setTickOrigin(double origin); // hides base class method but calls baseclass implementation ("using" throws off IDEs and doxygen)
   void setTickOrigin(const QDateTime &origin);
 
   // static methods:
   static QDateTime keyToDateTime(double key);
   static double dateTimeToKey(const QDateTime dateTime);
-  static double dateTimeToKey(const QDate date);
+  static double dateTimeToKey(const QDate &date, Qt::TimeSpec timeSpec=Qt::LocalTime);
 
 protected:
   // reimplemented virtual methods:

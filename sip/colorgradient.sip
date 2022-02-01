@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *  
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *  
  *  QCustomPlot author: Emanuel Eichhammer
@@ -128,6 +128,13 @@ public:
   enum ColorInterpolation { ciRGB  ///< Color channels red, green and blue are linearly interpolated
                             ,ciHSV ///< Color channels hue, saturation and value are linearly interpolated (The hue is interpolated over the shortest angle distance)
                           };
+
+  enum NanHandling { nhNone ///< NaN data points are not explicitly handled and shouldn't occur in the data (this gives slight performance improvement)
+                     ,nhLowestColor  ///< NaN data points appear as the lowest color defined in this QCPColorGradient
+                     ,nhHighestColor ///< NaN data points appear as the highest color defined in this QCPColorGradient
+                     ,nhTransparent ///< NaN data points appear transparent
+                     ,nhNanColor ///< NaN data points appear as the color defined with \ref setNanColor
+                   };
   
   enum GradientPreset { gpGrayscale  ///< Continuous lightness from black to white (suited for non-biased data representation)
                         ,gpHot       ///< Continuous lightness from black over firey colors to white (suited for non-biased data representation)
@@ -152,6 +159,8 @@ public:
   int levelCount() const;
   QMap<double, QColor> colorStops() const;
   ColorInterpolation colorInterpolation() const;
+  NanHandling nanHandling() const;
+  QColor nanColor() const;
   bool periodic() const;
   
   // setters:
@@ -159,6 +168,8 @@ public:
   void setColorStops(const QMap<double, QColor> &colorStops);
   void setColorStopAt(double position, const QColor &color);
   void setColorInterpolation(ColorInterpolation interpolation);
+  void setNanHandling(NanHandling handling);
+  void setNanColor(const QColor &color);
   void setPeriodic(bool enabled);
   
   // non-property methods:

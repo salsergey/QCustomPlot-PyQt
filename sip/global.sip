@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *  
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *  
  *  QCustomPlot author: Emanuel Eichhammer
@@ -64,7 +64,8 @@ enum PlottingHint { phNone              = 0x000 ///< <tt>0x000</tt> No hints are
                   };
 typedef QFlags<QCP::PlottingHint> PlottingHints;
 
-enum Interaction { iRangeDrag         = 0x001 ///< <tt>0x001</tt> Axis ranges are draggable (see \ref QCPAxisRect::setRangeDrag, \ref QCPAxisRect::setRangeDragAxes)
+enum Interaction { iNone              = 0x000 ///< <tt>0x000</tt> None of the interactions are possible
+                   ,iRangeDrag        = 0x001 ///< <tt>0x001</tt> Axis ranges are draggable (see \ref QCPAxisRect::setRangeDrag, \ref QCPAxisRect::setRangeDragAxes)
                    ,iRangeZoom        = 0x002 ///< <tt>0x002</tt> Axis ranges are zoomable with the mouse wheel (see \ref QCPAxisRect::setRangeZoom, \ref QCPAxisRect::setRangeZoomAxes)
                    ,iMultiSelect      = 0x004 ///< <tt>0x004</tt> The user can select multiple objects by holding the modifier set by \ref QCustomPlot::setMultiSelectModifier while clicking
                    ,iSelectPlottables = 0x008 ///< <tt>0x008</tt> Plottables are selectable (e.g. graphs, curves, bars,... see QCPAbstractPlottable)
@@ -72,6 +73,7 @@ enum Interaction { iRangeDrag         = 0x001 ///< <tt>0x001</tt> Axis ranges ar
                    ,iSelectLegend     = 0x020 ///< <tt>0x020</tt> Legends are selectable (or their child items, see QCPLegend::setSelectableParts)
                    ,iSelectItems      = 0x040 ///< <tt>0x040</tt> Items are selectable (Rectangles, Arrows, Textitems, etc. see \ref QCPAbstractItem)
                    ,iSelectOther      = 0x080 ///< <tt>0x080</tt> All other objects are selectable (e.g. your own derived layerables, other layout elements,...)
+                   ,iSelectPlottablesBeyondAxisRect = 0x100 ///< <tt>0x100</tt> When performing plottable selection/hit tests, this flag extends the sensitive area beyond the axis rect
                  };
 typedef QFlags<QCP::Interaction> Interactions;
 

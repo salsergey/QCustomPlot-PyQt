@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert, Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -26,7 +26,6 @@ public:
 
 protected:
   // reimplemented virtual methods:
-  virtual double getTickStep(const QCPRange &range);
   virtual int getSubTickCount(double tickStep);
   virtual QVector<double> createTickVector(double tickStep, const QCPRange &range);
 };

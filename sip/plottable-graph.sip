@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -118,7 +118,7 @@ protected:
   bool segmentsIntersect(double aLower, double aUpper, double bLower, double bUpper, int &bPrecedence) const;
   QPointF getFillBasePoint(QPointF matchingDataPoint) const;
   const QPolygonF getFillPolygon(const QVector<QPointF> *lineData, QCPDataRange segment) const;
-  const QPolygonF getChannelFillPolygon(const QVector<QPointF> *lineData, QCPDataRange thisSegment, const QVector<QPointF> *otherData, QCPDataRange otherSegment) const;
+  const QPolygonF getChannelFillPolygon(const QVector<QPointF> *thisData, QCPDataRange thisSegment, const QVector<QPointF> *otherData, QCPDataRange otherSegment) const;
   int findIndexBelowX(const QVector<QPointF> *data, double x) const;
   int findIndexAboveX(const QVector<QPointF> *data, double x) const;
   int findIndexBelowY(const QVector<QPointF> *data, double y) const;

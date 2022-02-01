@@ -1,6 +1,6 @@
-/** PyQt5 binding for QCustomPlot v2.0.0
+/** PyQt5 binding for QCustomPlot v2.1.0
  *
- *  Authors: Dmitry Voronin, Giuseppe Corbelli
+ *  Authors: Dmitry Voronin, Giuseppe Corbelli, Sergey Salnikov
  *  License: MIT
  *
  *  QCustomPlot author: Emanuel Eichhammer
@@ -134,6 +134,7 @@ public:
   QPixmap toPixmap(int width=0, int height=0, double scale=1.0);
   void toPainter(QCPPainter *painter, int width=0, int height=0);
   Q_SLOT void replot(QCustomPlot::RefreshPriority refreshPriority=QCustomPlot::rpRefreshHint);
+  double replotTime(bool average=false) const;
 
   QCPAxis *xAxis;
   QCPAxis *yAxis;
@@ -159,6 +160,7 @@ signals:
 
   void selectionChangedByUser();
   void beforeReplot();
+  void afterLayout();
   void afterReplot();
 
 protected:
