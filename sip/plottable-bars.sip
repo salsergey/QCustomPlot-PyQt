@@ -77,6 +77,9 @@ public:
 
 
 typedef QCPAbstractPlottable1D<QCPBarsData> QCPAbstractPlottable1D_QCPBarsData;
+typedef QCPDataContainer<QCPBarsData> QCPBarsDataContainer;
+typedef QCPDataContainerIterator<QCPBarsData> QCPBarsDataContainerIterator;
+
 
 class QCPBars : public QCPAbstractPlottable1D_QCPBarsData
 {
@@ -91,7 +94,8 @@ public:
                    ,wtPlotCoords    ///< Bar width is in key coordinates and thus scales with the key axis range
                  };
 
-  explicit QCPBars(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  // TODO: Technically ownership is trasferred to keyAxis->parentPlot()
+  explicit QCPBars(QCPAxis *keyAxis /TransferThis/, QCPAxis *valueAxis);
   virtual ~QCPBars();
 
   // getters:
@@ -102,12 +106,17 @@ public:
   double stackingGap() const;
   QCPBars *barBelow() const;
   QCPBars *barAbove() const;
-  // TODO: provide methodcode
-  // QSharedPointer<QCPBarsDataContainer> data() const;
+  QCPBarsDataContainer *data() const;
+  %MethodCode
+    // QSharedPointer::get was introduced in Qt 5.11
+    sipRes = sipCpp->data().data();
+  %End
 
   // setters:
-  // TODO: provide methodcode
-  // void setData(QSharedPointer<QCPBarsDataContainer> data);
+  void setData(QCPBarsDataContainer *data);
+  %MethodCode
+    sipCpp->setData(QSharedPointer<QCPBarsDataContainer>(a0));
+  %End
   void setData(const QVector<double> &keys, const QVector<double> &values, bool alreadySorted=false);
   void setWidth(double width);
   void setWidthType(WidthType widthType);

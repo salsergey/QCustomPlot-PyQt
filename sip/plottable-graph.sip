@@ -30,8 +30,11 @@ public:
   double value;
 };
 
-typedef QCPDataContainer<QCPGraphData> QCPGraphDataContainer;
+
 typedef QCPAbstractPlottable1D<QCPGraphData> QCPAbstractPlottable1D_QCPGraphData;
+typedef QCPDataContainer<QCPGraphData> QCPGraphDataContainer;
+typedef QCPDataContainerIterator<QCPGraphData> QCPGraphDataContainerIterator;
+
 
 class QCPGraph : public QCPAbstractPlottable1D_QCPGraphData
 {
@@ -50,7 +53,7 @@ public:
                    ,lsImpulse    ///< each data point is represented by a line parallel to the value axis, which reaches from the data point to the zero-value-line
                  };
 
-  explicit QCPGraph(QCPAxis *keyAxis, QCPAxis *valueAxis);
+  explicit QCPGraph(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;
   virtual ~QCPGraph();
 
   // getters:
@@ -65,7 +68,7 @@ public:
   bool adaptiveSampling() const;
 
   // setters:
-  void setData(QCPGraphDataContainer *data /Transfer/);
+  void setData(QCPGraphDataContainer *data);
   %MethodCode
     sipCpp->setData(QSharedPointer<QCPGraphDataContainer>(a0));
   %End

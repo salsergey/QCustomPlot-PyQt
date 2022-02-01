@@ -35,8 +35,9 @@ public:
   QVector<double> outliers;
 };
 
-typedef QCPDataContainer<QCPStatisticalBoxData> QCPStatisticalBoxDataContainer;
 typedef QCPAbstractPlottable1D<QCPStatisticalBoxData> QCPAbstractPlottable1D_QCPStatisticalBoxData;
+typedef QCPDataContainer<QCPStatisticalBoxData> QCPStatisticalBoxDataContainer;
+typedef QCPDataContainerIterator<QCPStatisticalBoxData> QCPStatisticalBoxDataContainerIterator;
 
 class QCPStatisticalBox : public QCPAbstractPlottable1D_QCPStatisticalBoxData
 {
@@ -62,7 +63,7 @@ public:
   QCPScatterStyle outlierStyle() const;
 
   // setters:
-  void setData(QCPStatisticalBoxDataContainer *data /Transfer/);
+  void setData(QCPStatisticalBoxDataContainer *data);
   %MethodCode
     sipCpp->setData(QSharedPointer<QCPStatisticalBoxDataContainer>(a0));
   %End

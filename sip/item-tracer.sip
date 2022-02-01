@@ -21,7 +21,7 @@ public:
                      ,tsSquare     ///< A square
                    };
 
-  explicit QCPItemTracer(QCustomPlot *parentPlot /TransferThis/);
+  QCPItemTracer(QCustomPlot *parentPlot /TransferThis/);
   virtual ~QCPItemTracer();
 
   // getters:
@@ -52,7 +52,18 @@ public:
   // non-virtual methods:
   void updatePosition();
 
-  QCPItemPosition * position /NoSetter/;
+  // There's nothing like 'const' in python
+  QCPItemPosition *position
+  {
+      %GetCode
+        return sipConvertFromType(const_cast<::QCPItemPosition*>(sipCpp->position), sipType_QCPItemPosition, NULL);
+      %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'position' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
 
 protected:
   // reimplemented virtual methods:

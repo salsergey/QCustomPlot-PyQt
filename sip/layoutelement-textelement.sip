@@ -14,7 +14,7 @@ class QCPTextElement : public QCPLayoutElement /NoDefaultCtors/
 #include <QCustomPlot/src/layoutelements/layoutelement-textelement.h>
 %End
 public:
-  explicit QCPTextElement(QCustomPlot *parentPlot);
+  explicit QCPTextElement(QCustomPlot *parentPlot /TransferThis/);
   QCPTextElement(QCustomPlot *parentPlot /TransferThis/, const QString &text);
   QCPTextElement(QCustomPlot *parentPlot /TransferThis/, const QString &text, double pointSize);
   QCPTextElement(QCustomPlot *parentPlot /TransferThis/, const QString &text, const QString &fontFamily, double pointSize);

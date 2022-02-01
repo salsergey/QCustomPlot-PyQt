@@ -32,8 +32,28 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  QCPItemPosition * start /NoSetter/;
-  QCPItemPosition * end /NoSetter/;
+  QCPItemPosition * start
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemPosition*>(sipCpp->start), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'start' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemPosition * end
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemPosition*>(sipCpp->end), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'end' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
 
 protected:
   // reimplemented virtual methods:

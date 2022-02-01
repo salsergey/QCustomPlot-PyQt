@@ -50,15 +50,105 @@ public:
   // reimplemented virtual methods:
   virtual double selectTest(const QPointF &pos, bool onlySelectable, QVariant *details=0) const;
   
-  QCPItemPosition * position /NoSetter/;
-  QCPItemAnchor * topLeft /NoSetter/;
-  QCPItemAnchor * top /NoSetter/;
-  QCPItemAnchor * topRight /NoSetter/;
-  QCPItemAnchor * right /NoSetter/;
-  QCPItemAnchor * bottomRight /NoSetter/;
-  QCPItemAnchor * bottom /NoSetter/;
-  QCPItemAnchor * bottomLeft /NoSetter/;
-  QCPItemAnchor * left /NoSetter/;
+  QCPItemPosition * position
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemPosition*>(sipCpp->position), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'position' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * topLeft
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->topLeft), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'topLeft' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * top
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->top), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'top' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * topRight
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->topRight), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'topRight' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * right
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->right), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'right' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * bottomRight
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->bottomRight), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'bottomRight' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * bottom
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->bottom), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'bottom' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * bottomLeft
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->bottomLeft), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'bottomLeft' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
+  QCPItemAnchor * left
+  {
+    %GetCode
+      return sipConvertFromType(const_cast<::QCPItemAnchor*>(sipCpp->left), sipType_QCPItemPosition, NULL);
+    %End
+
+    %SetCode
+      PyErr_SetString(PyExc_AttributeError, "'left' attribute cannot be assigned");
+      sipErr = 1;
+    %End
+  };
 
 protected:
   // reimplemented virtual methods:

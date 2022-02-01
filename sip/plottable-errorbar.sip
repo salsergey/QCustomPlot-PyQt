@@ -48,7 +48,7 @@ public:
   double symbolGap() const;
   
   // setters:
-  void setData(QCPErrorBarsDataContainer *data /Transfer/);
+  void setData(QCPErrorBarsDataContainer *data);
   %MethodCode
     sipCpp->setData(QSharedPointer<QCPErrorBarsDataContainer>(a0));
   %End

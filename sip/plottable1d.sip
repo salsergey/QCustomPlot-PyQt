@@ -32,7 +32,7 @@ class QCPAbstractPlottable1D : public QCPAbstractPlottable, public QCPPlottableI
 {
 %TypeHeaderCode
 #include <QCustomPlot/src/qcp.h>
-#include "helper.h"
+#include "plottable1d_helper.h"
 %End
 public:
   QCPAbstractPlottable1D(QCPAxis *keyAxis, QCPAxis *valueAxis);

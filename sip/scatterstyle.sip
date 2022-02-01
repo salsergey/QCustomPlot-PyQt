@@ -75,3 +75,5 @@ public:
   void drawShape(QCPPainter *painter, const QPointF &pos) const;
   void drawShape(QCPPainter *painter, double x, double y) const;
 };
+
+QFlags<QCPScatterStyle::ScatterProperty> operator|(QCPScatterStyle::ScatterProperty f1, QFlags<QCPScatterStyle::ScatterProperty> f2);

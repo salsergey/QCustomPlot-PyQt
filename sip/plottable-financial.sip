@@ -33,8 +33,9 @@ public:
   double close;
 };
 
-typedef QCPDataContainer<QCPFinancialData> QCPFinancialDataContainer;
 typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
+typedef QCPDataContainer<QCPFinancialData> QCPFinancialDataContainer;
+typedef QCPDataContainerIterator<QCPFinancialData> QCPFinancialDataContainerIterator;
 
 class QCPFinancial : public QCPAbstractPlottable1D_QCPFinancialData
 {
@@ -71,7 +72,7 @@ public:
   QPen penNegative() const;
   
   // setters:
-  void setData(QCPFinancialDataContainer *data /Transfer/);
+  void setData(QCPFinancialDataContainer *data);
   %MethodCode
     sipCpp->setData(QSharedPointer<QCPFinancialDataContainer>(a0));
   %End

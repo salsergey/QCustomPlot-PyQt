@@ -164,3 +164,5 @@ protected:
   QPen getBorderPen() const;
   QBrush getBrush() const;
 };
+
+QFlags<QCPLegend::SelectablePart> operator|(QCPLegend::SelectablePart f1, QFlags<QCPLegend::SelectablePart> f2);

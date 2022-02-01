@@ -31,8 +31,11 @@ public:
   double value;
 };
 
-typedef QCPDataContainer<QCPCurveData> QCPCurveDataContainer;
+
 typedef QCPAbstractPlottable1D<QCPCurveData> QCPAbstractPlottable1D_QCPCurveData;
+typedef QCPDataContainer<QCPCurveData> QCPCurveDataContainer;
+typedef QCPDataContainerIterator<QCPCurveData> QCPCurveDataContainerIterator;
+
 
 class QCPCurve : public QCPAbstractPlottable1D_QCPCurveData
 {
@@ -60,7 +63,7 @@ public:
   LineStyle lineStyle() const;
 
   // setters:
-  void setData(QCPCurveDataContainer *data /Transfer/);
+  void setData(QCPCurveDataContainer *data);
   %MethodCode
     sipCpp->setData(QSharedPointer<QCPCurveDataContainer>(a0));
   %End

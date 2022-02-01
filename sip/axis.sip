@@ -137,7 +137,11 @@ public:
   void setRangeLower(double lower);
   void setRangeUpper(double upper);
   void setRangeReversed(bool reversed);
-  void setTicker(QCPAxisTicker* ticker /Transfer/);
+  void setTicker(QCPAxisTicker *ticker /Transfer/);
+  %Docstring(format = "deindented", signature = "prepended")
+    Set a new ticker on the axis. Ownership of the ticker is transferred to the axis
+    and cannot be taken back.
+  %End
   %MethodCode
     sipCpp->setTicker(QSharedPointer<QCPAxisTicker>(a0));
   %End
@@ -234,3 +238,6 @@ protected:
   QColor getTickLabelColor() const;
   QColor getLabelColor() const;
 };
+
+QFlags<QCPAxis::AxisType> operator|(QCPAxis::AxisType f1, QFlags<QCPAxis::AxisType> f2);
+QFlags<QCPAxis::SelectablePart> operator|(QCPAxis::SelectablePart f1, QFlags<QCPAxis::SelectablePart> f2);

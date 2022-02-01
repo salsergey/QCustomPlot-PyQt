@@ -45,3 +45,5 @@ public:
   // non-virtual methods:
   void makeNonCosmetic();
 };
+
+QFlags<QCPPainter::PainterMode> operator|(QCPPainter::PainterMode f1, QFlags<QCPPainter::PainterMode> f2);

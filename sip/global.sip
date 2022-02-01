@@ -94,3 +94,8 @@ void setMarginValue(QMargins &margins, QCP::MarginSide side, int value);
 int getMarginValue(const QMargins &margins, QCP::MarginSide side);
 
 };  // Namespace QCP
+
+QFlags<QCP::MarginSide> operator|(QCP::MarginSide f1, QFlags<QCP::MarginSide> f2);
+QFlags<QCP::AntialiasedElement> operator|(QCP::AntialiasedElement f1, QFlags<QCP::AntialiasedElement> f2);
+QFlags<QCP::PlottingHint> operator|(QCP::PlottingHint f1, QFlags<QCP::PlottingHint> f2);
+QFlags<QCP::Interaction> operator|(QCP::Interaction f1, QFlags<QCP::Interaction> f2);
