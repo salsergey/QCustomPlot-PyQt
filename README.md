@@ -14,7 +14,7 @@
 
 ## Design goals
 
-There are myriads of Python charting libraries out there, and each may even have its reason to exist. QCustomPlot2 for PyQt5 has the following goals:
+This is Python bindings for [QCustomPlot](https://www.qcustomplot.com) - Qt C++ library for plotting and data visualization. There are myriads of Python charting libraries out there, and each may even have its reason to exist. QCustomPlot2 for PyQt5 has the following goals:
 
 - **Performance**. QCustomPlot is written in modern C++ with the excellent Qt library for superior performance over alternative libraries.
 
@@ -110,7 +110,7 @@ I would be happy to learn about other compilers/versions.
 
 This code is licensed under the [MIT License](http://opensource.org/licenses/MIT):
 
-Copyright &copy; 2017-2019 Dmitry Voronin, Christopher Gilbert and [Sergey Salnikov](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5)
+Copyright &copy; 2017-2019 Dmitry Voronin, Christopher Gilbert and [Sergey Salnikov](https://github.com/salsergey)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -125,7 +125,7 @@ This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) 
 
 ## Contact
 
-If you have questions regarding the library, I would like to invite you to [open an issue at OSDN](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5/ticket/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
+If you have questions regarding the library, I would like to invite you to [open an issue at Github](https://github.com/salsergey/QCustomPlot2-PyQt5/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
 
 
 ## Thanks
@@ -180,7 +180,7 @@ $ sip-install
 
 Windows users should install [Qt tools](https://www.qt.io/), appropriate version of [VC compiler](https://visualstudio.microsoft.com/), [Python](https://www.python.org/), [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and [SIP](https://www.riverbankcomputing.com/software/sip/download). You may need to build SIP from sources to ensure you have all files necessary for building other software. Then follow the instructions below to build the library, otherwise you will need to adapt the steps for your own environment.
 
-- Download QCustomPlot2 sources from [OSDN](https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5). You can use git or download an archive.
+- Download QCustomPlot2 sources from [Github](https://github.com/salsergey/QCustomPlot2-PyQt5/releases). You can use git or download an archive.
 - Launch Qt console and follow instructions there. It will ensure that you have all necessary tools in your PATH variable. Also be sure that python.exe binary is in your PATH.
 - Then follow these instructions:
 

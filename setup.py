@@ -131,10 +131,10 @@ class MyBuilderExt(build_ext):
         self.spawn([self.qmake, join(ROOT, 'QCustomPlot/src/qcp-staticlib.pro'), 'DESTDIR='])
         # AFAIK only nmake does not support -j option
         has_multiprocess = not(WINDOWS_HOST and 'nmake' in self.make)
-        make_cmdline = [self.make]
+        make_cmdline = [self.make, 'DESTDIR=']
         if has_multiprocess:
             make_cmdline.extend(['-j', str(CPU_COUNT)])
-        self.spawn([self.make, '-j', str(CPU_COUNT)])
+        self.spawn(make_cmdline)
 
         os.chdir(BUILD_DIR)
         self.static_lib = qcustomplot_static
@@ -208,6 +208,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
         'Topic :: Software Development :: User Interfaces'
     ],
     requires=[

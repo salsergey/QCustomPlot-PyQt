@@ -37,8 +37,12 @@ class QCustomPlotProject(PyQtProject):
         super().install()
 
     def build_qcustomplot(self):
-        """Make static qcustomplot library to be linked into python module."""
-        print('Make static qcustomplot library...')
+        """Make static qcustomplot library to be linked into python module if necessary."""
+        if not self.bindings['QCustomPlot2'].static_qcustomplot:
+            print('\nUsing system-wide QCustomPlot library.\n')
+            return
+
+        print('\nMaking static qcustomplot library...\n')
         cwd = os.getcwd()
         os.makedirs(join(self.root_dir, self.build_dir, 'qcustomplot'), exist_ok=True)
         os.chdir(join(self.root_dir, self.build_dir, 'qcustomplot'))
@@ -50,7 +54,7 @@ class QCustomPlotProject(PyQtProject):
             # Prefer jom instead of nmake
             self.run_command(['jom.exe'])
         else:
-            self.run_command(['make', '-j', str(CPU_COUNT)])
+            self.run_command(['make', 'DESTDIR=', '-j', str(CPU_COUNT)])
 
         os.chdir(cwd)
 
@@ -71,30 +75,40 @@ class QCustomPlotBindings(PyQtBindings):
 
         options += [
             Option('qt_incdir',
-                   help='Path to Qt headers',
+                   help='path to Qt headers',
                    metavar='DIR'),
             Option('qt_libdir',
-                   help='Path to Qt library dir (used at link time)',
+                   help='path to Qt library dir (used at link time)',
                    metavar='DIR'),
+            Option('static_qcustomplot',
+                   help='disable use of internal static QCustomPlot library and prefer system-wide',
+                   option_type=bool,
+                   inverted=True),
+            Option('qcustomplot_lib',
+                   help='the name of QCustomPlot library to link with (default is qcustomplot)',
+                   metavar='NAME',
+                   default='qcustomplot'),
         ]
         return options
 
     def apply_user_defaults(self, tool):
         """Apply values from user-configurable options."""
+        super().apply_user_defaults(tool)
 
         self.include_dirs.append(self.project.root_dir)
         self.include_dirs.append(join(self.project.root_dir, 'sip'))
 
-        self.libraries.append('qcustomplot')
+        self.libraries.append(self.qcustomplot_lib)
         if platform.system() == 'Windows':
-            self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot', 'release'))
             self.libraries.append('opengl32')
-        else:
-            self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot'))
+
+        if self.static_qcustomplot:
+            if platform.system() == 'Windows':
+                self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot', 'release'))
+            else:
+                self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot'))
 
         if self.qt_incdir is not None:
             self.include_dirs.append(self.qt_incdir)
         if self.qt_libdir is not None:
             self.library_dirs.append(self.qt_libdir)
-
-        super().apply_user_defaults(tool)
