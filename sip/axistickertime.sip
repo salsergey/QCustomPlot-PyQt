@@ -11,7 +11,7 @@
 class QCPAxisTickerTime : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickertime.h>
+#include <qcustomplot.h>
 %End
 public:
   enum TimeUnit { tuMilliseconds ///< Milliseconds, one thousandth of a second (%%z in \ref setTimeFormat)

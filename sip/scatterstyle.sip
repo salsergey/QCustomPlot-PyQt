@@ -10,7 +10,7 @@
 class QCPScatterStyle
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/scatterstyle.h>
+#include <qcustomplot.h>
 %End
 public:
   enum ScatterProperty { spNone  = 0x00  ///< <tt>0x00</tt> None

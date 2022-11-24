@@ -11,7 +11,7 @@
 class QCPCurveData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-curve.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPCurveData();
@@ -40,7 +40,7 @@ typedef QCPDataContainerIterator<QCPCurveData> QCPCurveDataContainerIterator;
 class QCPCurve : public QCPAbstractPlottable1D_QCPCurveData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-curve.h>
+#include <qcustomplot.h>
 
 typedef QCPAbstractPlottable1D<QCPCurveData> QCPAbstractPlottable1D_QCPCurveData;
 %End

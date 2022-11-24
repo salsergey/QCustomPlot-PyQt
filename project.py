@@ -48,7 +48,7 @@ class QCustomPlotProject(PyQtProject):
         os.chdir(join(self.root_dir, self.build_dir, 'qcustomplot'))
 
         self.run_command([self.builder.qmake,
-                          join(self.root_dir, 'QCustomPlot/src/qcp-staticlib.pro'),
+                          join(self.root_dir, 'src/qcp-staticlib.pro'),
                           'DESTDIR='])
         if platform.system() == 'Windows':
             # Prefer jom instead of nmake
@@ -95,8 +95,9 @@ class QCustomPlotBindings(PyQtBindings):
         """Apply values from user-configurable options."""
         super().apply_user_defaults(tool)
 
-        self.include_dirs.append(self.project.root_dir)
         self.include_dirs.append(join(self.project.root_dir, 'sip'))
+        if self.static_qcustomplot:
+            self.include_dirs.append(join(self.project.root_dir, 'src'))
 
         self.libraries.append(self.qcustomplot_lib)
         if platform.system() == 'Windows':

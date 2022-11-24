@@ -11,7 +11,7 @@
 namespace QCP
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/global.h>
+#include <qcustomplot.h>
 %End
 
 enum ResolutionUnit { ruDotsPerMeter       ///< Resolution is given in dots per meter (dpm)

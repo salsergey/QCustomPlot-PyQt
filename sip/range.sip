@@ -10,7 +10,7 @@
 class QCPRange
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/range.h>
+#include <qcustomplot.h>
 %End
 
 public:

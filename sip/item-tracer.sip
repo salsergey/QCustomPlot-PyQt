@@ -11,7 +11,7 @@
 class QCPItemTracer : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-tracer.h>
+#include <qcustomplot.h>
 %End
 public:
   enum TracerStyle { tsNone        ///< The tracer is not visible

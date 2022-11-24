@@ -11,7 +11,7 @@
 class QCPItemRect : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-rect.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemRect(QCustomPlot *parentPlot /TransferThis/);

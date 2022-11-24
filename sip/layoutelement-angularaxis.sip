@@ -11,7 +11,7 @@
 class QCPPolarAxisAngular : public QCPLayoutElement
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/polar/layoutelement-angularaxis.h>
+#include <qcustomplot.h>
 %End
 public:
   enum SelectablePart { spNone        = 0      ///< None of the selectable parts

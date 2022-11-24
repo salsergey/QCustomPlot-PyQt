@@ -1,7 +1,7 @@
 #if !defined(__QCUSTOMPLOT_SIP_DATACONTAINER_H)
 #define __QCUSTOMPLOT_SIP_DATACONTAINER_H
 
-#include <QCustomPlot/src/datacontainer.h>
+#include <qcustomplot.h>
 
 /** Defines an iterator that can be reasonably wrapped to Python */
 template<typename T>

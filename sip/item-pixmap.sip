@@ -11,7 +11,7 @@
 class QCPItemPixmap : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-pixmap.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemPixmap(QCustomPlot *parentPlot /TransferThis/);

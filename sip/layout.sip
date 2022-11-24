@@ -11,7 +11,7 @@
 class QCPMarginGroup : public QObject
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layout.h>
+#include <qcustomplot.h>
 %End
 
 public:
@@ -36,7 +36,7 @@ protected:
 class QCPLayoutElement : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 
 %ConvertToSubClassCode
@@ -116,7 +116,7 @@ protected:
 class QCPLayout : public QCPLayoutElement
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layout.h>
+#include <qcustomplot.h>
 %End
 
 public:
@@ -155,7 +155,7 @@ protected:
 class QCPLayoutGrid : public QCPLayout
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layout.h>
+#include <qcustomplot.h>
 %End
  
 public:
@@ -218,7 +218,7 @@ protected:
 class QCPLayoutInset : public QCPLayout
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layout.h>
+#include <qcustomplot.h>
 %End
 
 public:

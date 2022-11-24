@@ -122,7 +122,7 @@
 class QCPAxisTickerText : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickertext.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPAxisTickerText();

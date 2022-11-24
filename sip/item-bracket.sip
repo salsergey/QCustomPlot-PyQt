@@ -11,7 +11,7 @@
 class QCPItemBracket : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-bracket.h>
+#include <qcustomplot.h>
 %End
 public:
   enum BracketStyle { bsSquare  ///< A brace with angled edges

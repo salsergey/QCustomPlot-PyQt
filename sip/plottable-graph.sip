@@ -11,7 +11,7 @@
 class QCPGraphData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-graph.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPGraphData();
@@ -39,7 +39,7 @@ typedef QCPDataContainerIterator<QCPGraphData> QCPGraphDataContainerIterator;
 class QCPGraph : public QCPAbstractPlottable1D_QCPGraphData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-graph.h>
+#include <qcustomplot.h>
 
 typedef QCPAbstractPlottable1D<QCPGraphData> QCPAbstractPlottable1D_QCPGraphData;
 %End

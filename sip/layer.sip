@@ -11,7 +11,7 @@
 class QCPLayer : public QObject
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layer.h>
+#include <qcustomplot.h>
 %End
 public:
   enum LayerMode { lmLogical   ///< Layer is used only for rendering order, and shares paint buffer with all other adjacent logical layers.
@@ -47,7 +47,7 @@ protected:
 class QCPLayerable : public QObject /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layer.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPLayerable(QCustomPlot *plot /TransferThis/, QString targetLayer=QString(), QCPLayerable *parentLayerable=0);

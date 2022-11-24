@@ -11,7 +11,7 @@
 class QCPItemLine : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-line.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemLine(QCustomPlot *parentPlot /TransferThis/);

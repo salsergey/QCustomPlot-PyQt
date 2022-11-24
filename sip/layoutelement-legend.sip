@@ -10,7 +10,7 @@
 class QCPAbstractLegendItem : public QCPLayoutElement /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 
 %ConvertToSubClassCode
@@ -63,7 +63,7 @@ protected:
 class QCPPlottableLegendItem : public QCPAbstractLegendItem
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPPlottableLegendItem(QCPLegend *parent /TransferThis/, QCPAbstractPlottable *plottable);
@@ -86,7 +86,7 @@ protected:
 class QCPLegend : public QCPLayoutGrid
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 public:
   enum SelectablePart { spNone        = 0x000 ///< <tt>0x000</tt> None

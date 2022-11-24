@@ -11,7 +11,7 @@
 class QCPGrid :public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPGrid(QCPAxis *parentAxis /TransferThis/);
@@ -46,7 +46,7 @@ protected:
 class QCPAxis : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 
 %ConvertToSubClassCode

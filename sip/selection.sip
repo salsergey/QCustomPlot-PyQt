@@ -10,7 +10,7 @@
 class QCPDataRange
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/selection.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPDataRange();
@@ -44,7 +44,7 @@ public:
 class QCPDataSelection
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottable.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPDataSelection();

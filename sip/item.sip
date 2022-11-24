@@ -11,7 +11,7 @@
 class QCPItemAnchor /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/item.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPItemAnchor(QCustomPlot *parentPlot /TransferThis/, QCPAbstractItem *parentItem, const QString &name, int anchorId=-1);
@@ -36,7 +36,7 @@ protected:
 class QCPItemPosition : public QCPItemAnchor /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/item.h>
+#include <qcustomplot.h>
 %End
 public:
   enum PositionType { ptAbsolute        ///< Static positioning in pixels, starting from the top left corner of the viewport/widget.
@@ -89,7 +89,7 @@ protected:
 class QCPAbstractItem : public QCPLayerable /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 
 %ConvertToSubClassCode

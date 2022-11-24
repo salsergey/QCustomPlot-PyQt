@@ -10,7 +10,7 @@
 class QCPBarsGroup : public QObject
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-bars.h>
+#include <qcustomplot.h>
 %End
 public:
   enum SpacingType { stAbsolute       ///< Bar spacing is in absolute pixels
@@ -54,7 +54,7 @@ protected:
 class QCPBarsData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-bars.h>
+#include <qcustomplot.h>
 
 typedef QCPAbstractPlottable1D<QCPBarsData> QCPAbstractPlottable1D_QCPBarsData;
 %End
@@ -84,7 +84,7 @@ typedef QCPDataContainerIterator<QCPBarsData> QCPBarsDataContainerIterator;
 class QCPBars : public QCPAbstractPlottable1D_QCPBarsData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-bars.h>
+#include <qcustomplot.h>
 
 typedef QCPAbstractPlottable1D<QCPBarsData> QCPAbstractPlottable1D_QCPBarsData;
 %End

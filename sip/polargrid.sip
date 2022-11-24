@@ -11,7 +11,7 @@
 class QCPPolarGrid : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/polar/polargrid.h>
+#include <qcustomplot.h>
 %End
 public:
   enum GridType { gtAngular = 0x01 ///<

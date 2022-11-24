@@ -11,7 +11,7 @@
 class QCPItemStraightLine : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-straightline.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemStraightLine(QCustomPlot *parentPlot /TransferThis/);

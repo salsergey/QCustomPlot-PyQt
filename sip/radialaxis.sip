@@ -11,7 +11,7 @@
 class QCPPolarAxisRadial : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/polar/radialaxis.h>
+#include <qcustomplot.h>
 %End
 public:
   enum AngleReference { arAbsolute    ///< The axis tilt is given in absolute degrees. The zero is to the right and positive angles are measured counter-clockwise.

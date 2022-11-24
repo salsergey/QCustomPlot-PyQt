@@ -11,7 +11,7 @@
 class QCPItemText : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-text.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemText(QCustomPlot *parentPlot /TransferThis/);

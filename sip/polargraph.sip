@@ -15,7 +15,7 @@
 class QCPPolarLegendItem : public QCPAbstractLegendItem
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/polar/polargraph.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPPolarLegendItem(QCPLegend *parent, QCPPolarGraph *graph);
@@ -38,7 +38,7 @@ protected:
 class QCPPolarGraph : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/polar/polargraph.h>
+#include <qcustomplot.h>
 %End
 public:
   enum LineStyle { lsNone        ///< data points are not connected with any lines (e.g. data only represented

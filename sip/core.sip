@@ -11,7 +11,7 @@
 class QCustomPlot : public QWidget
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 public:
   enum LayerInsertMode { limBelow  ///< Layer is inserted below other layer

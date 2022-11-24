@@ -11,7 +11,7 @@
 class QCPAxisTickerFixed : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickerfixed.h>
+#include <qcustomplot.h>
 %End
 public:
   enum ScaleStrategy { ssNone      ///< Modifications are not allowed, the specified tick step is absolutely fixed. This might cause a high tick density and overlapping labels if the axis range is zoomed out.

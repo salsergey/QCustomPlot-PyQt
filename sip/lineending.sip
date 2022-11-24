@@ -10,7 +10,7 @@
 class QCPLineEnding
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/lineending.h>
+#include <qcustomplot.h>
 %End
 public:
   enum EndingStyle { esNone          ///< No ending decoration

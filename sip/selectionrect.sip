@@ -10,7 +10,7 @@
 class QCPSelectionRect : public QCPLayerable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/selectionrect.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPSelectionRect(QCustomPlot *parentPlot /TransferThis/);

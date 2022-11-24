@@ -11,7 +11,7 @@
 class QCPTextElement : public QCPLayoutElement /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layoutelements/layoutelement-textelement.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPTextElement(QCustomPlot *parentPlot /TransferThis/);

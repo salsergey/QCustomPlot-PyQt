@@ -10,7 +10,7 @@
 class QCPPlottableInterface1D /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottable1d.h>
+#include <qcustomplot.h>
 %End
 public:
   virtual ~QCPPlottableInterface1D();
@@ -31,7 +31,7 @@ template <DataType>
 class QCPAbstractPlottable1D : public QCPAbstractPlottable, public QCPPlottableInterface1D /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 #include "plottable1d_helper.h"
 %End
 public:

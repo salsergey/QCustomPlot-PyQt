@@ -11,7 +11,7 @@
 class QCPColorMapData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-colormap.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPColorMapData(int keySize, int valueSize, const QCPRange &keyRange, const QCPRange &valueRange);
@@ -57,7 +57,7 @@ protected:
 class QCPColorMap : public QCPAbstractPlottable
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-colormap.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPColorMap(QCPAxis *keyAxis, QCPAxis *valueAxis) /Transfer/;

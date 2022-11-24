@@ -10,7 +10,7 @@
 class QCPSelectionDecorator /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottable.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPSelectionDecorator();
@@ -46,7 +46,7 @@ protected:
 class QCPAbstractPlottable : public QCPLayerable /Abstract/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 
 %ConvertToSubClassCode

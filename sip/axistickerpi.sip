@@ -11,7 +11,7 @@
 class QCPAxisTickerPi : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickerpi.h>
+#include <qcustomplot.h>
 %End
 public:
   enum FractionStyle { fsFloatingPoint     ///< Fractions are displayed as regular decimal floating point numbers, e.g. "0.25" or "0.125".

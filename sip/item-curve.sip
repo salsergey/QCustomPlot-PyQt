@@ -11,7 +11,7 @@
 class QCPItemCurve : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-curve.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemCurve(QCustomPlot *parentPlot /TransferThis/);

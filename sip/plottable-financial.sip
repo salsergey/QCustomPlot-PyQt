@@ -11,7 +11,7 @@
 class QCPFinancialData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-financial.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPFinancialData();
@@ -40,7 +40,7 @@ typedef QCPDataContainerIterator<QCPFinancialData> QCPFinancialDataContainerIter
 class QCPFinancial : public QCPAbstractPlottable1D_QCPFinancialData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-financial.h>
+#include <qcustomplot.h>
 
 typedef QCPAbstractPlottable1D<QCPFinancialData> QCPAbstractPlottable1D_QCPFinancialData;
 %End

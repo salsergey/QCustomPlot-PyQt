@@ -13,7 +13,7 @@ class QCPDataContainer
 {
 %TypeHeaderCode
   #include <QtGlobal>
-  #include <QCustomPlot/src/qcp.h>
+  #include <qcustomplot.h>
   #include "datacontainer.h"
   #include "datacontainer_helper.h"
 %End
@@ -96,7 +96,7 @@ template<DataType>
 class QCPDataContainerIterator
 {
 %TypeHeaderCode
-  #include <QCustomPlot/src/qcp.h>
+  #include <qcustomplot.h>
   #include "datacontainer.h"
   #include "datacontainer_helper.h"
 %End

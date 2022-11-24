@@ -11,7 +11,7 @@
 class QCPErrorBarsData
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-errorbar.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPErrorBarsData();
@@ -27,7 +27,7 @@ typedef QVector<QCPErrorBarsData> QCPErrorBarsDataContainer;
 class QCPErrorBars : public QCPAbstractPlottable, public QCPPlottableInterface1D
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/plottables/plottable-errorbar.h>
+#include <qcustomplot.h>
 %End
 public:
   enum ErrorType { etKeyError    ///< The errors are for the key dimension (bars appear parallel to the key axis)

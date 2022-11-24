@@ -6,7 +6,7 @@ build-backend = 'sipbuild.api'
 # Specify the PEP 566 metadata for the project.
 [tool.sip.metadata]
 name = 'QCustomPlot2'
-version = '2.1.0'
+version = '2.1.1'
 summary = 'QCustomPlot is a Qt widget for plotting and data visualization'
 home-page = 'https://osdn.net/users/salsergey/pf/QCustomPlot2-PyQt5'
 maintainer = 'Sergey Salnikov'
@@ -42,6 +42,8 @@ sip-files-dir = 'sip'
 sdist-excludes = [
     '.*',
     '.*/*',
+    '.*/*/*',
+    '.*/.*',
     '.git/*',
     '.git/*/*',
     '.git/*/*/*',
@@ -53,6 +55,11 @@ sdist-excludes = [
     '*/*/.*',
     '*/*/*/.*',
     '*/*/*/*/.*',
+    'QCustomPlot/*',
+    'QCustomPlot/*/*',
+    'QCustomPlot/*/*/*',
+    'QCustomPlot/*/*/*/*',
+    'QCustomPlot/*/*/*/*/*',
     'build/*',
     'build/*/*',
     'build/*/*/*',

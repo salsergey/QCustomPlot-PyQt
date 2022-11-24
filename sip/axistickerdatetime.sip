@@ -10,7 +10,7 @@
 class QCPAxisTickerDateTime : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickerdatetime.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPAxisTickerDateTime();

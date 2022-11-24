@@ -122,7 +122,7 @@
 class QCPColorGradient
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/colorgradient.h>
+#include <qcustomplot.h>
 %End
 public:
   enum ColorInterpolation { ciRGB  ///< Color channels red, green and blue are linearly interpolated

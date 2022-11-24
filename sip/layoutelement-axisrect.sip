@@ -11,7 +11,7 @@
 class QCPAxisRect : public QCPLayoutElement
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/layoutelements/layoutelement-axisrect.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPAxisRect(QCustomPlot *parentPlot /TransferThis/, bool setupDefaultAxes=true);

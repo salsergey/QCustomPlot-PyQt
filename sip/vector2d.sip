@@ -10,7 +10,7 @@
 class QCPVector2D
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/vector2d.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPVector2D();

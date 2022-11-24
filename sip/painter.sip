@@ -10,7 +10,7 @@
 class QCPPainter : public QPainter
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/painter.h>
+#include <qcustomplot.h>
 %End
 public:
   enum PainterMode { pmDefault       = 0x00   ///< <tt>0x00</tt> Default mode for painting on screen devices

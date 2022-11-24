@@ -11,7 +11,7 @@
 class QCPAxisTickerLog : public QCPAxisTicker
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/axis/axistickerlog.h>
+#include <qcustomplot.h>
 %End
 public:
   QCPAxisTickerLog();

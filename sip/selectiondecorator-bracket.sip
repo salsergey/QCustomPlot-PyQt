@@ -11,7 +11,7 @@
 class QCPSelectionDecoratorBracket : public QCPSelectionDecorator /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/qcp.h>
+#include <qcustomplot.h>
 %End
 public:
   enum BracketStyle { bsSquareBracket ///< A square bracket is drawn.

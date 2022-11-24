@@ -11,7 +11,7 @@
 class QCPItemEllipse : public QCPAbstractItem /NoDefaultCtors/
 {
 %TypeHeaderCode
-#include <QCustomPlot/src/items/item-ellipse.h>
+#include <qcustomplot.h>
 %End
 public:
   explicit QCPItemEllipse(QCustomPlot *parentPlot /TransferThis/);
