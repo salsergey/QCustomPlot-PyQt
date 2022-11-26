@@ -10,10 +10,11 @@ lessThan(QT_MAJOR_VERSION, 5): QMAKE_CXXFLAGS += -std=c++11
 
 TEMPLATE = lib
 CONFIG += qt staticlib debug_and_release build_all
-DESTDIR = $$PWD
 
-QMAKE_CXXFLAGS += -Wall -Wextra
-QMAKE_CXXFLAGS += -Wold-style-cast -Wlogical-op -Wduplicated-branches -Wduplicated-cond
+!win32 {
+  QMAKE_CXXFLAGS += -Wall -Wextra
+  QMAKE_CXXFLAGS += -Wold-style-cast -Wlogical-op -Wduplicated-branches -Wduplicated-cond
+}
 
 VERSION = 2.1.1
 TARGET = qcustomplot
