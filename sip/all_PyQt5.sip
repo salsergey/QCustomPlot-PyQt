@@ -1,5 +1,5 @@
 %Copying
-PyQt5 binding for QCustomPlot v2.1.0
+PyQt5 binding for QCustomPlot v2.1.1
 
 Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert, Sergey Salnikov
 License: MIT

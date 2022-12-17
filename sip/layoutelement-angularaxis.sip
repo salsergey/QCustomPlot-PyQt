@@ -1,4 +1,4 @@
-/** PyQt5 binding for QCustomPlot v2.1.0
+/** PyQt5 binding for QCustomPlot v2.1.1
  *
  *  Authors: Sergey Salnikov
  *  License: MIT
