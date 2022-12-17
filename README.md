@@ -1,4 +1,4 @@
-# QCustomPlot2-PyQt5
+# QCustomPlot for PyQt5 and PyQt6
 
 - [Design goals](#design-goals)
 - [Installing](#installing)
@@ -14,7 +14,7 @@
 
 ## Design goals
 
-This is Python bindings for [QCustomPlot](https://www.qcustomplot.com) - Qt C++ library for plotting and data visualization. There are myriads of Python charting libraries out there, and each may even have its reason to exist. QCustomPlot2 for PyQt5 has the following goals:
+This is Python bindings for [QCustomPlot](https://www.qcustomplot.com) - Qt C++ library for plotting and data visualization. This binding can be complied for use with **PyQ5** or **PyQt6**. There are myriads of Python charting libraries out there, and each may even have its reason to exist. QCustomPlot has the following goals:
 
 - **Performance**. QCustomPlot is written in modern C++ with the excellent Qt library for superior performance over alternative libraries.
 
@@ -32,7 +32,12 @@ You can find compiled packages for many Linux distributions at [OBS](https://sof
 Install the package via our favourite package manager:
 
 ```sh
-$ pip install QCustomPlot2
+$ pip install QCustomPlot_PyQt5
+```
+or
+
+```sh
+$ pip install QCustomPlot_PyQt6
 ```
 
 
@@ -46,7 +51,7 @@ import math
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QBrush, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from QCustomPlot2 import *
+from QCustomPlot_PyQt5 import *
 
 
 app = QApplication(sys.argv)
@@ -66,8 +71,8 @@ graph1.setPen(QPen(Qt.red))
 x, y0, y1 = [], [], []
 for i in range (251):
     x.append(i)
-    y0.append(math.exp(-i/150.0)*math.cos(i/10.0)) # exponentially decaying cosine
-    y1.append(math.exp(-i/150.0))                  # exponential envelope
+    y0.append(math.exp(-i/150.0)*math.cos(i/10.0))  # exponentially decaying cosine
+    y1.append(math.exp(-i/150.0))                   # exponential envelope
 
 graph0.setData(x, y0)
 graph1.setData(x, y1)
@@ -125,7 +130,7 @@ This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) 
 
 ## Contact
 
-If you have questions regarding the library, I would like to invite you to [open an issue at Github](https://github.com/salsergey/QCustomPlot2-PyQt5/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
+If you have questions regarding the library, I would like to invite you to [open an issue at Github](https://github.com/salsergey/QCustomPlot-PyQt/issues/new). Please describe your request, problem, or question as detailed as possible, and also mention the version of the library you are using as well as the version of your compiler and operating system. Opening an issue at GitHub allows other users and contributors to this library to collaborate.
 
 
 ## Thanks
@@ -150,29 +155,29 @@ This library is built, tested, documented, and whatnot using third-party tools a
 
 - [**GPX Viewer**](https://osdn.net/projects/gpxviewer/) --- an application for viewing GPX files as a list of points and tracks.
 
-If you are using QCustomPlot2-PyQt5 in a project and would like to share with the community, please let me know, or even better, raise a pull request.
+If you are using QCustomPlot-PyQt5 in a project and would like to share with the community, please let me know, or even better, raise a pull request.
 
 
 ## Building from sources
 
 ### Linux
 
-Apt users (Debian, Ubuntu, etc) may follow the instructions below, users of other distributions may adapt the steps below for your own package manager.
+Apt users (Debian, Ubuntu, etc) may follow the instructions below, users of other distributions may adapt the steps below for your own package manager. Qt5 or Qt6 can be used as a dependency.
 
 ```sh
 # Fetch the necessary development tools and libraries
 $ apt-get install build-essential python3-pyqt5 pyqt5-dev-tools qttools5-dev-tools
 
 # Clone the repository and submodules
-$ git clone --recursive https://github.com/salsergey/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+$ git clone --recursive https://github.com/salsergey/QCustomPlot-PyQt.git && cd QCustomPlot-PyQt
 
 # Build
-$ sip-build
+$ sip-build --qmake _path_to_qmake5_or_qmake6_
 
 # Zzz..
 
 # Install
-$ sip-install
+$ sip-install --qmake _path_to_qmake5_or_qmake6_
 ```
 
 
@@ -180,24 +185,24 @@ $ sip-install
 
 Windows users should install [Qt tools](https://www.qt.io/), appropriate version of [VC compiler](https://visualstudio.microsoft.com/), [Python](https://www.python.org/), [PyQt5](https://www.riverbankcomputing.com/software/pyqt/download5) and [SIP](https://www.riverbankcomputing.com/software/sip/download). You may need to build SIP from sources to ensure you have all files necessary for building other software. Then follow the instructions below to build the library, otherwise you will need to adapt the steps for your own environment.
 
-- Download QCustomPlot2 sources from [Github](https://github.com/salsergey/QCustomPlot2-PyQt5/releases). You can use git or download an archive.
+- Download QCustomPlot-PyQt sources from [Github](https://github.com/salsergey/QCustomPlot-PyQt/releases). You can use git or download an archive.
 - Launch Qt console and follow instructions there. It will ensure that you have all necessary tools in your PATH variable. Also be sure that python.exe binary is in your PATH.
 - Then follow these instructions:
 
 ```cmd
-# Go to QCustomPlot2 folder
-cd <<PATH_TO QCustomPlot2-PyQt5>>
+# Go to QCustomPlot folder
+cd <<PATH_TO QCustomPlot-PyQt>>
 
 # Download submodules if you use git
 git submodules update --init
 
 # Build
-sip-build
+sip-build --qmake _path_to_qmake5_or_qmake6_
 
 # Zzz..
 
 # Install
-sip-install
+sip-install --qmake _path_to_qmake5_or_qmake6_
 ```
 
 
@@ -213,13 +218,13 @@ $ xcode-select --install
 $ brew install qt --devel sip --without-python@2 pyqt --without-python@2
 
 # Clone the repository and submodules
-$ git clone --recursive https://github.com/salsergey/QCustomPlot2-PyQt5.git && cd QCustomPlot2-PyQt5
+$ git clone --recursive https://github.com/salsergey/QCustomPlot-PyQt.git && cd QCustomPlot-PyQt
 
 # Build
-$ CFLAGS='-std=c++11 -stdlib=libc++' CXXFLAGS='-std=c++11 -stdlib=libc++' sip-build
+$ CFLAGS='-std=c++11 -stdlib=libc++' CXXFLAGS='-std=c++11 -stdlib=libc++' sip-build --qmake _path_to_qmake5_or_qmake6_
 
 # Zzz..
 
 # Install
-$ sip-install
+$ sip-install --qmake _path_to_qmake5_or_qmake6_
 ```

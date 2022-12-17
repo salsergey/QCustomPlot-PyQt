@@ -2,14 +2,13 @@
 
 import os
 import platform
-import subprocess
 from os.path import join
 from sipbuild import Option
 from pyqtbuild import PyQtBindings, PyQtProject
-import PyQt5
 
 
-CPU_COUNT = os.cpu_count() if 'cpu_count' in dir(os) else 1  # number of parallel compilations
+# Number of parallel compilations
+CPU_COUNT = os.cpu_count() if 'cpu_count' in dir(os) else 1
 
 
 class QCustomPlotProject(PyQtProject):
@@ -20,9 +19,38 @@ class QCustomPlotProject(PyQtProject):
         self.bindings_factories = [QCustomPlotBindings]
 
     def update(self, tool):
-        """Allows SIP to find PyQt5 .sip files."""
+        """Update some metadata to build module for various PyQt versions."""
         super().update(tool)
-        self.sip_include_dirs.append(join(PyQt5.__path__[0], 'bindings'))
+
+        # Check if module name and Qt version are in agreement
+        if tool != 'sdist' and self.name.endswith('PyQt6') and self.builder.qt_version < 0x060000:
+            print('\nTrying to build QCustomPlot_PyQt6 module, but Qt5 is found.\n'
+                  'Use \'--qmake _path_to_qmake6_\' option or change module name.\n')
+            exit(1)
+
+        # Determine Qt version to use
+        use_pyqt6 = False
+        if self.name.endswith('PyQt6'):  # if module name was specified
+            use_pyqt6 = True
+        elif self.builder.qt_version >= 0x060000:  # else use qmake version
+            use_pyqt6 = True
+
+        if use_pyqt6:
+            import PyQt6 as PyQt
+            self.abi_version = '13'  # set ABI version for better compatibility
+        else:
+            import PyQt5 as PyQt
+            self.abi_version = '12'  # set ABI version for better compatibility
+
+        print('\nBuilding QCustomPlot_{} module.\n'.format(PyQt.__name__))
+        self.sip_include_dirs.append(join(PyQt.__path__[0], 'bindings'))
+
+        # Need to update some metadata if building module for PyQt6
+        self.name = 'QCustomPlot_{}'.format(PyQt.__name__)
+        self._metadata_overrides = {'name': self.name,
+                                    'requires-dist': PyQt.__name__}
+        for key, value in self._metadata_overrides.items():
+            self.metadata[key] = value
 
     def build(self):
         self.build_qcustomplot()
@@ -37,24 +65,26 @@ class QCustomPlotProject(PyQtProject):
         super().install()
 
     def build_qcustomplot(self):
-        """Make static qcustomplot library to be linked into python module if necessary."""
-        if not self.bindings['QCustomPlot2'].static_qcustomplot:
+        """Make static qcustomplot library to be linked
+        into python module if necessary.
+        """
+        if not self.bindings['QCustomPlot'].static_qcustomplot:
             print('\nUsing system-wide QCustomPlot library.\n')
             return
 
         print('\nMaking static qcustomplot library...\n')
         cwd = os.getcwd()
-        os.makedirs(join(self.root_dir, self.build_dir, 'qcustomplot'), exist_ok=True)
+        os.makedirs(join(self.root_dir, self.build_dir, 'qcustomplot'),
+                    exist_ok=True)
         os.chdir(join(self.root_dir, self.build_dir, 'qcustomplot'))
 
         self.run_command([self.builder.qmake,
-                          join(self.root_dir, 'src/qcp-staticlib.pro'),
-                          'DESTDIR='])
+                          join(self.root_dir, 'src/qcp-staticlib.pro')])
         if platform.system() == 'Windows':
             # Prefer jom instead of nmake
             self.run_command(['jom.exe'])
         else:
-            self.run_command(['make', 'DESTDIR=', '-j', str(CPU_COUNT)])
+            self.run_command(['make', '-j', str(CPU_COUNT)])
 
         os.chdir(cwd)
 
@@ -64,8 +94,7 @@ class QCustomPlotBindings(PyQtBindings):
 
     def __init__(self, project):
         super().__init__(project,
-                         name='QCustomPlot2',
-                         sip_file='all.sip',
+                         name='QCustomPlot',
                          qmake_QT=['widgets', 'printsupport'],
                          internal=True)
 
@@ -81,11 +110,13 @@ class QCustomPlotBindings(PyQtBindings):
                    help='path to Qt library dir (used at link time)',
                    metavar='DIR'),
             Option('static_qcustomplot',
-                   help='disable use of internal static QCustomPlot library and prefer system-wide',
+                   help='disable use of internal static QCustomPlot library'
+                   'and prefer system-wide',
                    option_type=bool,
                    inverted=True),
             Option('qcustomplot_lib',
-                   help='the name of QCustomPlot library to link with (default is qcustomplot)',
+                   help='the name of QCustomPlot library to link with'
+                   ' (default is qcustomplot)',
                    metavar='NAME',
                    default='qcustomplot'),
         ]
@@ -94,6 +125,8 @@ class QCustomPlotBindings(PyQtBindings):
     def apply_user_defaults(self, tool):
         """Apply values from user-configurable options."""
         super().apply_user_defaults(tool)
+
+        self.sip_file = 'all_PyQt{}.sip'.format(self.project.builder.qt_version >> 16)
 
         self.include_dirs.append(join(self.project.root_dir, 'sip'))
         if self.static_qcustomplot:
@@ -105,9 +138,13 @@ class QCustomPlotBindings(PyQtBindings):
 
         if self.static_qcustomplot:
             if platform.system() == 'Windows':
-                self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot', 'release'))
+                self.library_dirs.append(join(self.project.root_dir,
+                                              self.project.build_dir,
+                                              'qcustomplot', 'release'))
             else:
-                self.library_dirs.append(join(self.project.root_dir, self.project.build_dir, 'qcustomplot'))
+                self.library_dirs.append(join(self.project.root_dir,
+                                              self.project.build_dir,
+                                              'qcustomplot'))
 
         if self.qt_incdir is not None:
             self.include_dirs.append(self.qt_incdir)

@@ -1,5 +1,5 @@
 %Copying
-PyQt5 binding for QCustomPlot v2.1.1
+PyQt6 binding for QCustomPlot v2.1.1
 
 Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert, Sergey Salnikov
 License: MIT
@@ -9,11 +9,14 @@ QCustomPlot Website/Contact: http://www.qcustomplot.com
 %End
 
 
-%Module QCustomPlot_PyQt5
+%Module QCustomPlot_PyQt6
 
 %Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
 %Import QtWidgets/QtWidgetsmod.sip
+
+// Provide bindings to QVector class that are absent in PyQt6
+%Include qpycore_qvector.sip
 
 // Include order taken from qcp.h
 %Include global.sip

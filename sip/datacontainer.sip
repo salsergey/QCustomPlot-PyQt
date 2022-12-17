@@ -103,7 +103,7 @@ class QCPDataContainerIterator
 public:
   QCPDataContainerIterator(QCPDataContainer<DataType> *container);
 
-  DataType *get();
+  const DataType *get();
 %Docstring(format="deindented", signature="appended")
     Returns iterator current data point or None if iterator is invalid
 %End
@@ -115,7 +115,7 @@ public:
     sipRes = sipCpp;
 %End
 
-  DataType *__next__();
+  const DataType *__next__();
 %MethodCode
     sipRes = sipCpp->next();
     if (!sipRes) {

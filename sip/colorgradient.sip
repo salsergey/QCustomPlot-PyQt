@@ -70,7 +70,7 @@
 
     QMap<double, QColor> *qm = new QMap<double, QColor>;
 
-    SIP_SSIZE_T pos = 0;
+    Py_ssize_t pos = 0;
     PyObject *kobj, *vobj;
 
     while (PyDict_Next(sipPy, &pos, &kobj, &vobj))
