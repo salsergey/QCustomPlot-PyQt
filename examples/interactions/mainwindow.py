@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# PyQt5 binding for QCustomPlot v2.0.0
+# PyQt5 binding for QCustomPlot v2.1.1
 #
 # Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
 # License: MIT
@@ -16,9 +16,7 @@ from PyQt5.QtGui import QPen, QColor, QFont
 from PyQt5.QtWidgets import QMainWindow, QLineEdit, QMenu, QAction, QInputDialog
 from PyQt5.uic import loadUi
 
-import QCustomPlot2
-
-from QCustomPlot2 import *
+from QCustomPlot_PyQt5 import *
 
 
 class MainWindow(QMainWindow):

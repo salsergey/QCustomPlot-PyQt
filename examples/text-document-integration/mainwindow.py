@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# PyQt5 binding for QCustomPlot v2.0.0
+# PyQt5 binding for QCustomPlot v2.1.1
 #
 # Authors: Dmitry Voronin, Giuseppe Corbelli, Christopher Gilbert
 # License: MIT
@@ -16,11 +16,9 @@ from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
-import QCustomPlot2
-
-from QCustomPlot2 import QCP
+from QCustomPlot_PyQt5 import QCP
 
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
         super().__init__(parent)
-        loadUi("examples/text-document-integration/mainwindow.ui", self)
+        loadUi("mainwindow.ui", self)

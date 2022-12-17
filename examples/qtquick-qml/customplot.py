@@ -1,9 +1,10 @@
-import sys, QCustomPlot2
+import sys
 
 from PyQt5.QtCore import pyqtProperty, QPoint, Qt, QRect, QCoreApplication
 from PyQt5.QtGui import QPixmap, QMouseEvent, QWheelEvent
 from PyQt5.QtQuick import QQuickPaintedItem, QQuickItem
-from QCustomPlot2 import *
+
+from QCustomPlot_PyQt5 import *
 
 
 class CustomPlot(QQuickPaintedItem):
@@ -20,15 +21,15 @@ class CustomPlot(QQuickPaintedItem):
         self.heightChanged.connect(self.updatePlotSize)
 
     def paint(self, painter):
-        picture = QPixmap(self.width(), self.height())
+        picture = QPixmap(int(self.width()), int(self.height()))
         qcpPainter = QCPPainter(picture)
         self.customPlot.toPainter(qcpPainter)
         painter.drawPixmap(QPoint(), picture)
         qcpPainter.end()
 
     def updatePlotSize(self):
-        self.customPlot.setGeometry(0, 0, self.width(), self.height())
-        self.customPlot.setViewport(QRect(0, 0, self.width(), self.height()))
+        self.customPlot.setGeometry(0, 0, int(self.width()), int(self.height()))
+        self.customPlot.setViewport(QRect(0, 0, int(self.width()), int(self.height())))
 
     def mouseDoubleClickEvent(self, event):
         e = QMouseEvent(event)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# PyQt5 binding for QCustomPlot v2.0.0
+# PyQt5 binding for QCustomPlot v2.1.1
 #
 # Authors: Dmitry Voronin, Giuseppe Corbelli
 # License: MIT

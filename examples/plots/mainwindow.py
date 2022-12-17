@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# PyQt5 binding for QCustomPlot v2.0.0
+# PyQt5 binding for QCustomPlot v2.1.1
 #
 # Authors: Dmitry Voronin, Giuseppe Corbelli
 # License: MIT
@@ -16,9 +16,7 @@ from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient, QFont, QPainterPa
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
-import QCustomPlot2
-
-from QCustomPlot2 import *
+from QCustomPlot_PyQt5 import *
 
 class MainWindow(QMainWindow):
     def __init__(self, argv, parent=None):
@@ -206,7 +204,7 @@ class MainWindow(QMainWindow):
         # add graphs with different scatter styles:
         for i, shape in enumerate(shapes):
             self.customPlot.addGraph()
-            pen.setColor(QColor(math.sin(i*0.3)*100+100, math.sin(i*0.6+0.7)*100+100, math.sin(i*0.4+0.6)*100+100))
+            pen.setColor(QColor(int(math.sin(i*0.3)*100+100), int(math.sin(i*0.6+0.7)*100+100), int(math.sin(i*0.4+0.6)*100+100)))
             # generate data:
             x, y = [], []
             for k in range(10):
@@ -243,7 +241,7 @@ class MainWindow(QMainWindow):
         # add graphs with different line styles:
         for i in range(int(QCPGraph.lsImpulse)):
             self.customPlot.addGraph()
-            pen.setColor(QColor(math.sin(i*1+1.2)*80+80, math.sin(i*0.3+0)*80+80, math.sin(i*0.3+1.5)*80+80))
+            pen.setColor(QColor(int(math.sin(i*1+1.2)*80+80), int(math.sin(i*0.3+0)*80+80), int(math.sin(i*0.3+1.5)*80+80)))
             self.customPlot.graph().setPen(pen)
             self.customPlot.graph().setName(lineNames[i-int(QCPGraph.lsNone)])
             self.customPlot.graph().setLineStyle(QCPGraph.LineStyle(i))
@@ -318,7 +316,7 @@ class MainWindow(QMainWindow):
         # create multiple graphs:
         for gi in range(5):
             self.customPlot.addGraph()
-            color = QColor(20+200/4.0*gi,70*(1.6-gi/4.0), 150, 150)
+            color = QColor(int(20+200/4.0*gi),int(70*(1.6-gi/4.0)), 150, 150)
             self.customPlot.graph().setLineStyle(QCPGraph.lsLine)
             self.customPlot.graph().setPen(QPen(color.lighter(200)))
             self.customPlot.graph().setBrush(QBrush(color))
@@ -614,9 +612,9 @@ class MainWindow(QMainWindow):
         self.demoName = "Parametric Curves Demo"
         # create empty curve objects. As they are not adopted by main QCustomPlot an explicit
         # reference must be kept
-        self.fermatSpiral1 = QCustomPlot2.QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
-        self.fermatSpiral2 = QCustomPlot2.QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
-        self.deltoidRadial = QCustomPlot2.QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
+        self.fermatSpiral1 = QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
+        self.fermatSpiral2 = QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
+        self.deltoidRadial = QCPCurve(self.customPlot.xAxis, self.customPlot.yAxis)
         # generate the curve data points:
         pointCount = 501
         dataSpiral1 = [[0.0] * pointCount, [0.0] * pointCount, [0.0] * pointCount]
@@ -651,8 +649,8 @@ class MainWindow(QMainWindow):
         self.deltoidRadial.setPen(QPen(QColor(170, 20, 240)))
         self.deltoidRadial.setBrush(QBrush(radialGrad))
         # set some basic customPlot config:
-        self.customPlot.setInteractions(QCustomPlot2.QCP.Interactions(
-            QCustomPlot2.QCP.iRangeDrag | QCustomPlot2.QCP.iRangeZoom | QCustomPlot2.QCP.iSelectPlottables))
+        self.customPlot.setInteractions(QCP.Interactions(
+            QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectPlottables))
         self.customPlot.axisRect().setupFullAxesBox()
         self.customPlot.rescaleAxes()
 
