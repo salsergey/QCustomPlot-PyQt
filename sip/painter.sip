@@ -47,3 +47,4 @@ public:
 };
 
 QFlags<QCPPainter::PainterMode> operator|(QCPPainter::PainterMode f1, QFlags<QCPPainter::PainterMode> f2);
+QFlags<QCPPainter::PainterMode> operator&(QCPPainter::PainterMode f1, QFlags<QCPPainter::PainterMode> f2);

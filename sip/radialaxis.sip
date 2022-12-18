@@ -188,3 +188,4 @@ protected:
 };
 
 QFlags<QCPPolarAxisRadial::SelectablePart> operator|(QCPPolarAxisRadial::SelectablePart f1, QFlags<QCPPolarAxisRadial::SelectablePart> f2);
+QFlags<QCPPolarAxisRadial::SelectablePart> operator&(QCPPolarAxisRadial::SelectablePart f1, QFlags<QCPPolarAxisRadial::SelectablePart> f2);

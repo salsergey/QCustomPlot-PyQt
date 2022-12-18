@@ -166,3 +166,4 @@ protected:
 };
 
 QFlags<QCPLegend::SelectablePart> operator|(QCPLegend::SelectablePart f1, QFlags<QCPLegend::SelectablePart> f2);
+QFlags<QCPLegend::SelectablePart> operator&(QCPLegend::SelectablePart f1, QFlags<QCPLegend::SelectablePart> f2);

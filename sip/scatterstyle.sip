@@ -77,3 +77,4 @@ public:
 };
 
 QFlags<QCPScatterStyle::ScatterProperty> operator|(QCPScatterStyle::ScatterProperty f1, QFlags<QCPScatterStyle::ScatterProperty> f2);
+QFlags<QCPScatterStyle::ScatterProperty> operator&(QCPScatterStyle::ScatterProperty f1, QFlags<QCPScatterStyle::ScatterProperty> f2);

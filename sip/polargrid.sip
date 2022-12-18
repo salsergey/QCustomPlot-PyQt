@@ -58,3 +58,4 @@ protected:
 };
 
 QFlags<QCPPolarGrid::GridType> operator|(QCPPolarGrid::GridType f1, QFlags<QCPPolarGrid::GridType> f2);
+QFlags<QCPPolarGrid::GridType> operator&(QCPPolarGrid::GridType f1, QFlags<QCPPolarGrid::GridType> f2);

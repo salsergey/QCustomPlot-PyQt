@@ -240,4 +240,6 @@ protected:
 };
 
 QFlags<QCPAxis::AxisType> operator|(QCPAxis::AxisType f1, QFlags<QCPAxis::AxisType> f2);
+QFlags<QCPAxis::AxisType> operator&(QCPAxis::AxisType f1, QFlags<QCPAxis::AxisType> f2);
 QFlags<QCPAxis::SelectablePart> operator|(QCPAxis::SelectablePart f1, QFlags<QCPAxis::SelectablePart> f2);
+QFlags<QCPAxis::SelectablePart> operator&(QCPAxis::SelectablePart f1, QFlags<QCPAxis::SelectablePart> f2);
