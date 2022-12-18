@@ -12,8 +12,8 @@ class CustomPlot(QQuickPaintedItem):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setFlag(QQuickItem.ItemHasContents, True)
-        self.setAcceptedMouseButtons(Qt.AllButtons)
+        self.setFlag(QQuickItem.Flag.ItemHasContents, True)
+        self.setAcceptedMouseButtons(Qt.MouseButton.AllButtons)
 
         self.customPlot = QCustomPlot()
 

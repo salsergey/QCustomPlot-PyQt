@@ -19,7 +19,7 @@ def main():
     app = QApplication(sys.argv)
     w = mainwindow.MainWindow(sys.argv)
     w.show()
-    return app.exec_()
+    return app.exec()
 
 
 if __name__ == '__main__':

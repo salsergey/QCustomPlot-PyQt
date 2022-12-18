@@ -9,10 +9,6 @@
 # QCustomPlot author: Emanuel Eichhammer
 # QCustomPlot Website/Contact: http://www.qcustomplot.com
 
-import math
-
-from PyQt5.QtCore import QTimer, QPointF, Qt
-from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 

@@ -20,7 +20,7 @@ def main():
     # First argument can be a number that specifies loaded example
     w = mainwindow.MainWindow(sys.argv)
     w.show()
-    return app.exec_()
+    return app.exec()
 
 
 if __name__ == '__main__':

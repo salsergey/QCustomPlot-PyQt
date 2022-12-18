@@ -11,8 +11,8 @@
 
 import math
 
-from PyQt5.QtCore import QTimer, QPointF, Qt
-from PyQt5.QtGui import QPen, QBrush, QColor, QRadialGradient
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPen, QBrush, QColor
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.uic import loadUi
 
@@ -40,16 +40,16 @@ class MainWindow(QMainWindow):
         self.plot.yAxis.rangeChanged.connect(self.yAxisChanged)
 
         # initialize axis range (and scroll bar positions via signals we just connected):
-        self.plot.xAxis.setRange(0, 6, Qt.AlignCenter)
-        self.plot.yAxis.setRange(0, 10, Qt.AlignCenter)
+        self.plot.xAxis.setRange(0, 6, Qt.AlignmentFlag.AlignCenter)
+        self.plot.yAxis.setRange(0, 10, Qt.AlignmentFlag.AlignCenter)
     
     def setupPlot(self):
         # The following plot setup is mostly taken from the plot demos:
         self.plot.addGraph()
-        self.plot.graph().setPen(QPen(Qt.blue))
+        self.plot.graph().setPen(QPen(Qt.GlobalColor.blue))
         self.plot.graph().setBrush(QBrush(QColor(0, 0, 255, 20)))
         self.plot.addGraph()
-        self.plot.graph().setPen(QPen(Qt.red))
+        self.plot.graph().setPen(QPen(Qt.GlobalColor.red))
         x, y0, y1 = [], [], []
         for i in range(500):
             x.append((i/499.0-0.5)*10)
@@ -58,16 +58,16 @@ class MainWindow(QMainWindow):
         self.plot.graph(0).setData(x, y0)
         self.plot.graph(1).setData(x, y1)
         self.plot.axisRect().setupFullAxesBox(True)
-        self.plot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom))
+        self.plot.setInteractions(QCP.Interaction.iRangeDrag | QCP.Interaction.iRangeZoom)
 
     def horzScrollBarChanged(self, value):
         if math.fabs(self.plot.xAxis.range().center()-value/100.0) > 0.01: # if user is dragging plot, we don't want to replot twice
-            self.plot.xAxis.setRange(value/100.0, self.plot.xAxis.range().size(), Qt.AlignCenter)
+            self.plot.xAxis.setRange(value/100.0, self.plot.xAxis.range().size(), Qt.AlignmentFlag.AlignCenter)
             self.plot.replot()
 
     def vertScrollBarChanged(self, value):
         if math.fabs(self.plot.yAxis.range().center()+value/100.0) > 0.01: # if user is dragging plot, we don't want to replot twice
-            self.plot.yAxis.setRange(-value/100.0, self.plot.yAxis.range().size(), Qt.AlignCenter)
+            self.plot.yAxis.setRange(-value/100.0, self.plot.yAxis.range().size(), Qt.AlignmentFlag.AlignCenter)
             self.plot.replot()
 
     def xAxisChanged(self, range):

@@ -6,7 +6,6 @@ import os.path
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQml import qmlRegisterType, QQmlApplicationEngine
-from PyQt5.QtQuick import QQuickView
 
 sys.path.insert(1, os.path.dirname(os.path.abspath(__file__)))
 import qml_rc
@@ -21,4 +20,4 @@ qmlRegisterType(CustomPlot, 'QCustomPlot', 2, 0, 'CustomPlot')
 engine = QQmlApplicationEngine()
 engine.load(QUrl('qrc:///main.qml'))
 
-sys.exit(app.exec_())
+sys.exit(app.exec())

@@ -11,9 +11,9 @@
 
 import math, random
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPen, QColor, QFont
-from PyQt5.QtWidgets import QMainWindow, QLineEdit, QMenu, QAction, QInputDialog
+from PyQt5.QtWidgets import QMainWindow, QLineEdit, QMenu, QInputDialog
 from PyQt5.uic import loadUi
 
 from QCustomPlot_PyQt5 import *
@@ -25,14 +25,14 @@ class MainWindow(QMainWindow):
         super().__init__(parent)
         loadUi("mainwindow.ui", self)
         
-        self.customPlot.setInteractions(QCP.Interactions(QCP.iRangeDrag | QCP.iRangeZoom | QCP.iSelectAxes  | 
-                                        QCP.iSelectLegend | QCP.iSelectPlottables))
+        self.customPlot.setInteractions(QCP.Interaction.iRangeDrag | QCP.Interaction.iRangeZoom | QCP.Interaction.iSelectAxes |
+                                        QCP.Interaction.iSelectLegend | QCP.Interaction.iSelectPlottables)
         self.customPlot.xAxis.setRange(-8, 8)
         self.customPlot.yAxis.setRange(-5, 5)
         self.customPlot.axisRect().setupFullAxesBox()
         
         self.customPlot.plotLayout().insertRow(0)
-        self.title = QCPTextElement(self.customPlot, "Interaction Example", QFont("sans", 17, QFont.Bold))
+        self.title = QCPTextElement(self.customPlot, "Interaction Example", QFont("sans", 17, QFont.Weight.Bold))
         self.customPlot.plotLayout().addElement(0, 0, self.title)
         
         self.customPlot.xAxis.setLabel("x Axis")
@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
         legendFont.setPointSize(10)
         self.customPlot.legend.setFont(legendFont)
         self.customPlot.legend.setSelectedFont(legendFont)
-        self.customPlot.legend.setSelectableParts(QCPLegend.spItems) # legend box shall not be selectable, only legend items
+        self.customPlot.legend.setSelectableParts(QCPLegend.SelectablePart.spItems)  # legend box shall not be selectable, only legend items
         
         self.addRandomGraph()
         self.addRandomGraph()
@@ -69,30 +69,30 @@ class MainWindow(QMainWindow):
         self.customPlot.plottableClick.connect(self.graphClicked)
         
         # setup policy and connect slot for context menu popup:
-        self.customPlot.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.customPlot.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customPlot.customContextMenuRequested.connect(self.contextMenuRequest)
 
     def titleDoubleClick(self, event):
         title = self.sender()
         if not title is None:
             # Set the plot title by double clicking on it
-            newTitle, ok = QInputDialog.getText(self, "QCustomPlot example", "New plot title:", QLineEdit.Normal, title.text())
+            newTitle, ok = QInputDialog.getText(self, "QCustomPlot example", "New plot title:", QLineEdit.EchoMode.Normal, title.text())
             if ok:
                 title.setText(newTitle)
                 self.customPlot.replot()
 
     def axisLabelDoubleClick(self, axis, part):
         # Set an axis label by double clicking on it
-        if part == QCPAxis.spAxisLabel: # only react when the actual axis label is clicked, not tick label or axis backbone
-            newLabel, ok = QInputDialog.getText(self, "QCustomPlot example", "New axis label:", QLineEdit.Normal, axis.label())
+        if part == QCPAxis.SelectablePart.spAxisLabel:  # only react when the actual axis label is clicked, not tick label or axis backbone
+            newLabel, ok = QInputDialog.getText(self, "QCustomPlot example", "New axis label:", QLineEdit.EchoMode.Normal, axis.label())
             if ok:
                 axis.setLabel(newLabel)
                 self.customPlot.replot()
 
     def legendDoubleClick(self, legend, item):
         # Rename a graph by double clicking on its legend item
-        if not item is None: # only react if item was clicked (user could have clicked on border padding of legend where there is no item, then item is 0)
-            newName, ok = QInputDialog.getText(self, "QCustomPlot example", "New graph name:", QLineEdit.Normal, item.plottable().name())
+        if item is not None:  # only react if item was clicked (user could have clicked on border padding of legend where there is no item, then item is 0)
+            newName, ok = QInputDialog.getText(self, "QCustomPlot example", "New graph name:", QLineEdit.EchoMode.Normal, item.plottable().name())
             if ok:
                 item.plottable().setName(newName)
                 self.customPlot.replot()
@@ -110,15 +110,19 @@ class MainWindow(QMainWindow):
         # or on its legend item.
     
         # make top and bottom axes be selected synchronously, and handle axis and tick labels as one selectable object:
-        if (self.customPlot.xAxis.selectedParts() & QCPAxis.spAxis or self.customPlot.xAxis.selectedParts() & QCPAxis.spTickLabels or
-            self.customPlot.xAxis2.selectedParts() & QCPAxis.spAxis or self.customPlot.xAxis2.selectedParts() & QCPAxis.spTickLabels):
-            self.customPlot.xAxis2.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
-            self.customPlot.xAxis.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
+        if (self.customPlot.xAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone or
+            self.customPlot.xAxis.selectedParts() & QCPAxis.SelectablePart.spTickLabels != QCPAxis.SelectablePart.spNone or
+            self.customPlot.xAxis2.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone or
+            self.customPlot.xAxis2.selectedParts() & QCPAxis.SelectablePart.spTickLabels != QCPAxis.SelectablePart.spNone):
+            self.customPlot.xAxis2.setSelectedParts(QCPAxis.SelectablePart.spAxis | QCPAxis.SelectablePart.spTickLabels)
+            self.customPlot.xAxis.setSelectedParts(QCPAxis.SelectablePart.spAxis | QCPAxis.SelectablePart.spTickLabels)
         # make left and right axes be selected synchronously, and handle axis and tick labels as one selectable object:
-        if (self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis or self.customPlot.yAxis.selectedParts() & QCPAxis.spTickLabels or
-            self.customPlot.yAxis2.selectedParts() & QCPAxis.spAxis or self.customPlot.yAxis2.selectedParts() & QCPAxis.spTickLabels):
-            self.customPlot.yAxis2.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
-            self.customPlot.yAxis.setSelectedParts(QCPAxis.SelectableParts(QCPAxis.spAxis | QCPAxis.spTickLabels))
+        if (self.customPlot.yAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone or
+            self.customPlot.yAxis.selectedParts() & QCPAxis.SelectablePart.spTickLabels != QCPAxis.SelectablePart.spNone or
+            self.customPlot.yAxis2.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone or
+            self.customPlot.yAxis2.selectedParts() & QCPAxis.SelectablePart.spTickLabels != QCPAxis.SelectablePart.spNone):
+            self.customPlot.yAxis2.setSelectedParts(QCPAxis.SelectablePart.spAxis | QCPAxis.SelectablePart.spTickLabels)
+            self.customPlot.yAxis.setSelectedParts(QCPAxis.SelectablePart.spAxis | QCPAxis.SelectablePart.spTickLabels)
         
         # synchronize selection of graphs with selection of corresponding legend items:
         for i in range(self.customPlot.graphCount()):
@@ -132,26 +136,26 @@ class MainWindow(QMainWindow):
         # if an axis is selected, only allow the direction of that axis to be dragged
         # if no axis is selected, both directions may be dragged
         
-        if self.customPlot.xAxis.selectedParts() & QCPAxis.spAxis:
+        if self.customPlot.xAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone:
             self.customPlot.axisRect().setRangeDrag(self.customPlot.xAxis.orientation())
-        elif self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis:
+        elif self.customPlot.yAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone:
             self.customPlot.axisRect().setRangeDrag(self.customPlot.yAxis.orientation())
         else:
-            self.customPlot.axisRect().setRangeDrag(Qt.Orientations(Qt.Horizontal | Qt.Vertical))
+            self.customPlot.axisRect().setRangeDrag(Qt.Orientation.Horizontal | Qt.Orientation.Vertical)
 
     def mouseWheel(self):
         # if an axis is selected, only allow the direction of that axis to be zoomed
         # if no axis is selected, both directions may be zoomed
-        
-        if self.customPlot.xAxis.selectedParts() & QCPAxis.spAxis:
+
+        if self.customPlot.xAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone:
             self.customPlot.axisRect().setRangeZoom(self.customPlot.xAxis.orientation())
-        elif self.customPlot.yAxis.selectedParts() & QCPAxis.spAxis:
+        elif self.customPlot.yAxis.selectedParts() & QCPAxis.SelectablePart.spAxis != QCPAxis.SelectablePart.spNone:
             self.customPlot.axisRect().setRangeZoom(self.customPlot.yAxis.orientation())
         else:
-            self.customPlot.axisRect().setRangeDrag(Qt.Orientations(Qt.Horizontal | Qt.Vertical))
+            self.customPlot.axisRect().setRangeZoom(Qt.Orientation.Horizontal | Qt.Orientation.Vertical)
 
     def addRandomGraph(self):
-        n = 50 # number of points in graph
+        n = 50  # number of points in graph
         xScale = (random.random() + 0.5)*2
         yScale = (random.random() + 0.5)*2
         xOffset = (random.random() - 0.5)*4
@@ -168,9 +172,9 @@ class MainWindow(QMainWindow):
         self.customPlot.addGraph()
         self.customPlot.graph().setName("New graph {}".format(self.customPlot.graphCount()-1))
         self.customPlot.graph().setData(x, y)
-        self.customPlot.graph().setLineStyle(random.randint(1, 6))
+        self.customPlot.graph().setLineStyle(QCPGraph.LineStyle(random.randint(1, 6)))
         if random.randint(0, 100) > 50:
-            self.customPlot.graph().setScatterStyle(QCPScatterStyle(random.randint(1, 15)))
+            self.customPlot.graph().setScatterStyle(QCPScatterStyle(QCPScatterStyle.ScatterShape(random.randint(1, 15))))
         graphPen = QPen()
         graphPen.setColor(QColor(random.randint(10, 255), random.randint(10, 255), random.randint(10, 255)))
         graphPen.setWidthF(random.random()*2+1)
@@ -188,14 +192,14 @@ class MainWindow(QMainWindow):
 
     def contextMenuRequest(self, pos):
         menu = QMenu(self)
-        menu.setAttribute(Qt.WA_DeleteOnClose)
+        menu.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         
-        if self.customPlot.legend.selectTest(pos, False) >= 0: # context menu on legend requested
-            menu.addAction("Move to top left", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignLeft))
-            menu.addAction("Move to top center", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignHCenter))
-            menu.addAction("Move to top right", self.moveLegend).setData(int(Qt.AlignTop|Qt.AlignRight))
-            menu.addAction("Move to bottom right", self.moveLegend).setData(int(Qt.AlignBottom|Qt.AlignRight))
-            menu.addAction("Move to bottom left", self.moveLegend).setData(int(Qt.AlignBottom|Qt.AlignLeft))
+        if self.customPlot.legend.selectTest(QPointF(pos), False) >= 0:  # context menu on legend requested
+            menu.addAction("Move to top left", self.moveLegend).setData(int(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft))
+            menu.addAction("Move to top center", self.moveLegend).setData(int(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignHCenter))
+            menu.addAction("Move to top right", self.moveLegend).setData(int(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignRight))
+            menu.addAction("Move to bottom right", self.moveLegend).setData(int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignRight))
+            menu.addAction("Move to bottom left", self.moveLegend).setData(int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignLeft))
         else:  # general context menu on graphs requested
             menu.addAction("Add random graph", self.addRandomGraph)
             if len(self.customPlot.selectedGraphs()) > 0:
@@ -206,7 +210,7 @@ class MainWindow(QMainWindow):
         menu.popup(self.customPlot.mapToGlobal(pos))
 
     def moveLegend(self):
-        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.Alignment(self.sender().data()))
+        self.customPlot.axisRect().insetLayout().setInsetAlignment(0, Qt.AlignmentFlag(self.sender().data()))
         self.customPlot.replot()
 
     def graphClicked(self, plottable, dataIndex):
