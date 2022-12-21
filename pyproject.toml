@@ -6,7 +6,7 @@ build-backend = 'sipbuild.api'
 # Specify the PEP 566 metadata for the project.
 [tool.sip.metadata]
 name = 'QCustomPlot_PyQt5'  # change to PyQt6 if necessary
-version = '2.1.1'
+version = '2.1.1.1'
 summary = 'QCustomPlot is a Qt widget for plotting and data visualization'
 home-page = 'https://github.com/salsergey/QCustomPlot-PyQt'
 author = 'Sergey Salnikov'
