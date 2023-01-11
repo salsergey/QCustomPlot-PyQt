@@ -129,10 +129,13 @@ class QCustomPlotBindings(PyQtBindings):
         self.sip_file = 'all_PyQt{}.sip'.format(self.project.builder.qt_version >> 16)
 
         self.include_dirs.append(join(self.project.root_dir, 'sip'))
+        qcustomplot_lib = self.qcustomplot_lib
         if self.static_qcustomplot:
             self.include_dirs.append(join(self.project.root_dir, 'src'))
+            if self.debug:
+                qcustomplot_lib += 'd'
 
-        self.libraries.append(self.qcustomplot_lib)
+        self.libraries.append(qcustomplot_lib)
         if platform.system() == 'Windows':
             self.libraries.append('opengl32')
 
