@@ -115,7 +115,7 @@ I would be happy to learn about other compilers/versions.
 
 This code is licensed under the [MIT License](http://opensource.org/licenses/MIT):
 
-Copyright &copy; 2017-2019 Dmitry Voronin, Christopher Gilbert and [Sergey Salnikov](https://github.com/salsergey)
+Copyright &copy; 2017-2023 Dmitry Voronin, Christopher Gilbert and [Sergey Salnikov](https://github.com/salsergey)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -125,7 +125,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 * * *
 
-This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) library from Emanuel Eichhammer which is licensed under the [GPL Version 3 License](http://opensource.org/licenses/GPLv3). Copyright &copy; 2011-2018 [Emanuel Eichhammer](http://bjoern.hoehrmann.de/) <bjoern@hoehrmann.de>
+Part of the code is licensed under the [GPL Version 3 License](https://opensource.org/licenses/GPL-3.0).
+
+* * *
+
+This project contains the [QCustomPlot](https://gitlab.com/DerManu/QCustomPlot) library from Emanuel Eichhammer which is licensed under the [GPL Version 3 License](https://opensource.org/licenses/GPL-3.0). Copyright &copy; 2011-2022 [Emanuel Eichhammer](http://bjoern.hoehrmann.de/) <bjoern@hoehrmann.de>
 
 
 ## Contact
@@ -215,7 +219,7 @@ Users of macOS using [homebrew](https://brew.sh/) may follow the instructions be
 $ xcode-select --install
 
 # Fetch the necessary development tools and libraries
-$ brew install qt --devel sip --without-python@2 pyqt --without-python@2
+$ brew install pyqt@5
 
 # Clone the repository and submodules
 $ git clone --recursive https://github.com/salsergey/QCustomPlot-PyQt.git && cd QCustomPlot-PyQt
