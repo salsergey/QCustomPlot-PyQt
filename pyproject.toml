@@ -61,8 +61,8 @@ sdist-excludes = [
     'QCustomPlot/*/*/*',
     'QCustomPlot/*/*/*/*',
     'QCustomPlot/*/*/*/*/*',
-    'build/*',
-    'build/*/*',
-    'build/*/*/*',
+    'build*/*',
+    'build*/*/*',
+    'build*/*/*/*',
     'dist/*'
 ]
