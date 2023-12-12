@@ -1,6 +1,6 @@
 # Specify the build system.
 [build-system]
-requires = ['sip >=5.0.0, <7', 'PyQt-builder >=1.6, <2', 'PyQt5']  # change to PyQt6 if necessary
+requires = ['sip >=5.0.0, <6.8.0', 'PyQt-builder >=1.6, <2', 'PyQt5']  # change to PyQt6 if necessary
 build-backend = 'sipbuild.api'
 
 # Specify the PEP 566 metadata for the project.
@@ -21,18 +21,13 @@ classifier = [
     'License :: OSI Approved :: MIT License',
     'Operating System :: POSIX :: Linux',
     'Operating System :: Microsoft :: Windows',
-    'Programming Language :: Python :: 2',
-    'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
-    'Programming Language :: Python :: 3.5',
-    'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
     'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
     'Topic :: Software Development :: User Interfaces'
 ]
 requires-dist = 'PyQt5'  # change to PyQt6 if necessary

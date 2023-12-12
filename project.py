@@ -22,6 +22,8 @@ class QCustomPlotProject(PyQtProject):
         """Update some metadata to build module for various PyQt versions."""
         super().update(tool)
 
+        print('\nUsing Python version {}.'.format(platform.python_version()))
+
         # Check if module name and Qt version are in agreement
         if tool != 'sdist' and self.name.endswith('PyQt6') and self.builder.qt_version < 0x060000:
             print('\nTrying to build QCustomPlot_PyQt6 module, but Qt5 is found.\n'
