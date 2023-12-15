@@ -25,7 +25,7 @@ This is Python bindings for [QCustomPlot](https://www.qcustomplot.com) - Qt C++ 
 
 ### Linux
 
-You can find compiled packages for many Linux distributions at [OBS](https://software.opensuse.org//download.html?project=home%3Asergeyopensuse%3Agpxviewer&package=python-qcustomplot2).
+You can find compiled packages for many Linux distributions at [OBS](https://software.opensuse.org//download.html?project=home%3Asergeyopensuse%3Agpxviewer&package=python-qcustomplot-pyqt).
 
 ### Windows
 
