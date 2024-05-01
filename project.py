@@ -39,10 +39,8 @@ class QCustomPlotProject(PyQtProject):
 
         if use_pyqt6:
             import PyQt6 as PyQt
-            self.abi_version = '13'  # set ABI version for better compatibility
         else:
             import PyQt5 as PyQt
-            self.abi_version = '12'  # set ABI version for better compatibility
 
         print('\nBuilding QCustomPlot_{} module.\n'.format(PyQt.__name__))
         self.sip_include_dirs.append(join(PyQt.__path__[0], 'bindings'))
